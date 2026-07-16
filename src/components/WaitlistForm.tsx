@@ -35,7 +35,7 @@ export function WaitlistForm() {
 
   return (
     <div className="w-full max-w-sm">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {status === "done" ? (
           <motion.p
             key="done"
