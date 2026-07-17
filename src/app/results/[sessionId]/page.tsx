@@ -61,7 +61,7 @@ export default async function ResultsPage({
         <SaveResultsForm sessionId={sessionId} />
       </div>
 
-      <PaywallCTA />
+      <PaywallCTA sessionId={sessionId} />
 
       <div className="flex flex-col gap-4 opacity-90">
         {rest.map((m, i) => (
