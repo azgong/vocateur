@@ -1,0 +1,63 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { generateRoadmap } from "@/lib/assessment/roadmap";
+import { LifeStage } from "@/lib/assessment/types";
+import { Occupation } from "@/lib/assessment/matching";
+
+export async function POST(req: NextRequest) {
+  const { sessionId, occupationId } = await req.json();
+  if (typeof sessionId !== "string" || typeof occupationId !== "string") {
+    return NextResponse.json({ error: "Missing sessionId or occupationId." }, { status: 400 });
+  }
+
+  const authClient = await createClient();
+  const {
+    data: { user },
+  } = await authClient.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Sign in required." }, { status: 401 });
+  }
+
+  const admin = createAdminClient();
+
+  const { data: existing } = await admin
+    .from("roadmaps")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("occupation_id", occupationId)
+    .maybeSingle();
+  if (existing) {
+    return NextResponse.json({ roadmapId: existing.id });
+  }
+
+  const [{ data: session }, { data: occupation }] = await Promise.all([
+    admin.from("assessment_sessions").select("life_stage").eq("id", sessionId).single(),
+    admin.from("occupations").select("*").eq("id", occupationId).single(),
+  ]);
+
+  if (!session || !occupation) {
+    return NextResponse.json({ error: "Session or occupation not found." }, { status: 404 });
+  }
+
+  const content = await generateRoadmap(occupation as Occupation, session.life_stage as LifeStage);
+
+  const { data: roadmap, error } = await admin
+    .from("roadmaps")
+    .insert({
+      user_id: user.id,
+      session_id: sessionId,
+      occupation_id: occupationId,
+      life_stage: session.life_stage,
+      content,
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: "Could not generate roadmap." }, { status: 500 });
+  }
+
+  return NextResponse.json({ roadmapId: roadmap.id });
+}
