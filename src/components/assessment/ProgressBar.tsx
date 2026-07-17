@@ -1,20 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { QUADRANT_META, Quadrant } from "@/lib/assessment/quadrantStyle";
 
-const LABELS = ["Analyst", "Physician", "Executive", "Founder"];
+const QUADRANTS: Quadrant[] = ["a", "b", "c", "d"];
 
 export function ProgressBar({ currentModuleIndex }: { currentModuleIndex: number }) {
   return (
     <div className="flex w-full max-w-md items-center gap-2">
-      {LABELS.map((label, i) => {
+      {QUADRANTS.map((q, i) => {
+        const meta = QUADRANT_META[q];
         const done = i < currentModuleIndex;
         const active = i === currentModuleIndex;
         return (
-          <div key={label} className="flex flex-1 flex-col items-center gap-1.5">
-            <div className="relative h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+          <div key={q} className="flex flex-1 flex-col items-center gap-1.5">
+            <div className="relative h-2 w-full overflow-hidden rounded-full bg-surface-2">
               <motion.div
-                className="h-full rounded-full bg-zinc-900 dark:bg-zinc-100"
+                className={`h-full rounded-full ${meta.bg}`}
                 initial={{ width: "0%" }}
                 animate={{ width: done ? "100%" : active ? "50%" : "0%" }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
@@ -22,14 +24,10 @@ export function ProgressBar({ currentModuleIndex }: { currentModuleIndex: number
             </div>
             <span
               className={`text-[11px] font-medium tracking-wide transition-colors ${
-                active
-                  ? "text-zinc-900 dark:text-zinc-100"
-                  : done
-                    ? "text-zinc-500 dark:text-zinc-500"
-                    : "text-zinc-300 dark:text-zinc-700"
+                active ? meta.text : done ? "text-foreground/50" : "text-foreground/25"
               }`}
             >
-              {label}
+              {meta.name}
             </span>
           </div>
         );

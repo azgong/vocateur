@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
+import { QUADRANT_META } from "@/lib/assessment/quadrantStyle";
+
+const Q = QUADRANT_META.c;
 
 type Approach = {
   id: string;
@@ -77,11 +80,13 @@ export function ExecutiveModule({ onComplete }: { onComplete: (log: ModuleLog) =
       className="flex w-full max-w-lg flex-col gap-6"
     >
       <div>
-        <p className="text-sm font-medium text-zinc-500">Quadrant C · Relational</p>
-        <h2 className="text-2xl font-semibold tracking-tight">Mediate the conflict</h2>
+        <p className={`text-sm font-medium ${Q.text}`}>{Q.label}</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+          Mediate the conflict
+        </h2>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-2xl bg-zinc-50 p-4 text-sm dark:bg-zinc-900">
+      <div className="flex flex-col gap-3 rounded-2xl bg-surface-2 p-4 text-sm">
         <p>
           <span className="font-semibold">Alex (Slack DM):</span> &ldquo;Jordan keeps rewriting my work without
           telling me. I found out about it in a client meeting. I look incompetent.&rdquo;
@@ -92,7 +97,7 @@ export function ExecutiveModule({ onComplete }: { onComplete: (log: ModuleLog) =
         </p>
       </div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">You only have these two messages. What do you do?</p>
+      <p className="text-sm text-foreground/60">You only have these two messages. What do you do?</p>
 
       <div className="flex flex-col gap-2">
         {APPROACHES.map((a) => {
@@ -106,8 +111,8 @@ export function ExecutiveModule({ onComplete }: { onComplete: (log: ModuleLog) =
               whileTap={{ scale: 0.98 }}
               className={`rounded-xl border-2 px-4 py-3 text-left text-sm transition-colors ${
                 isSelected
-                  ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-                  : "border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
+                  ? `${Q.border} bg-quadrant-c/10 ${Q.text} ${Q.ring}`
+                  : "border-border-subtle bg-surface hover:border-border-strong"
               }`}
             >
               {a.label}
@@ -124,7 +129,7 @@ export function ExecutiveModule({ onComplete }: { onComplete: (log: ModuleLog) =
             exit={{ opacity: 0, y: 8 }}
             whileTap={{ scale: 0.97 }}
             onClick={finish}
-            className="self-center rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+            className={`self-center rounded-full px-8 py-3 text-sm font-medium text-white ${Q.bg} ${Q.ring}`}
           >
             Go with this
           </motion.button>

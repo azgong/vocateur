@@ -60,6 +60,10 @@
   --color-quadrant-b: var(--quadrant-b);
   --color-quadrant-c: var(--quadrant-c);
   --color-quadrant-d: var(--quadrant-d);
+  --color-quadrant-a-ink: var(--quadrant-a-ink);
+  --color-quadrant-b-ink: var(--quadrant-b-ink);
+  --color-quadrant-c-ink: var(--quadrant-c-ink);
+  --color-quadrant-d-ink: var(--quadrant-d-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);

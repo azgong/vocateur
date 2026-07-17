@@ -72,15 +72,18 @@ export function AssessmentFlow() {
             transition={{ duration: 0.3 }}
             className="flex max-w-md flex-col items-center gap-6 text-center"
           >
-            <h1 className="text-3xl font-semibold tracking-tight">Four scenarios. No quiz questions.</h1>
-            <p className="text-zinc-500 dark:text-zinc-400">
+            <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
+              Four scenarios. No quiz questions.
+            </h1>
+            <p className="text-foreground/60">
               You&rsquo;ll step into four real job moments — an analyst call, an ER shift, a workplace conflict, and a
               founder&rsquo;s budget. How you move through each one is the signal. Takes about 5 minutes.
             </p>
             <motion.button
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setStep("module")}
-              className="rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+              className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
             >
               Start
             </motion.button>
@@ -101,18 +104,18 @@ export function AssessmentFlow() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-              className="h-8 w-8 rounded-full border-2 border-zinc-300 border-t-zinc-900 dark:border-zinc-700 dark:border-t-zinc-100"
+              className="h-8 w-8 rounded-full border-2 border-border-strong border-t-accent"
             />
-            <p className="text-zinc-500">Unlocking your results…</p>
+            <p className="text-foreground/60">Unlocking your results…</p>
           </motion.div>
         )}
 
         {step === "error" && (
           <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-4">
-            <p className="text-zinc-600 dark:text-zinc-400">Something went wrong saving your results.</p>
+            <p className="text-foreground/60">Something went wrong saving your results.</p>
             <button
               onClick={() => selfReport && submitAssessment(selfReport)}
-              className="rounded-full border-2 border-zinc-300 px-6 py-2 text-sm font-medium dark:border-zinc-700"
+              className="rounded-full border-2 border-border-strong px-6 py-2 text-sm font-medium"
             >
               Try again
             </button>

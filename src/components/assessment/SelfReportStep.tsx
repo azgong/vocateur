@@ -24,8 +24,8 @@ function OptionRow<T extends string>({
           onClick={() => onSelect(o.value)}
           className={`rounded-full border-2 px-4 py-2 text-sm font-medium transition-colors ${
             selected === o.value
-              ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-              : "border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950"
+              ? "border-accent bg-accent/10 text-accent"
+              : "border-border-subtle bg-surface hover:border-border-strong"
           }`}
         >
           {o.label}
@@ -56,8 +56,10 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       className="flex w-full max-w-lg flex-col gap-8"
     >
       <div>
-        <p className="text-sm font-medium text-zinc-500">Almost there</p>
-        <h2 className="text-2xl font-semibold tracking-tight">A few quick questions</h2>
+        <p className="text-sm font-medium text-accent">Almost there</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+          A few quick questions
+        </h2>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -110,8 +112,8 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
               onClick={() => toggleValue(v)}
               className={`rounded-full border-2 px-4 py-2 text-sm font-medium transition-colors ${
                 values.includes(v)
-                  ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-                  : "border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950"
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-border-subtle bg-surface hover:border-border-strong"
               }`}
             >
               {v}
@@ -123,12 +125,13 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       <motion.button
         type="button"
         disabled={!canSubmit}
+        whileHover={canSubmit ? { scale: 1.02 } : {}}
         whileTap={{ scale: 0.97 }}
         onClick={() =>
           canSubmit &&
           onComplete({ furtherSchooling, geographicFlexibility, lifeStage, values })
         }
-        className="self-center rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white disabled:opacity-40 dark:bg-zinc-100 dark:text-zinc-900"
+        className="self-center rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-40 disabled:shadow-none"
       >
         See my results
       </motion.button>

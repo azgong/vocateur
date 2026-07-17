@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
+import { QUADRANT_META } from "@/lib/assessment/quadrantStyle";
+
+const Q = QUADRANT_META.d;
 
 type CategoryId = "product" | "marketing" | "hiring" | "runway";
 
@@ -91,11 +94,13 @@ export function FounderModule({ onComplete }: { onComplete: (log: ModuleLog) => 
       className="flex w-full max-w-lg flex-col gap-6"
     >
       <div>
-        <p className="text-sm font-medium text-zinc-500">Quadrant D · Experimental</p>
-        <h2 className="text-2xl font-semibold tracking-tight">Allocate your runway</h2>
+        <p className={`text-sm font-medium ${Q.text}`}>{Q.label}</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+          Allocate your runway
+        </h2>
       </div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="text-sm text-foreground/60">
         You&rsquo;ve got 100 points of budget and six months of runway left. Split it however you want — there&rsquo;s no
         correct answer here.
       </p>
@@ -105,7 +110,7 @@ export function FounderModule({ onComplete }: { onComplete: (log: ModuleLog) => 
           <div key={c.id} className="flex flex-col gap-1.5">
             <div className="flex items-baseline justify-between">
               <span className="font-medium">{c.label}</span>
-              <span className="tabular-nums text-zinc-500">{allocations[c.id]}</span>
+              <span className={`tabular-nums font-semibold ${Q.text}`}>{allocations[c.id]}</span>
             </div>
             <input
               type="range"
@@ -114,18 +119,19 @@ export function FounderModule({ onComplete }: { onComplete: (log: ModuleLog) => 
               value={allocations[c.id]}
               onChange={(e) => handleChange(c.id, Number(e.target.value))}
               onPointerUp={handleCommit}
-              className="w-full accent-zinc-900 dark:accent-zinc-100"
+              className="w-full accent-quadrant-d"
             />
-            <span className="text-xs text-zinc-400">{c.hint}</span>
+            <span className="text-xs text-foreground/40">{c.hint}</span>
           </div>
         ))}
       </div>
 
       <motion.button
         type="button"
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
         onClick={finish}
-        className="self-center rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+        className={`self-center rounded-full px-8 py-3 text-sm font-medium text-quadrant-d-ink ${Q.bg} ${Q.ring}`}
       >
         Ship this plan
       </motion.button>

@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
+import { QUADRANT_META } from "@/lib/assessment/quadrantStyle";
+
+const Q = QUADRANT_META.a;
 
 const TIME_LIMIT_MS = 20000;
 
@@ -91,23 +94,23 @@ export function AnalystModule({ onComplete }: { onComplete: (log: ModuleLog) => 
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-zinc-500">Quadrant A · Analytical</p>
-          <h2 className="text-2xl font-semibold tracking-tight">Spot the anomaly</h2>
+          <p className={`text-sm font-medium ${Q.text}`}>{Q.label}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+            Spot the anomaly
+          </h2>
         </div>
         <motion.div
           animate={urgent ? { scale: [1, 1.15, 1] } : {}}
           transition={{ repeat: urgent ? Infinity : 0, duration: 0.6 }}
           className={`rounded-full px-3 py-1 text-sm font-semibold tabular-nums ${
-            urgent
-              ? "bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400"
-              : "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+            urgent ? "bg-quadrant-c/15 text-quadrant-c" : "bg-surface-2 text-foreground/60"
           }`}
         >
           0:{secondsLeft.toString().padStart(2, "0")}
         </motion.div>
       </div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="text-sm text-foreground/60">
         This quarter&rsquo;s regional revenue growth just came in. One number doesn&rsquo;t belong. Find it before time runs out.
       </p>
 
@@ -124,8 +127,8 @@ export function AnalystModule({ onComplete }: { onComplete: (log: ModuleLog) => 
               animate={isSelected ? { scale: 1.03 } : { scale: 1 }}
               className={`flex flex-col items-center gap-1 rounded-2xl border-2 px-4 py-5 transition-colors ${
                 isSelected
-                  ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-                  : "border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
+                  ? `${Q.border} bg-quadrant-a/10 ${Q.text} ${Q.ring}`
+                  : "border-border-subtle bg-surface hover:border-border-strong"
               }`}
             >
               <span className="text-sm font-medium opacity-70">{r.name}</span>
@@ -143,7 +146,7 @@ export function AnalystModule({ onComplete }: { onComplete: (log: ModuleLog) => 
             exit={{ opacity: 0, y: 8 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => finish(selected)}
-            className="self-center rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+            className={`self-center rounded-full px-8 py-3 text-sm font-medium text-white ${Q.bg} ${Q.ring}`}
           >
             Lock in {selected}
           </motion.button>

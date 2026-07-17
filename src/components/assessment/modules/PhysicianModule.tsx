@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
+import { QUADRANT_META } from "@/lib/assessment/quadrantStyle";
+
+const Q = QUADRANT_META.b;
 
 type Case = { id: string; complaint: string; vitals: string };
 
@@ -96,15 +99,17 @@ export function PhysicianModule({ onComplete }: { onComplete: (log: ModuleLog) =
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-zinc-500">Quadrant B · Sequential</p>
-          <h2 className="text-2xl font-semibold tracking-tight">Triage the incoming cases</h2>
+          <p className={`text-sm font-medium ${Q.text}`}>{Q.label}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+            Triage the incoming cases
+          </h2>
         </div>
-        <div className="rounded-full bg-zinc-100 px-3 py-1 text-sm font-semibold tabular-nums text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+        <div className="rounded-full bg-surface-2 px-3 py-1 text-sm font-semibold tabular-nums text-foreground/60">
           {(elapsedMs / 1000).toFixed(1)}s
         </div>
       </div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="text-sm text-foreground/60">
         Five patients just arrived. Tap them in the order you&rsquo;d see them, most urgent first. Once you place a case, it&rsquo;s locked — no undo.
       </p>
 
@@ -119,15 +124,15 @@ export function PhysicianModule({ onComplete }: { onComplete: (log: ModuleLog) =
               disabled={isPlaced}
               onClick={() => handlePlace(c.id)}
               whileTap={{ scale: 0.98 }}
-              animate={isPlaced ? { opacity: 0.5, x: 8 } : { opacity: 1, x: 0 }}
-              className="flex items-center gap-4 rounded-xl border-2 border-zinc-200 bg-white px-4 py-3 text-left transition-colors disabled:cursor-not-allowed dark:border-zinc-800 dark:bg-zinc-950"
+              animate={isPlaced ? { opacity: 0.5, x: 8, borderColor: "var(--quadrant-b)" } : { opacity: 1, x: 0 }}
+              className="flex items-center gap-4 rounded-xl border-2 border-border-subtle bg-surface px-4 py-3 text-left transition-colors disabled:cursor-not-allowed hover:border-border-strong"
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">
+              <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white ${Q.bg}`}>
                 {isPlaced ? position + 1 : ""}
               </span>
               <span>
                 <span className="block font-medium">{c.complaint}</span>
-                <span className="block text-sm text-zinc-500 dark:text-zinc-400">{c.vitals}</span>
+                <span className="block text-sm text-foreground/60">{c.vitals}</span>
               </span>
             </motion.button>
           );
