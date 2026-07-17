@@ -131,3 +131,21 @@ body {
     animation: none;
   }
 }
+
+/* Force light, ink-on-paper colors for print (PDF export) regardless of the
+   viewer's color scheme — dark-mode white-on-black would print unreadable. */
+@media print {
+  .aurora-backdrop {
+    display: none;
+  }
+
+  :root {
+    --background: #ffffff;
+    --foreground: #16121f;
+    --surface: #ffffff;
+    --surface-2: #f3f0ea;
+    --border-subtle: rgba(22, 18, 31, 0.15);
+    --border-strong: rgba(22, 18, 31, 0.3);
+    --accent: #6a56e8;
+  }
+}

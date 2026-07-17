@@ -40,10 +40,12 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800 print:hidden">
+    <div className="flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6 print:hidden">
       <div>
-        <h3 className="text-lg font-semibold tracking-tight">Ask about your results</h3>
-        <p className="text-sm text-zinc-500">
+        <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">
+          Ask about your results
+        </h3>
+        <p className="text-sm text-foreground/50">
           Questions about this conversation aren&rsquo;t saved after you leave the page.
         </p>
       </div>
@@ -54,8 +56,8 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
             key={i}
             className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
               m.role === "user"
-                ? "self-end bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                : "self-start bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+                ? "self-end bg-accent text-white"
+                : "self-start bg-surface-2 text-foreground"
             }`}
           >
             {m.content}
@@ -65,13 +67,13 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="self-start rounded-2xl bg-zinc-100 px-4 py-2 text-sm text-zinc-400 dark:bg-zinc-800"
+            className="self-start rounded-2xl bg-surface-2 px-4 py-2 text-sm text-foreground/40"
           >
             Thinking…
           </motion.div>
         )}
         {status === "error" && (
-          <div className="self-start text-sm text-red-500">
+          <div className="self-start text-sm text-quadrant-c">
             Message failed.{" "}
             <button className="underline" onClick={() => sendMessage(messages)}>
               Try again
@@ -86,12 +88,12 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Why didn't nursing rank higher for me?"
-          className="flex-1 rounded-full border border-zinc-300 px-4 py-2 text-sm outline-none focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-zinc-100"
+          className="flex-1 rounded-full border border-border-subtle bg-surface px-4 py-2 text-sm text-foreground outline-none transition-colors focus:border-accent"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-full bg-zinc-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900"
+          className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-white shadow-[0_0_20px_-6px_var(--accent)] disabled:opacity-50 disabled:shadow-none"
         >
           Send
         </button>
