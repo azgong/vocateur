@@ -29,7 +29,7 @@ export function SaveResultsForm({ sessionId }: { sessionId: string }) {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            className="text-center text-sm font-medium text-foreground/80"
           >
             Saved — check your inbox for a copy.
           </motion.p>
@@ -41,13 +41,13 @@ export function SaveResultsForm({ sessionId }: { sessionId: string }) {
               placeholder="you@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 rounded-full border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-100"
+              className="flex-1 rounded-full border border-border-subtle bg-surface px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-accent"
             />
             <motion.button
               type="submit"
               disabled={status === "loading"}
               whileTap={{ scale: 0.97 }}
-              className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900"
+              className="rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-foreground disabled:opacity-60"
             >
               {status === "loading" ? "Saving…" : "Save my results"}
             </motion.button>

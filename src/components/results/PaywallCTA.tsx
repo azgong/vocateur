@@ -47,10 +47,13 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center gap-4 rounded-2xl bg-zinc-900 p-8 text-center text-white dark:bg-zinc-100 dark:text-zinc-900"
+      className="relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl p-8 text-center text-white shadow-[0_0_60px_-16px_var(--accent)]"
+      style={{ background: "linear-gradient(145deg, var(--accent), var(--accent-ink))" }}
     >
-      <h3 className="text-2xl font-semibold tracking-tight">See the rest of your matches</h3>
-      <p className="max-w-md text-sm text-zinc-300 dark:text-zinc-600">
+      <h3 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+        See the rest of your matches
+      </h3>
+      <p className="max-w-md text-sm text-white/70">
         Unlock all 10 matches with full rationale, your personalized roadmap with concrete next steps, and AI
         conversation access to ask about your results.
       </p>
@@ -59,18 +62,20 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
         {isAuthenticated ? (
           <motion.div key="plans" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-2 sm:flex-row">
             <motion.button
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCheckout("monthly")}
               disabled={checkoutLoading !== null}
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-900 disabled:opacity-60 dark:bg-zinc-900 dark:text-white"
+              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-accent disabled:opacity-60"
             >
               {checkoutLoading === "monthly" ? "Redirecting…" : "Monthly — $9/mo"}
             </motion.button>
             <motion.button
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCheckout("annual")}
               disabled={checkoutLoading !== null}
-              className="rounded-full border-2 border-white px-6 py-3 text-sm font-semibold text-white disabled:opacity-60 dark:border-zinc-900 dark:text-zinc-900"
+              className="rounded-full border-2 border-white/70 px-6 py-3 text-sm font-semibold text-white disabled:opacity-60"
             >
               {checkoutLoading === "annual" ? "Redirecting…" : "Annual — $79/yr"}
             </motion.button>
@@ -80,9 +85,10 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
             {stage === "cta" && (
               <motion.button
                 key="cta"
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setStage("email")}
-                className="rounded-full bg-white px-8 py-3 text-sm font-semibold text-zinc-900 dark:bg-zinc-900 dark:text-white"
+                className="rounded-full bg-white px-8 py-3 text-sm font-semibold text-accent"
               >
                 Unlock full results — $9/mo
               </motion.button>
@@ -103,11 +109,11 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
                   placeholder="you@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 rounded-full border border-zinc-600 bg-transparent px-4 py-2.5 text-sm text-white outline-none focus:border-white dark:border-zinc-400 dark:text-zinc-900 dark:focus:border-zinc-900"
+                  className="flex-1 rounded-full border border-white/40 bg-white/10 px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/50 focus:border-white"
                 />
                 <button
                   type="submit"
-                  className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-zinc-900 dark:bg-zinc-900 dark:text-white"
+                  className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-accent"
                 >
                   Continue
                 </button>
@@ -123,13 +129,13 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
         )}
 
         {stage === "error" && (
-          <motion.p key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-red-300">
+          <motion.p key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-red-200">
             Something went wrong. Try again.
           </motion.p>
         )}
       </AnimatePresence>
 
-      <p className="text-xs text-zinc-400 dark:text-zinc-500">or $79/yr — save ~30%</p>
+      <p className="text-xs text-white/50">or $79/yr — save ~30%</p>
     </motion.div>
   );
 }

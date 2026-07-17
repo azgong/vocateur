@@ -17,7 +17,7 @@ export function ManageSubscriptionLink() {
   }
 
   return (
-    <button onClick={handleClick} disabled={loading} className="text-sm text-zinc-400 underline disabled:opacity-60">
+    <button onClick={handleClick} disabled={loading} className="text-sm text-foreground/40 underline disabled:opacity-60">
       {loading ? "Loading…" : "Manage subscription"}
     </button>
   );

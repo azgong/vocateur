@@ -34,14 +34,15 @@ export function ViewRoadmapButton({ sessionId, occupationId }: { sessionId: stri
   return (
     <div className="flex flex-col items-center gap-2">
       <motion.button
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
         onClick={handleClick}
         disabled={loading}
-        className="rounded-full bg-zinc-900 px-8 py-3 text-sm font-medium text-white disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900"
+        className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60 disabled:shadow-none"
       >
         {loading ? "Building your roadmap…" : "View your personalized roadmap"}
       </motion.button>
-      {error && <p className="text-sm text-red-500">Something went wrong. Try again.</p>}
+      {error && <p className="text-sm text-quadrant-c">Something went wrong. Try again.</p>}
     </div>
   );
 }
