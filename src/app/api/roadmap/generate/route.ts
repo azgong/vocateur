@@ -22,6 +22,15 @@ export async function POST(req: NextRequest) {
 
   const admin = createAdminClient();
 
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  if (profile?.subscription_status !== "active") {
+    return NextResponse.json({ error: "Paid subscription required." }, { status: 403 });
+  }
+
   const { data: existing } = await admin
     .from("roadmaps")
     .select("id")

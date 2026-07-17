@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { RoadmapContent } from "@/lib/assessment/roadmap";
 import { PrintButton } from "@/components/roadmap/PrintButton";
+import { ChatPanel } from "@/components/roadmap/ChatPanel";
 
 export default async function RoadmapPage({
   params,
@@ -51,6 +52,8 @@ export default async function RoadmapPage({
           <p className="text-sm italic leading-relaxed text-zinc-700 dark:text-zinc-300">{content.networkingScript}</p>
         </div>
       )}
+
+      <ChatPanel roadmapId={roadmapId} />
     </main>
   );
 }
