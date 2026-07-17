@@ -42,7 +42,7 @@ export function WaitlistForm() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="text-center text-lg font-medium text-zinc-900 dark:text-zinc-100"
+            className="text-center text-lg font-medium text-foreground"
           >
             You&rsquo;re on the list. We&rsquo;ll be in touch.
           </motion.p>
@@ -62,13 +62,14 @@ export function WaitlistForm() {
               placeholder="you@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 rounded-full border border-zinc-300 bg-white px-5 py-3 text-sm outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-100"
+              className="flex-1 rounded-full border border-border-subtle bg-surface px-5 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
             />
             <motion.button
               type="submit"
               disabled={status === "loading"}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
-              className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white transition-colors disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900"
+              className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-white shadow-[0_0_24px_-6px_var(--accent)] transition-shadow disabled:opacity-60"
             >
               {status === "loading" ? "Joining…" : "Join waitlist"}
             </motion.button>
