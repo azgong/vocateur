@@ -82,7 +82,8 @@ Include 3-5 milestones ordered chronologically.`;
       });
       const text = response.content.find((b) => b.type === "text")?.text;
       if (!text) continue;
-      const parsed = JSON.parse(text.trim());
+      const jsonText = text.trim().replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
+      const parsed = JSON.parse(jsonText);
       if (parsed.headline && Array.isArray(parsed.milestones) && parsed.milestones.length > 0) {
         return parsed as RoadmapContent;
       }
