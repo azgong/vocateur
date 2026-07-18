@@ -1,0 +1,17 @@
+name: Supabase keep-alive
+
+on:
+  schedule:
+    # Every 3 days — well within Supabase's 7-day free-tier inactivity pause window.
+    - cron: "0 12 */3 * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          curl -sf "https://dnqrrkvmizbllvitlpfh.supabase.co/rest/v1/occupations?select=id&limit=1" \
+            -H "apikey: sb_publishable_VnVwM6L44z5v4IUKOB8ykQ_olX-oVBW" \
+            -H "Authorization: Bearer sb_publishable_VnVwM6L44z5v4IUKOB8ykQ_olX-oVBW"
