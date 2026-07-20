@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WaitlistForm } from "@/components/WaitlistForm";
 
 export default function Home() {
@@ -11,11 +12,17 @@ export default function Home() {
           Vocateur
         </h1>
         <p className="max-w-md text-lg text-foreground/60">
-          Four real job moments. One clear signal. Find the career that actually fits how you think.
+          Twelve real job moments. One clear signal. Find the career that actually fits how you think.
         </p>
       </div>
       <WaitlistForm />
       <p className="text-sm text-foreground/40">Coming soon.</p>
+      <Link
+        href="/privacy"
+        className="fixed bottom-6 text-xs text-foreground/30 underline underline-offset-2 hover:text-foreground/50"
+      >
+        Privacy Policy
+      </Link>
     </main>
   );
 }
