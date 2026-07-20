@@ -11,8 +11,11 @@ export default function Home() {
         <h1 className="font-[family-name:var(--font-display)] text-6xl font-medium tracking-tight sm:text-7xl">
           Vocateur
         </h1>
+        <p className="font-[family-name:var(--font-display)] text-xl italic text-accent">
+          Voice Your Vocation
+        </p>
         <p className="max-w-md text-lg text-foreground/60">
-          Twelve real job moments. One clear signal. Find the career that actually fits how you think.
+          Real job moments. One clear signal. Find the career that actually fits how you think.
         </p>
       </div>
       <WaitlistForm />

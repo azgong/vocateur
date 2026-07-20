@@ -21,8 +21,21 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vocateur.app"),
   title: "Vocateur",
   description: "Find the career that actually fits how you think.",
+  openGraph: {
+    title: "Vocateur — Voice Your Vocation",
+    description: "Find the career that actually fits how you think.",
+    url: "https://vocateur.app",
+    siteName: "Vocateur",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vocateur — Voice Your Vocation",
+    description: "Find the career that actually fits how you think.",
+  },
 };
 
 export default function RootLayout({
