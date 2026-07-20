@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { RoadmapContent } from "@/lib/assessment/roadmap";
+import { Occupation } from "@/lib/assessment/matching";
 import { PrintButton } from "@/components/roadmap/PrintButton";
 import { ChatPanel } from "@/components/roadmap/ChatPanel";
+import { MarketOutlook } from "@/components/roadmap/MarketOutlook";
 
 export default async function RoadmapPage({
   params,
@@ -14,14 +16,15 @@ export default async function RoadmapPage({
 
   const { data: roadmap } = await supabase
     .from("roadmaps")
-    .select("id, content, life_stage, occupation_id, occupations(title)")
+    .select("id, content, life_stage, occupation_id, occupations(*)")
     .eq("id", roadmapId)
     .single();
 
   if (!roadmap) notFound();
 
   const content = roadmap.content as RoadmapContent;
-  const occupationTitle = (roadmap.occupations as unknown as { title: string } | null)?.title ?? "your match";
+  const occupation = roadmap.occupations as unknown as Occupation | null;
+  const occupationTitle = occupation?.title ?? "your match";
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16 print:py-0">
@@ -47,6 +50,8 @@ export default async function RoadmapPage({
           </li>
         ))}
       </ol>
+
+      {occupation && <MarketOutlook occupation={occupation} />}
 
       {content.networkingScript && (
         <div className="rounded-2xl border border-border-subtle bg-surface-2 p-6">

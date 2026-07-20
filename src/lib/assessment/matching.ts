@@ -11,6 +11,20 @@ export type Occupation = {
   top_skills: string[];
   trait_profile: TraitVector;
   data_as_of: string;
+  // Real U.S. Bureau of Labor Statistics Employment Projections (2024-2034 cycle),
+  // Table 1.2 — null when this occupation has no clean BLS match (see bls_match_confidence).
+  soc_code: string | null;
+  bls_change_pct_2024_34: number | null;
+  bls_median_wage_2024: number | null;
+  bls_annual_openings_thousands: number | null;
+  bls_match_confidence: "exact" | "close" | "approximate" | "no_match" | null;
+  bls_match_note: string | null;
+  // Structured career-advisory content, grounds the AI advisor chat and mock interviews.
+  how_to_break_in: string | null;
+  typical_progression: string | null;
+  skills_to_build_first: string[] | null;
+  common_misconceptions: string | null;
+  interview_focus: string | null;
 };
 
 export type Match = {

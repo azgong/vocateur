@@ -54,8 +54,8 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
         See the rest of your matches
       </h3>
       <p className="max-w-md text-sm text-white/70">
-        Unlock all 10 matches with full rationale, your personalized roadmap with concrete next steps, and AI
-        conversation access to ask about your results.
+        Unlock all 10 matches, your personalized roadmap, and a personal AI career advisor for your matched
+        field &mdash; ask it anything, or run a real mock interview whenever you need one.
       </p>
 
       <AnimatePresence mode="popLayout">

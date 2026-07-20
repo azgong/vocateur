@@ -20,6 +20,10 @@ const LIFE_STAGE_BRIEF: Record<LifeStage, string> = {
 };
 
 function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): RoadmapContent {
+  const breakInMilestone = occupation.how_to_break_in
+    ? { timeframe: "How people actually get in", title: "Real entry path", description: occupation.how_to_break_in }
+    : null;
+
   const base: Record<LifeStage, RoadmapContent> = {
     high_school: {
       headline: `Your path toward ${occupation.title} starts with the right foundation now.`,
@@ -56,7 +60,11 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
       ],
     },
   };
-  return base[lifeStage];
+  const content = base[lifeStage];
+  if (breakInMilestone) {
+    content.milestones = [...content.milestones, breakInMilestone];
+  }
+  return content;
 }
 
 async function callClaude(occupation: Occupation, lifeStage: LifeStage): Promise<RoadmapContent | null> {
@@ -64,8 +72,18 @@ async function callClaude(occupation: Occupation, lifeStage: LifeStage): Promise
   if (!apiKey) return null;
 
   const client = new Anthropic({ apiKey });
-  const prompt = `Write a personalized career roadmap for someone who matched to "${occupation.title}" (${occupation.description}, top skills: ${occupation.top_skills.join(", ")}, typical education: ${occupation.education_level}).
+  const advisoryContext = [
+    occupation.how_to_break_in ? `How people actually break in: ${occupation.how_to_break_in}` : null,
+    occupation.typical_progression ? `Typical career progression: ${occupation.typical_progression}` : null,
+    occupation.skills_to_build_first?.length
+      ? `Skills to prioritize before/while breaking in: ${occupation.skills_to_build_first.join(", ")}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
 
+  const prompt = `Write a personalized career roadmap for someone who matched to "${occupation.title}" (${occupation.description}, top skills: ${occupation.top_skills.join(", ")}, typical education: ${occupation.education_level}).
+${advisoryContext ? `\nReal advisory context for this specific role — ground your milestones in this rather than generic advice:\n${advisoryContext}\n` : ""}
 They are ${LIFE_STAGE_BRIEF[lifeStage]}
 
 Respond with ONLY valid JSON matching this exact shape, no markdown fences, no preamble:
