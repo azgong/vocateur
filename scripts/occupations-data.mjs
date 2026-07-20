@@ -21,6 +21,12 @@
 // for users who genuinely want that, but deliberately not competing for
 // coverage with the main set.
 
+//
+// Dominance-sharpened 2026-07-18: every trait_profile rewritten so each
+// occupation maps to ONE clearly dominant HBDI quadrant (0.85-0.98), per
+// founder direction — prior pass had too many occupations with two
+// closely-tied quadrant scores, which flattened cosine-similarity match
+// results.
 export const DATA_AS_OF = "2025-09-01";
 
 export const occupations = [
@@ -34,7 +40,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Financial modeling", "Valuation", "Excel/PowerPoint", "Deal execution"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.7, quadrant_c: 0.35, quadrant_d: 0.3, pace_preference: 0.9, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.5, quadrant_c: 0.2, quadrant_d: 0.15, pace_preference: 0.9, risk_tolerance: 0.5 },
   },
   {
     title: "Private Equity Associate",
@@ -43,7 +49,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's degree (often + IB experience)",
     top_skills: ["LBO modeling", "Due diligence", "Deal sourcing", "Portfolio strategy"],
-    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.4, quadrant_d: 0.45, pace_preference: 0.7, risk_tolerance: 0.6 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.3, quadrant_c: 0.25, quadrant_d: 0.45, pace_preference: 0.7, risk_tolerance: 0.6 },
   },
   {
     title: "Hedge Fund Analyst",
@@ -52,7 +58,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Bachelor's degree",
     top_skills: ["Fundamental research", "Financial modeling", "Market analysis", "Risk/reward assessment"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.4, quadrant_c: 0.2, quadrant_d: 0.5, pace_preference: 0.75, risk_tolerance: 0.7 },
+    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.25, quadrant_c: 0.15, quadrant_d: 0.5, pace_preference: 0.75, risk_tolerance: 0.7 },
   },
   {
     title: "Equity Research Analyst",
@@ -61,7 +67,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree (CFA common)",
     top_skills: ["Financial modeling", "Industry analysis", "Report writing", "Valuation"],
-    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.6, quadrant_c: 0.3, quadrant_d: 0.25, pace_preference: 0.55, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.5, quadrant_c: 0.2, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.4 },
   },
   {
     title: "Quantitative Analyst",
@@ -70,7 +76,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Master's/Ph.D. (math, stats, or CS)",
     top_skills: ["Stochastic calculus", "Programming (Python/C++)", "Statistical modeling", "Algorithm design"],
-    trait_profile: { quadrant_a: 0.98, quadrant_b: 0.5, quadrant_c: 0.05, quadrant_d: 0.35, pace_preference: 0.5, risk_tolerance: 0.45 },
+    trait_profile: { quadrant_a: 0.97, quadrant_b: 0.25, quadrant_c: 0.05, quadrant_d: 0.4, pace_preference: 0.5, risk_tolerance: 0.45 },
   },
   {
     title: "Sales & Trading Associate",
@@ -79,7 +85,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree",
     top_skills: ["Market execution", "Client relationship management", "Risk assessment", "Composure under pressure"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.4, quadrant_c: 0.6, quadrant_d: 0.4, pace_preference: 0.95, risk_tolerance: 0.75 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.25, quadrant_c: 0.85, quadrant_d: 0.5, pace_preference: 0.95, risk_tolerance: 0.75 },
   },
   {
     title: "Wealth Manager / Financial Advisor",
@@ -88,7 +94,7 @@ export const occupations = [
     growth_pct: 13,
     education_level: "Bachelor's degree + CFP",
     top_skills: ["Financial planning", "Relationship building", "Investment strategy", "Client communication"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.45, quadrant_c: 0.8, quadrant_d: 0.25, pace_preference: 0.4, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.3, quadrant_c: 0.88, quadrant_d: 0.2, pace_preference: 0.4, risk_tolerance: 0.35 },
   },
   {
     title: "Corporate Finance Analyst (FP&A)",
@@ -97,7 +103,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Bachelor's degree",
     top_skills: ["Financial forecasting", "Variance analysis", "Excel modeling", "Business partnering"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.65, quadrant_c: 0.35, quadrant_d: 0.2, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "Risk Analyst (Financial)",
@@ -106,7 +112,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Risk modeling", "Statistics", "Regulatory knowledge", "Scenario analysis"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.75, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.55, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.15 },
   },
   {
     title: "Credit Analyst",
@@ -115,7 +121,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree",
     top_skills: ["Financial statement analysis", "Credit risk modeling", "Industry research", "Report writing"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.75, quadrant_c: 0.2, quadrant_d: 0.1, pace_preference: 0.35, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.55, quadrant_c: 0.2, quadrant_d: 0.1, pace_preference: 0.35, risk_tolerance: 0.15 },
   },
   {
     title: "Portfolio Manager",
@@ -124,7 +130,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree (CFA common)",
     top_skills: ["Investment strategy", "Risk management", "Decision-making under uncertainty", "Market judgment"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.4, quadrant_c: 0.3, quadrant_d: 0.5, pace_preference: 0.65, risk_tolerance: 0.65 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.3, quadrant_c: 0.25, quadrant_d: 0.5, pace_preference: 0.65, risk_tolerance: 0.65 },
   },
   {
     title: "M&A Analyst",
@@ -133,7 +139,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Valuation", "Deal structuring", "Due diligence", "Cross-functional coordination"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.6, quadrant_c: 0.4, quadrant_d: 0.35, pace_preference: 0.75, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.55, quadrant_c: 0.3, quadrant_d: 0.25, pace_preference: 0.75, risk_tolerance: 0.5 },
   },
   {
     title: "Chief Financial Officer",
@@ -142,7 +148,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/MBA + extensive experience",
     top_skills: ["Financial strategy", "Executive leadership", "Capital allocation", "Board communication"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.6, quadrant_c: 0.6, quadrant_d: 0.35, pace_preference: 0.5, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.3, quadrant_c: 0.5, quadrant_d: 0.25, pace_preference: 0.5, risk_tolerance: 0.4 },
   },
   {
     title: "Real Estate Investment Analyst",
@@ -151,7 +157,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Bachelor's degree",
     top_skills: ["Real estate modeling", "Market analysis", "Deal underwriting", "Excel"],
-    trait_profile: { quadrant_a: 0.82, quadrant_b: 0.55, quadrant_c: 0.3, quadrant_d: 0.4, pace_preference: 0.5, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.2, quadrant_d: 0.3, pace_preference: 0.5, risk_tolerance: 0.5 },
   },
   {
     title: "Actuary",
@@ -160,7 +166,7 @@ export const occupations = [
     growth_pct: 22,
     education_level: "Bachelor's degree + actuarial exams",
     top_skills: ["Statistics", "Risk modeling", "Probability", "Programming"],
-    trait_profile: { quadrant_a: 0.97, quadrant_b: 0.7, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.97, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.15 },
   },
   {
     title: "Public Accountant / Auditor",
@@ -169,7 +175,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "Bachelor's degree + CPA",
     top_skills: ["GAAP", "Attention to detail", "Excel", "Regulatory compliance"],
-    trait_profile: { quadrant_a: 0.8, quadrant_b: 0.85, quadrant_c: 0.2, quadrant_d: 0.05, pace_preference: 0.35, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.92, quadrant_c: 0.15, quadrant_d: 0.05, pace_preference: 0.35, risk_tolerance: 0.1 },
   },
   {
     title: "Economist",
@@ -178,7 +184,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Master's degree",
     top_skills: ["Econometrics", "Statistical modeling", "Research", "Writing"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.5, quadrant_c: 0.25, quadrant_d: 0.35, pace_preference: 0.3, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.3, quadrant_c: 0.25, quadrant_d: 0.4, pace_preference: 0.3, risk_tolerance: 0.2 },
   },
   {
     title: "Compliance Officer",
@@ -187,7 +193,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree",
     top_skills: ["Regulatory knowledge", "Audit procedure", "Policy writing", "Attention to detail"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.9, quadrant_c: 0.35, quadrant_d: 0.05, pace_preference: 0.35, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.92, quadrant_c: 0.3, quadrant_d: 0.05, pace_preference: 0.35, risk_tolerance: 0.1 },
   },
   {
     title: "Treasury Analyst",
@@ -196,7 +202,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Cash management", "Financial risk analysis", "Forecasting", "Banking relationships"],
-    trait_profile: { quadrant_a: 0.78, quadrant_b: 0.75, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
   },
 
   // ---------------------------------------------------------------------
@@ -209,7 +215,7 @@ export const occupations = [
     growth_pct: 17,
     education_level: "Bachelor's degree",
     top_skills: ["Programming", "Systems thinking", "Debugging", "Algorithm design"],
-    trait_profile: { quadrant_a: 0.8, quadrant_b: 0.6, quadrant_c: 0.2, quadrant_d: 0.45, pace_preference: 0.45, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.3, quadrant_c: 0.15, quadrant_d: 0.45, pace_preference: 0.45, risk_tolerance: 0.35 },
   },
   {
     title: "Machine Learning Engineer",
@@ -218,7 +224,7 @@ export const occupations = [
     growth_pct: 26,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Machine learning", "Python", "Model deployment", "Statistics"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.45, quadrant_c: 0.15, quadrant_d: 0.55, pace_preference: 0.5, risk_tolerance: 0.45 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.5, pace_preference: 0.5, risk_tolerance: 0.45 },
   },
   {
     title: "AI Research Scientist",
@@ -227,7 +233,7 @@ export const occupations = [
     growth_pct: 23,
     education_level: "Ph.D. (or exceptional Master's)",
     top_skills: ["Deep learning theory", "Research methodology", "Programming", "Mathematical reasoning"],
-    trait_profile: { quadrant_a: 0.95, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.7, pace_preference: 0.35, risk_tolerance: 0.55 },
+    trait_profile: { quadrant_a: 0.95, quadrant_b: 0.25, quadrant_c: 0.1, quadrant_d: 0.55, pace_preference: 0.35, risk_tolerance: 0.55 },
   },
   {
     title: "Data Engineer",
@@ -236,7 +242,7 @@ export const occupations = [
     growth_pct: 21,
     education_level: "Bachelor's degree",
     top_skills: ["Data pipelines", "SQL", "Distributed systems", "Cloud infrastructure"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.75, quadrant_c: 0.1, quadrant_d: 0.3, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.25, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "DevOps / Site Reliability Engineer",
@@ -245,7 +251,7 @@ export const occupations = [
     growth_pct: 15,
     education_level: "Bachelor's degree",
     top_skills: ["Cloud infrastructure", "Automation", "Incident response", "Systems monitoring"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.85, quadrant_c: 0.15, quadrant_d: 0.25, pace_preference: 0.8, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.9, quadrant_c: 0.15, quadrant_d: 0.2, pace_preference: 0.8, risk_tolerance: 0.3 },
   },
   {
     title: "Cloud Solutions Architect",
@@ -254,7 +260,7 @@ export const occupations = [
     growth_pct: 15,
     education_level: "Bachelor's degree",
     top_skills: ["Cloud platforms (AWS/Azure/GCP)", "Systems architecture", "Cost optimization", "Technical communication"],
-    trait_profile: { quadrant_a: 0.82, quadrant_b: 0.65, quadrant_c: 0.35, quadrant_d: 0.4, pace_preference: 0.45, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.3, quadrant_d: 0.3, pace_preference: 0.45, risk_tolerance: 0.3 },
   },
   {
     title: "Computer Vision Engineer",
@@ -263,7 +269,7 @@ export const occupations = [
     growth_pct: 20,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Computer vision", "Deep learning", "Python/C++", "Mathematical modeling"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.4, quadrant_c: 0.1, quadrant_d: 0.55, pace_preference: 0.45, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.5, pace_preference: 0.45, risk_tolerance: 0.4 },
   },
   {
     title: "Robotics Engineer",
@@ -272,7 +278,7 @@ export const occupations = [
     growth_pct: 12,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Controls engineering", "Programming", "Mechanical design", "Systems integration"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.6, quadrant_c: 0.1, quadrant_d: 0.5, pace_preference: 0.4, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.25, quadrant_c: 0.1, quadrant_d: 0.45, pace_preference: 0.4, risk_tolerance: 0.35 },
   },
   {
     title: "Blockchain Developer",
@@ -281,7 +287,7 @@ export const occupations = [
     growth_pct: 12,
     education_level: "Bachelor's degree",
     top_skills: ["Smart contracts", "Cryptography basics", "Programming", "Distributed systems"],
-    trait_profile: { quadrant_a: 0.78, quadrant_b: 0.4, quadrant_c: 0.15, quadrant_d: 0.75, pace_preference: 0.5, risk_tolerance: 0.7 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.2, quadrant_c: 0.15, quadrant_d: 0.88, pace_preference: 0.5, risk_tolerance: 0.7 },
   },
   {
     title: "Cybersecurity Analyst",
@@ -290,7 +296,7 @@ export const occupations = [
     growth_pct: 33,
     education_level: "Bachelor's degree",
     top_skills: ["Threat analysis", "Incident response protocol", "Systems thinking", "Rapid triage"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.8, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.7, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.15, quadrant_d: 0.25, pace_preference: 0.7, risk_tolerance: 0.3 },
   },
   {
     title: "Mobile App Developer",
@@ -299,7 +305,7 @@ export const occupations = [
     growth_pct: 14,
     education_level: "Bachelor's degree",
     top_skills: ["Mobile frameworks", "UI implementation", "Programming", "Performance optimization"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.55, quadrant_c: 0.2, quadrant_d: 0.5, pace_preference: 0.5, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.3, quadrant_c: 0.15, quadrant_d: 0.45, pace_preference: 0.5, risk_tolerance: 0.4 },
   },
   {
     title: "IT / Technology Consultant",
@@ -308,7 +314,7 @@ export const occupations = [
     growth_pct: 11,
     education_level: "Bachelor's degree",
     top_skills: ["Technical strategy", "Client communication", "Systems analysis", "Project management"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.5, quadrant_c: 0.6, quadrant_d: 0.45, pace_preference: 0.6, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.3, quadrant_c: 0.85, quadrant_d: 0.25, pace_preference: 0.6, risk_tolerance: 0.4 },
   },
   {
     title: "Technical Program Manager",
@@ -317,7 +323,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's degree",
     top_skills: ["Cross-functional coordination", "Technical fluency", "Risk management", "Prioritization"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.7, quadrant_c: 0.55, quadrant_d: 0.4, pace_preference: 0.6, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.25, pace_preference: 0.6, risk_tolerance: 0.35 },
   },
   {
     title: "Data Architect / DBA",
@@ -326,7 +332,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's degree",
     top_skills: ["Database design", "Data modeling", "Systems architecture", "Security"],
-    trait_profile: { quadrant_a: 0.87, quadrant_b: 0.75, quadrant_c: 0.15, quadrant_d: 0.2, pace_preference: 0.35, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.2 },
   },
   {
     title: "Network Engineer",
@@ -335,7 +341,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Network architecture", "Troubleshooting", "Security protocols", "Systems monitoring"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.85, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.55, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.88, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.55, risk_tolerance: 0.2 },
   },
   {
     title: "Data Scientist",
@@ -344,7 +350,7 @@ export const occupations = [
     growth_pct: 36,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Statistics", "Python/R", "Machine learning", "Data visualization"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.45, quadrant_c: 0.2, quadrant_d: 0.55, pace_preference: 0.5, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.3, quadrant_c: 0.2, quadrant_d: 0.5, pace_preference: 0.5, risk_tolerance: 0.4 },
   },
   {
     title: "Product Manager (Tech)",
@@ -353,7 +359,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's degree",
     top_skills: ["Prioritization under ambiguity", "Cross-functional communication", "Strategic synthesis", "User empathy"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.3, quadrant_c: 0.6, quadrant_d: 0.75, pace_preference: 0.6, risk_tolerance: 0.6 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.25, quadrant_c: 0.5, quadrant_d: 0.88, pace_preference: 0.6, risk_tolerance: 0.6 },
   },
   {
     title: "UX / Product Designer",
@@ -362,7 +368,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Creative ideation", "User research", "Prototyping", "Visual design"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.3, quadrant_c: 0.55, quadrant_d: 0.8, pace_preference: 0.5, risk_tolerance: 0.55 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.9, pace_preference: 0.5, risk_tolerance: 0.55 },
   },
   {
     title: "Game Designer",
@@ -371,7 +377,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Systems design", "Creative ideation", "Prototyping", "Playtesting iteration"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.35, quadrant_c: 0.35, quadrant_d: 0.85, pace_preference: 0.5, risk_tolerance: 0.55 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.25, quadrant_c: 0.25, quadrant_d: 0.92, pace_preference: 0.5, risk_tolerance: 0.55 },
   },
   {
     title: "Statistician",
@@ -380,7 +386,7 @@ export const occupations = [
     growth_pct: 33,
     education_level: "Master's degree",
     top_skills: ["Statistical modeling", "Study design", "Programming (R/Python)", "Data interpretation"],
-    trait_profile: { quadrant_a: 0.95, quadrant_b: 0.55, quadrant_c: 0.15, quadrant_d: 0.25, pace_preference: 0.3, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.96, quadrant_b: 0.5, quadrant_c: 0.15, quadrant_d: 0.25, pace_preference: 0.3, risk_tolerance: 0.2 },
   },
   {
     title: "Growth Product Manager",
@@ -389,7 +395,7 @@ export const occupations = [
     growth_pct: 11,
     education_level: "Bachelor's degree",
     top_skills: ["Experimentation", "Data-driven creativity", "Prioritization under ambiguity", "Cross-functional influence"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.2, quadrant_c: 0.4, quadrant_d: 0.85, pace_preference: 0.7, risk_tolerance: 0.65 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.2, quadrant_c: 0.3, quadrant_d: 0.9, pace_preference: 0.7, risk_tolerance: 0.65 },
   },
   {
     title: "Startup CTO / Technical Co-Founder",
@@ -398,7 +404,7 @@ export const occupations = [
     growth_pct: 12,
     education_level: "Bachelor's degree (often + startup/eng experience)",
     top_skills: ["Systems architecture", "Technical leadership", "Resourcefulness", "Risk tolerance"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.2, quadrant_c: 0.35, quadrant_d: 0.9, pace_preference: 0.75, risk_tolerance: 0.9 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.15, quadrant_c: 0.3, quadrant_d: 0.92, pace_preference: 0.75, risk_tolerance: 0.9 },
   },
 
   // ---------------------------------------------------------------------
@@ -411,7 +417,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Triage", "Clinical protocol", "Rapid decision-making", "Procedural skill"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.95, quadrant_c: 0.55, quadrant_d: 0.2, pace_preference: 0.95, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.95, quadrant_c: 0.25, quadrant_d: 0.15, pace_preference: 0.95, risk_tolerance: 0.4 },
   },
   {
     title: "Surgeon",
@@ -420,7 +426,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D. + surgical residency",
     top_skills: ["Procedural precision", "Protocol adherence", "Composure under pressure", "Manual dexterity"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.95, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.75, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.95, quadrant_c: 0.2, quadrant_d: 0.1, pace_preference: 0.75, risk_tolerance: 0.3 },
   },
   {
     title: "Cardiologist",
@@ -429,7 +435,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + cardiology fellowship",
     top_skills: ["Diagnostic reasoning", "Clinical protocol", "Patient communication", "Procedural skill"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.3, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.55, risk_tolerance: 0.25 },
   },
   {
     title: "Anesthesiologist",
@@ -438,7 +444,7 @@ export const occupations = [
     growth_pct: 3,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Pharmacology", "Real-time monitoring", "Composure under pressure", "Procedural precision"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.92, quadrant_c: 0.25, quadrant_d: 0.15, pace_preference: 0.8, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.92, quadrant_c: 0.2, quadrant_d: 0.1, pace_preference: 0.8, risk_tolerance: 0.25 },
   },
   {
     title: "Radiologist",
@@ -447,7 +453,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Image interpretation", "Diagnostic reasoning", "Attention to detail", "Pattern recognition"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.75, quadrant_c: 0.15, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.15, pace_preference: 0.55, risk_tolerance: 0.2 },
   },
   {
     title: "Dermatologist",
@@ -456,7 +462,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Diagnostic reasoning", "Procedural skill", "Patient communication", "Attention to detail"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.8, quadrant_c: 0.55, quadrant_d: 0.2, pace_preference: 0.45, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
   },
   {
     title: "Oncologist",
@@ -465,7 +471,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "M.D./D.O. + oncology fellowship",
     top_skills: ["Clinical protocol", "Treatment planning", "Patient communication", "Emotional resilience"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.8, quadrant_c: 0.65, quadrant_d: 0.2, pace_preference: 0.5, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.25 },
   },
   {
     title: "Pediatrician",
@@ -474,7 +480,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Clinical diagnosis", "Patient/family communication", "Protocol adherence", "Patience"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.72, quadrant_c: 0.78, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.5, quadrant_c: 0.85, quadrant_d: 0.1, pace_preference: 0.5, risk_tolerance: 0.2 },
   },
   {
     title: "Psychiatrist",
@@ -483,7 +489,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "M.D./D.O. + psychiatry residency",
     top_skills: ["Clinical assessment", "Active listening", "Treatment planning", "Pharmacology"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.6, quadrant_c: 0.85, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.5, quadrant_c: 0.9, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.2 },
   },
   {
     title: "Orthopedic Surgeon",
@@ -492,7 +498,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + surgical residency",
     top_skills: ["Surgical precision", "Protocol adherence", "Physical stamina", "Diagnostic reasoning"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.9, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.65, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.92, quadrant_c: 0.25, quadrant_d: 0.1, pace_preference: 0.65, risk_tolerance: 0.3 },
   },
   {
     title: "Neurologist",
@@ -501,7 +507,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "M.D./D.O. + neurology residency",
     top_skills: ["Diagnostic reasoning", "Neuroanatomy", "Patient communication", "Pattern recognition"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.75, quadrant_c: 0.35, quadrant_d: 0.2, pace_preference: 0.4, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.2 },
   },
   {
     title: "Physician Assistant",
@@ -510,7 +516,7 @@ export const occupations = [
     growth_pct: 27,
     education_level: "Master's degree (PA program)",
     top_skills: ["Clinical assessment", "Protocol adherence", "Patient communication", "Multitasking"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.8, quadrant_c: 0.65, quadrant_d: 0.15, pace_preference: 0.65, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.1, pace_preference: 0.65, risk_tolerance: 0.25 },
   },
   {
     title: "Nurse Practitioner",
@@ -519,7 +525,7 @@ export const occupations = [
     growth_pct: 40,
     education_level: "Master's/Doctorate (DNP)",
     top_skills: ["Clinical diagnosis", "Patient communication", "Protocol adherence", "Independent judgment"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.72, quadrant_c: 0.78, quadrant_d: 0.2, pace_preference: 0.6, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.6, risk_tolerance: 0.25 },
   },
   {
     title: "Registered Nurse",
@@ -528,7 +534,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/Associate degree + license",
     top_skills: ["Clinical care", "Protocol adherence", "Patient communication", "Multitasking"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.85, quadrant_c: 0.65, quadrant_d: 0.1, pace_preference: 0.75, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.5, quadrant_c: 0.85, quadrant_d: 0.1, pace_preference: 0.75, risk_tolerance: 0.2 },
   },
   {
     title: "Dentist",
@@ -537,7 +543,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "D.D.S./D.M.D.",
     top_skills: ["Procedural precision", "Diagnostic reasoning", "Patient communication", "Manual dexterity"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.88, quadrant_c: 0.5, quadrant_d: 0.1, pace_preference: 0.5, risk_tolerance: 0.2 },
   },
   {
     title: "Orthodontist",
@@ -546,7 +552,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "D.D.S./D.M.D. + orthodontic residency",
     top_skills: ["Treatment planning", "Procedural precision", "Patient communication", "Long-term case management"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.9, quadrant_c: 0.45, quadrant_d: 0.1, pace_preference: 0.4, risk_tolerance: 0.15 },
   },
   {
     title: "Pharmacist",
@@ -555,7 +561,7 @@ export const occupations = [
     growth_pct: 3,
     education_level: "Pharm.D. degree",
     top_skills: ["Pharmacology", "Protocol verification", "Attention to detail", "Patient counseling"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.9, quadrant_c: 0.4, quadrant_d: 0.05, pace_preference: 0.5, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.92, quadrant_c: 0.3, quadrant_d: 0.05, pace_preference: 0.5, risk_tolerance: 0.1 },
   },
   {
     title: "Physical Therapist",
@@ -564,7 +570,7 @@ export const occupations = [
     growth_pct: 14,
     education_level: "Doctorate (DPT)",
     top_skills: ["Clinical assessment", "Treatment planning", "Patient communication", "Anatomy knowledge"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.75, quadrant_c: 0.65, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.5, quadrant_c: 0.85, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
   },
   {
     title: "Occupational Therapist",
@@ -573,7 +579,7 @@ export const occupations = [
     growth_pct: 11,
     education_level: "Master's/Doctorate degree",
     top_skills: ["Patient assessment", "Treatment planning", "Empathy", "Adaptive problem-solving"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.7, quadrant_c: 0.75, quadrant_d: 0.2, pace_preference: 0.4, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.5, quadrant_c: 0.85, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.15 },
   },
   {
     title: "Genetic Counselor",
@@ -582,7 +588,7 @@ export const occupations = [
     growth_pct: 16,
     education_level: "Master's degree",
     top_skills: ["Genetics knowledge", "Patient counseling", "Risk communication", "Empathy"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.6, quadrant_c: 0.8, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.3, quadrant_c: 0.85, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.15 },
   },
   {
     title: "Epidemiologist / Public Health Analyst",
@@ -591,7 +597,7 @@ export const occupations = [
     growth_pct: 27,
     education_level: "Master's degree (MPH)",
     top_skills: ["Statistical analysis", "Study design", "Public health policy", "Data interpretation"],
-    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.55, quadrant_c: 0.3, quadrant_d: 0.35, pace_preference: 0.35, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.5, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.35, risk_tolerance: 0.25 },
   },
   {
     title: "Healthcare Consultant",
@@ -600,7 +606,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's/MBA",
     top_skills: ["Healthcare operations", "Strategic analysis", "Client communication", "Data-driven problem-solving"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.5, quadrant_c: 0.6, quadrant_d: 0.5, pace_preference: 0.6, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.85, pace_preference: 0.6, risk_tolerance: 0.4 },
   },
   {
     title: "Hospital Administrator",
@@ -609,7 +615,7 @@ export const occupations = [
     growth_pct: 28,
     education_level: "Master's degree (MHA/MBA)",
     top_skills: ["Operations management", "Budgeting", "Team leadership", "Regulatory knowledge"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.65, quadrant_c: 0.75, quadrant_d: 0.25, pace_preference: 0.55, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.3 },
   },
   {
     title: "Concierge Medicine Physician",
@@ -618,7 +624,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Patient relationship-building", "Clinical judgment", "Communication", "Personalized care planning"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.45, quadrant_c: 0.9, quadrant_d: 0.2, pace_preference: 0.35, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.3, quadrant_c: 0.92, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.3 },
   },
   {
     title: "Major Gifts / Philanthropy Officer",
@@ -627,7 +633,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship building", "Persuasive storytelling", "Networking", "Long-term trust-building"],
-    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.3, quadrant_c: 0.88, quadrant_d: 0.4, pace_preference: 0.4, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.25, quadrant_c: 0.92, quadrant_d: 0.45, pace_preference: 0.4, risk_tolerance: 0.4 },
   },
   {
     title: "Client Success Director (SaaS/Tech)",
@@ -636,7 +642,7 @@ export const occupations = [
     growth_pct: 12,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship management", "Problem-solving", "Cross-functional advocacy", "Communication"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.4, quadrant_c: 0.85, quadrant_d: 0.35, pace_preference: 0.55, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.3, quadrant_c: 0.88, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.35 },
   },
   {
     title: "Behavioral / Clinical Psychologist",
@@ -645,7 +651,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Doctorate (Ph.D./Psy.D.)",
     top_skills: ["Clinical assessment", "Active listening", "Treatment planning", "Empathy"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.5, quadrant_c: 0.9, quadrant_d: 0.25, pace_preference: 0.3, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.5, quadrant_c: 0.92, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.15 },
   },
   {
     title: "Family Medicine Physician",
@@ -654,7 +660,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "M.D./D.O. + residency",
     top_skills: ["Patient relationship-building", "Broad clinical knowledge", "Communication", "Continuity of care"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.55, quadrant_c: 0.85, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.5, quadrant_c: 0.88, quadrant_d: 0.15, pace_preference: 0.45, risk_tolerance: 0.2 },
   },
 
   // ---------------------------------------------------------------------
@@ -667,7 +673,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "J.D. + bar admission",
     top_skills: ["Legal research", "Argumentation", "Procedural discipline", "Persuasive writing"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.75, quadrant_c: 0.55, quadrant_d: 0.3, pace_preference: 0.6, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.15, pace_preference: 0.6, risk_tolerance: 0.4 },
   },
   {
     title: "Corporate Lawyer (Transactional)",
@@ -676,7 +682,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "J.D. + bar admission",
     top_skills: ["Contract drafting", "Negotiation", "Regulatory knowledge", "Client management"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.8, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.88, quadrant_c: 0.5, quadrant_d: 0.1, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "Intellectual Property / Patent Attorney",
@@ -685,7 +691,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "J.D. + technical Bachelor's degree",
     top_skills: ["Patent law", "Technical analysis", "Legal writing", "Attention to detail"],
-    trait_profile: { quadrant_a: 0.8, quadrant_b: 0.75, quadrant_c: 0.35, quadrant_d: 0.25, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.25, quadrant_d: 0.2, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "Tax Attorney",
@@ -694,7 +700,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "J.D. + often LL.M. in Taxation",
     top_skills: ["Tax law", "Legal research", "Analytical reasoning", "Client advising"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.8, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.4, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.25, quadrant_d: 0.1, pace_preference: 0.4, risk_tolerance: 0.15 },
   },
   {
     title: "Mergers & Acquisitions Lawyer",
@@ -703,7 +709,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "J.D. + bar admission",
     top_skills: ["Deal structuring", "Negotiation", "Contract law", "Due diligence"],
-    trait_profile: { quadrant_a: 0.72, quadrant_b: 0.7, quadrant_c: 0.55, quadrant_d: 0.35, pace_preference: 0.75, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.75, risk_tolerance: 0.4 },
   },
   {
     title: "In-House Corporate Counsel",
@@ -712,7 +718,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "J.D. + bar admission",
     top_skills: ["Legal risk assessment", "Contract review", "Business partnering", "Pragmatic judgment"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.7, quadrant_c: 0.6, quadrant_d: 0.3, pace_preference: 0.5, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.5, risk_tolerance: 0.3 },
   },
   {
     title: "Regulatory / Compliance Attorney",
@@ -721,7 +727,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "J.D. + bar admission",
     top_skills: ["Regulatory analysis", "Policy interpretation", "Risk assessment", "Legal writing"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.88, quadrant_c: 0.3, quadrant_d: 0.1, pace_preference: 0.4, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.92, quadrant_c: 0.2, quadrant_d: 0.05, pace_preference: 0.4, risk_tolerance: 0.15 },
   },
 
   // ---------------------------------------------------------------------
@@ -734,7 +740,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Bachelor's degree",
     top_skills: ["CAD", "Thermodynamics", "Prototyping", "Problem-solving"],
-    trait_profile: { quadrant_a: 0.8, quadrant_b: 0.65, quadrant_c: 0.2, quadrant_d: 0.35, pace_preference: 0.35, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.28, quadrant_c: 0.12, quadrant_d: 0.45, pace_preference: 0.35, risk_tolerance: 0.3 },
   },
   {
     title: "Electrical Engineer",
@@ -743,7 +749,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree",
     top_skills: ["Circuit design", "Signal analysis", "Technical documentation", "Testing"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.65, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.35, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.48, quadrant_c: 0.12, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.25 },
   },
   {
     title: "Civil Engineer",
@@ -752,7 +758,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree + P.E. license",
     top_skills: ["Structural analysis", "CAD", "Code compliance", "Project sequencing"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.8, quadrant_c: 0.3, quadrant_d: 0.2, pace_preference: 0.35, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.85, quadrant_c: 0.25, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.15 },
   },
   {
     title: "Chemical Engineer",
@@ -761,7 +767,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Process design", "Thermodynamics", "Safety engineering", "Process optimization"],
-    trait_profile: { quadrant_a: 0.87, quadrant_b: 0.75, quadrant_c: 0.15, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.12, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.2 },
   },
   {
     title: "Aerospace Engineer",
@@ -770,7 +776,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Aerodynamics", "CAD/simulation", "Systems engineering", "Testing"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.7, quadrant_c: 0.1, quadrant_d: 0.4, pace_preference: 0.3, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.45, pace_preference: 0.3, risk_tolerance: 0.3 },
   },
   {
     title: "Industrial Engineer",
@@ -779,7 +785,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's degree",
     top_skills: ["Process optimization", "Statistics", "Systems analysis", "Lean methodology"],
-    trait_profile: { quadrant_a: 0.82, quadrant_b: 0.8, quadrant_c: 0.3, quadrant_d: 0.25, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.85, quadrant_c: 0.25, quadrant_d: 0.2, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "Materials Science Engineer",
@@ -788,7 +794,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Materials characterization", "Research methodology", "Chemistry/physics", "Experimental design"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.6, quadrant_c: 0.1, quadrant_d: 0.4, pace_preference: 0.25, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.45, pace_preference: 0.25, risk_tolerance: 0.3 },
   },
   {
     title: "Environmental Engineer",
@@ -797,7 +803,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Environmental regulation", "Systems design", "Data analysis", "Technical writing"],
-    trait_profile: { quadrant_a: 0.78, quadrant_b: 0.7, quadrant_c: 0.35, quadrant_d: 0.3, pace_preference: 0.35, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.2, quadrant_d: 0.25, pace_preference: 0.35, risk_tolerance: 0.25 },
   },
   {
     title: "Structural Engineer",
@@ -806,7 +812,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree + P.E. license",
     top_skills: ["Structural analysis", "CAD", "Code compliance", "Risk assessment"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.85, quadrant_c: 0.15, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.9, quadrant_c: 0.12, quadrant_d: 0.1, pace_preference: 0.3, risk_tolerance: 0.1 },
   },
   {
     title: "Petroleum Engineer",
@@ -815,7 +821,7 @@ export const occupations = [
     growth_pct: 2,
     education_level: "Bachelor's degree",
     top_skills: ["Reservoir engineering", "Technical modeling", "Field operations knowledge", "Risk assessment"],
-    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.75, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.45, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.5, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.45, risk_tolerance: 0.35 },
   },
   {
     title: "Nuclear Engineer",
@@ -824,7 +830,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Nuclear physics", "Safety engineering", "Systems analysis", "Regulatory compliance"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.85, quadrant_c: 0.1, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.55, quadrant_c: 0.08, quadrant_d: 0.15, pace_preference: 0.3, risk_tolerance: 0.1 },
   },
 
   // ---------------------------------------------------------------------
@@ -837,7 +843,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Medical device design", "Biology knowledge", "CAD/prototyping", "Regulatory standards"],
-    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.65, quadrant_c: 0.2, quadrant_d: 0.4, pace_preference: 0.35, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.3, quadrant_c: 0.15, quadrant_d: 0.45, pace_preference: 0.35, risk_tolerance: 0.3 },
   },
   {
     title: "Biotech Research Scientist",
@@ -846,7 +852,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Ph.D. (or Master's + experience)",
     top_skills: ["Lab protocol", "Experimental design", "Molecular biology", "Scientific writing"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.65, quadrant_c: 0.15, quadrant_d: 0.4, pace_preference: 0.25, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.3, quadrant_c: 0.1, quadrant_d: 0.45, pace_preference: 0.25, risk_tolerance: 0.3 },
   },
   {
     title: "Bioinformatics Scientist",
@@ -855,7 +861,7 @@ export const occupations = [
     growth_pct: 15,
     education_level: "Master's/Ph.D.",
     top_skills: ["Computational biology", "Programming", "Statistics", "Genomics"],
-    trait_profile: { quadrant_a: 0.95, quadrant_b: 0.55, quadrant_c: 0.1, quadrant_d: 0.4, pace_preference: 0.3, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.95, quadrant_b: 0.3, quadrant_c: 0.08, quadrant_d: 0.4, pace_preference: 0.3, risk_tolerance: 0.25 },
   },
   {
     title: "Genetic Engineer",
@@ -864,7 +870,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Master's/Ph.D.",
     top_skills: ["Molecular biology", "Gene editing techniques", "Lab protocol", "Experimental design"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.65, quadrant_c: 0.1, quadrant_d: 0.5, pace_preference: 0.3, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.3, quadrant_c: 0.08, quadrant_d: 0.5, pace_preference: 0.3, risk_tolerance: 0.35 },
   },
   {
     title: "Clinical Research Associate",
@@ -873,7 +879,7 @@ export const occupations = [
     growth_pct: 12,
     education_level: "Bachelor's degree (life sciences)",
     top_skills: ["Clinical trial protocol", "Regulatory compliance", "Attention to detail", "Site coordination"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.88, quadrant_c: 0.4, quadrant_d: 0.1, pace_preference: 0.45, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.9, quadrant_c: 0.3, quadrant_d: 0.08, pace_preference: 0.45, risk_tolerance: 0.15 },
   },
   {
     title: "Regulatory Affairs Specialist (Biotech/Pharma)",
@@ -882,7 +888,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Regulatory strategy", "Scientific writing", "Compliance", "Cross-functional coordination"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.85, quadrant_c: 0.35, quadrant_d: 0.15, pace_preference: 0.35, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.88, quadrant_c: 0.3, quadrant_d: 0.1, pace_preference: 0.35, risk_tolerance: 0.15 },
   },
   {
     title: "Biomedical Researcher",
@@ -891,7 +897,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Ph.D.",
     top_skills: ["Lab protocol", "Statistical analysis", "Experimental design", "Scientific writing"],
-    trait_profile: { quadrant_a: 0.9, quadrant_b: 0.6, quadrant_c: 0.2, quadrant_d: 0.35, pace_preference: 0.25, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.3, pace_preference: 0.25, risk_tolerance: 0.25 },
   },
 
   // ---------------------------------------------------------------------
@@ -904,7 +910,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Ph.D. (or Master's + experience)",
     top_skills: ["Drug formulation", "Lab protocol", "Chemistry", "Experimental design"],
-    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.7, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.3, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.92, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.3, pace_preference: 0.3, risk_tolerance: 0.25 },
   },
   {
     title: "Clinical Trials / Drug Development Manager",
@@ -913,7 +919,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Master's degree (life sciences)",
     top_skills: ["Clinical trial design", "Project management", "Regulatory knowledge", "Cross-functional leadership"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.8, quadrant_c: 0.5, quadrant_d: 0.3, pace_preference: 0.5, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.85, quadrant_c: 0.3, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.3 },
   },
   {
     title: "Medical Science Liaison",
@@ -922,7 +928,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Ph.D./Pharm.D./M.D. (or advanced life sciences degree)",
     top_skills: ["Scientific communication", "Relationship building", "Clinical knowledge", "Presentation skills"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.55, quadrant_c: 0.78, quadrant_d: 0.3, pace_preference: 0.5, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.3, quadrant_c: 0.85, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.3 },
   },
   {
     title: "Pharmacologist",
@@ -931,7 +937,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Ph.D.",
     top_skills: ["Pharmacology research", "Experimental design", "Statistical analysis", "Scientific writing"],
-    trait_profile: { quadrant_a: 0.93, quadrant_b: 0.65, quadrant_c: 0.15, quadrant_d: 0.3, pace_preference: 0.25, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.94, quadrant_b: 0.5, quadrant_c: 0.08, quadrant_d: 0.25, pace_preference: 0.25, risk_tolerance: 0.25 },
   },
 
   // ---------------------------------------------------------------------
@@ -944,7 +950,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's/MBA",
     top_skills: ["Structured problem-solving", "Client communication", "Strategic synthesis", "Adaptability"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.35, quadrant_c: 0.55, quadrant_d: 0.7, pace_preference: 0.7, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.15, quadrant_c: 0.5, quadrant_d: 0.85, pace_preference: 0.7, risk_tolerance: 0.5 },
   },
   {
     title: "Strategy Consultant",
@@ -953,7 +959,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "MBA (or exceptional Bachelor's)",
     top_skills: ["Strategic frameworks", "Executive communication", "Market analysis", "Structured problem-solving"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.3, quadrant_c: 0.55, quadrant_d: 0.75, pace_preference: 0.65, risk_tolerance: 0.55 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.15, quadrant_c: 0.5, quadrant_d: 0.85, pace_preference: 0.65, risk_tolerance: 0.55 },
   },
   {
     title: "Economic / Policy Consultant",
@@ -962,7 +968,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Master's degree",
     top_skills: ["Econometrics", "Policy analysis", "Report writing", "Client communication"],
-    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.5, quadrant_c: 0.4, quadrant_d: 0.35, pace_preference: 0.4, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.88, quadrant_b: 0.3, quadrant_c: 0.45, quadrant_d: 0.25, pace_preference: 0.4, risk_tolerance: 0.25 },
   },
   {
     title: "Innovation Consultant",
@@ -971,7 +977,7 @@ export const occupations = [
     growth_pct: 11,
     education_level: "Bachelor's/MBA",
     top_skills: ["Design thinking", "Ideation facilitation", "Prototyping", "Ambiguity tolerance"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.92, pace_preference: 0.6, risk_tolerance: 0.7 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.1, quadrant_c: 0.48, quadrant_d: 0.93, pace_preference: 0.6, risk_tolerance: 0.7 },
   },
 
   // ---------------------------------------------------------------------
@@ -984,7 +990,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/MBA (varies widely)",
     top_skills: ["Strategic vision", "People leadership", "Conflict mediation", "Communication"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.3, quadrant_c: 0.85, quadrant_d: 0.65, pace_preference: 0.6, risk_tolerance: 0.6 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.2, quadrant_c: 0.88, quadrant_d: 0.5, pace_preference: 0.6, risk_tolerance: 0.6 },
   },
   {
     title: "Chief Operating Officer",
@@ -993,7 +999,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/MBA + extensive experience",
     top_skills: ["Operations leadership", "Cross-functional coordination", "Process design", "Executive communication"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.7, quadrant_c: 0.65, quadrant_d: 0.35, pace_preference: 0.55, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.4 },
   },
   {
     title: "Human Resources / People Director",
@@ -1002,7 +1008,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Conflict resolution", "Empathetic listening", "Policy design", "Negotiation"],
-    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.45, quadrant_c: 0.9, quadrant_d: 0.25, pace_preference: 0.45, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.48, quadrant_c: 0.9, quadrant_d: 0.25, pace_preference: 0.45, risk_tolerance: 0.25 },
   },
   {
     title: "Sales Director",
@@ -1011,7 +1017,7 @@ export const occupations = [
     growth_pct: 5,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship building", "Negotiation", "Team leadership", "Persuasion"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.35, quadrant_c: 0.8, quadrant_d: 0.45, pace_preference: 0.65, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.25, quadrant_c: 0.88, quadrant_d: 0.45, pace_preference: 0.65, risk_tolerance: 0.5 },
   },
   {
     title: "Product Marketing Manager",
@@ -1020,7 +1026,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Positioning strategy", "Cross-functional collaboration", "Storytelling", "Market research"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.35, quadrant_c: 0.6, quadrant_d: 0.7, pace_preference: 0.55, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.85, pace_preference: 0.55, risk_tolerance: 0.5 },
   },
   {
     title: "Brand Manager",
@@ -1029,7 +1035,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Brand strategy", "Creative direction", "Market analysis", "Cross-team leadership"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.35, quadrant_c: 0.55, quadrant_d: 0.75, pace_preference: 0.5, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.2, quadrant_c: 0.48, quadrant_d: 0.85, pace_preference: 0.5, risk_tolerance: 0.5 },
   },
   {
     title: "Creative Director (Advertising)",
@@ -1038,7 +1044,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Creative vision", "Team leadership", "Client presentation", "Original thinking"],
-    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.95, pace_preference: 0.55, risk_tolerance: 0.7 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.1, quadrant_c: 0.5, quadrant_d: 0.95, pace_preference: 0.55, risk_tolerance: 0.7 },
   },
   {
     title: "Chief Marketing Officer",
@@ -1047,7 +1053,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Bachelor's/MBA + extensive experience",
     top_skills: ["Brand strategy", "Executive leadership", "Market intuition", "Risk-taking"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.2, quadrant_c: 0.55, quadrant_d: 0.9, pace_preference: 0.55, risk_tolerance: 0.7 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.15, quadrant_c: 0.5, quadrant_d: 0.92, pace_preference: 0.55, risk_tolerance: 0.7 },
   },
   {
     title: "Emerging Technology / Innovation Analyst",
@@ -1056,7 +1062,7 @@ export const occupations = [
     growth_pct: 14,
     education_level: "Bachelor's degree",
     top_skills: ["Technology scouting", "Trend analysis", "Strategic synthesis", "Comfort with ambiguity"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.2, quadrant_c: 0.3, quadrant_d: 0.9, pace_preference: 0.55, risk_tolerance: 0.75 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.2, quadrant_c: 0.25, quadrant_d: 0.9, pace_preference: 0.55, risk_tolerance: 0.75 },
   },
   {
     title: "Biotech Startup Founder",
@@ -1065,7 +1071,7 @@ export const occupations = [
     growth_pct: 0,
     education_level: "Varies, often Ph.D. + business acumen",
     top_skills: ["Scientific judgment", "Fundraising", "Resourcefulness", "Risk tolerance"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.15, quadrant_c: 0.4, quadrant_d: 0.92, pace_preference: 0.65, risk_tolerance: 0.95 },
+    trait_profile: { quadrant_a: 0.48, quadrant_b: 0.12, quadrant_c: 0.3, quadrant_d: 0.93, pace_preference: 0.65, risk_tolerance: 0.95 },
   },
   {
     title: "Venture Studio Partner",
@@ -1074,7 +1080,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's/MBA",
     top_skills: ["Idea generation", "Rapid prototyping", "Fundraising", "Pattern recognition"],
-    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.1, quadrant_c: 0.5, quadrant_d: 0.95, pace_preference: 0.65, risk_tolerance: 0.9 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.1, quadrant_c: 0.48, quadrant_d: 0.95, pace_preference: 0.65, risk_tolerance: 0.9 },
   },
   {
     title: "Chief Innovation Officer",
@@ -1083,7 +1089,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's/MBA + extensive experience",
     top_skills: ["Strategic vision", "Organizational change", "Ideation leadership", "Risk assessment"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.25, quadrant_c: 0.55, quadrant_d: 0.88, pace_preference: 0.55, risk_tolerance: 0.75 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.9, pace_preference: 0.55, risk_tolerance: 0.75 },
   },
   {
     title: "Marketing Manager",
@@ -1092,7 +1098,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Campaign strategy", "Data analysis", "Creative direction", "Cross-team leadership"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.35, quadrant_c: 0.6, quadrant_d: 0.65, pace_preference: 0.6, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.2, quadrant_c: 0.48, quadrant_d: 0.85, pace_preference: 0.6, risk_tolerance: 0.5 },
   },
   {
     title: "Business Development Manager",
@@ -1101,7 +1107,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship building", "Negotiation", "Market opportunity analysis", "Persistence"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.3, quadrant_c: 0.75, quadrant_d: 0.65, pace_preference: 0.6, risk_tolerance: 0.6 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.25, quadrant_c: 0.85, quadrant_d: 0.48, pace_preference: 0.6, risk_tolerance: 0.6 },
   },
   {
     title: "Operations Manager",
@@ -1110,7 +1116,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's degree",
     top_skills: ["Process optimization", "Team coordination", "Problem-solving", "Data analysis"],
-    trait_profile: { quadrant_a: 0.6, quadrant_b: 0.75, quadrant_c: 0.5, quadrant_d: 0.25, pace_preference: 0.55, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.45, quadrant_d: 0.15, pace_preference: 0.55, risk_tolerance: 0.3 },
   },
   {
     title: "Logistics / Supply Chain Manager",
@@ -1119,7 +1125,7 @@ export const occupations = [
     growth_pct: 18,
     education_level: "Bachelor's degree",
     top_skills: ["Process optimization", "Forecasting", "Vendor coordination", "Systems thinking"],
-    trait_profile: { quadrant_a: 0.65, quadrant_b: 0.8, quadrant_c: 0.4, quadrant_d: 0.2, pace_preference: 0.55, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.48, quadrant_b: 0.88, quadrant_c: 0.3, quadrant_d: 0.12, pace_preference: 0.55, risk_tolerance: 0.3 },
   },
   {
     title: "Executive Coach",
@@ -1128,7 +1134,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's/Master's degree + coaching certification",
     top_skills: ["Active listening", "Organizational psychology", "Feedback delivery", "Relationship building"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.3, quadrant_c: 0.92, quadrant_d: 0.35, pace_preference: 0.4, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.25, quadrant_c: 0.93, quadrant_d: 0.4, pace_preference: 0.4, risk_tolerance: 0.35 },
   },
   {
     title: "Private Wealth Relationship Director",
@@ -1137,7 +1143,7 @@ export const occupations = [
     growth_pct: 10,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship management", "Financial advising", "Trust-building", "Discretion"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.4, quadrant_c: 0.88, quadrant_d: 0.3, pace_preference: 0.4, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.48, quadrant_b: 0.3, quadrant_c: 0.9, quadrant_d: 0.2, pace_preference: 0.4, risk_tolerance: 0.35 },
   },
   {
     title: "Executive Recruiter",
@@ -1146,7 +1152,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's degree",
     top_skills: ["Relationship building", "Persuasion", "Networking", "Judgment of fit"],
-    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.3, quadrant_c: 0.9, quadrant_d: 0.4, pace_preference: 0.55, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.25, quadrant_c: 0.92, quadrant_d: 0.45, pace_preference: 0.55, risk_tolerance: 0.5 },
   },
   {
     title: "Chief of Staff",
@@ -1155,7 +1161,7 @@ export const occupations = [
     growth_pct: 9,
     education_level: "Bachelor's/MBA",
     top_skills: ["Cross-functional coordination", "Executive communication", "Prioritization", "Discretion"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.55, quadrant_c: 0.8, quadrant_d: 0.4, pace_preference: 0.65, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.5, quadrant_c: 0.85, quadrant_d: 0.25, pace_preference: 0.65, risk_tolerance: 0.4 },
   },
 
   // ---------------------------------------------------------------------
@@ -1168,7 +1174,7 @@ export const occupations = [
     growth_pct: 0,
     education_level: "Varies widely, no formal requirement",
     top_skills: ["Resourcefulness", "Risk tolerance", "Big-picture synthesis", "Resilience"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.1, quadrant_c: 0.5, quadrant_d: 0.97, pace_preference: 0.7, risk_tolerance: 0.95 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.08, quadrant_c: 0.5, quadrant_d: 0.97, pace_preference: 0.7, risk_tolerance: 0.95 },
   },
   {
     title: "Venture Capitalist",
@@ -1177,7 +1183,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Bachelor's/MBA",
     top_skills: ["Pattern recognition", "Risk assessment", "Networking", "Big-picture thinking"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.15, quadrant_c: 0.55, quadrant_d: 0.85, pace_preference: 0.55, risk_tolerance: 0.85 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.12, quadrant_c: 0.5, quadrant_d: 0.88, pace_preference: 0.55, risk_tolerance: 0.85 },
   },
 
   // ---------------------------------------------------------------------
@@ -1190,7 +1196,7 @@ export const occupations = [
     growth_pct: 7,
     education_level: "Ph.D.",
     top_skills: ["Mathematical modeling", "Experimental design", "Analytical reasoning", "Research"],
-    trait_profile: { quadrant_a: 0.97, quadrant_b: 0.5, quadrant_c: 0.1, quadrant_d: 0.4, pace_preference: 0.2, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.97, quadrant_b: 0.25, quadrant_c: 0.08, quadrant_d: 0.42, pace_preference: 0.2, risk_tolerance: 0.25 },
   },
   {
     title: "Astrophysicist",
@@ -1199,7 +1205,7 @@ export const occupations = [
     growth_pct: 8,
     education_level: "Ph.D.",
     top_skills: ["Mathematical modeling", "Data analysis", "Research methodology", "Programming"],
-    trait_profile: { quadrant_a: 0.96, quadrant_b: 0.45, quadrant_c: 0.1, quadrant_d: 0.45, pace_preference: 0.2, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.96, quadrant_b: 0.25, quadrant_c: 0.08, quadrant_d: 0.45, pace_preference: 0.2, risk_tolerance: 0.3 },
   },
   {
     title: "University Professor",
@@ -1208,7 +1214,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Ph.D.",
     top_skills: ["Research design", "Subject expertise", "Teaching", "Academic writing"],
-    trait_profile: { quadrant_a: 0.7, quadrant_b: 0.45, quadrant_c: 0.45, quadrant_d: 0.55, pace_preference: 0.25, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.3, pace_preference: 0.25, risk_tolerance: 0.3 },
   },
   {
     title: "Environmental Scientist",
@@ -1217,7 +1223,7 @@ export const occupations = [
     growth_pct: 6,
     education_level: "Bachelor's/Master's degree",
     top_skills: ["Field research", "Data analysis", "Report writing", "Regulatory knowledge"],
-    trait_profile: { quadrant_a: 0.75, quadrant_b: 0.55, quadrant_c: 0.3, quadrant_d: 0.45, pace_preference: 0.3, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.85, quadrant_b: 0.3, quadrant_c: 0.2, quadrant_d: 0.45, pace_preference: 0.3, risk_tolerance: 0.3 },
   },
 
   // ---------------------------------------------------------------------
@@ -1230,7 +1236,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "Bachelor's/Master's degree + licensure",
     top_skills: ["Spatial design", "Creative problem-solving", "Client communication", "Technical drafting"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.45, quadrant_c: 0.4, quadrant_d: 0.75, pace_preference: 0.35, risk_tolerance: 0.45 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.25, quadrant_c: 0.3, quadrant_d: 0.85, pace_preference: 0.35, risk_tolerance: 0.45 },
   },
   {
     title: "Urban Planner",
@@ -1239,7 +1245,7 @@ export const occupations = [
     growth_pct: 4,
     education_level: "Master's degree",
     top_skills: ["Zoning/regulatory knowledge", "Long-term visioning", "Stakeholder communication", "Data analysis"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.55, quadrant_c: 0.5, quadrant_d: 0.55, pace_preference: 0.3, risk_tolerance: 0.35 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.85, quadrant_c: 0.3, quadrant_d: 0.48, pace_preference: 0.3, risk_tolerance: 0.35 },
   },
 
   // ---------------------------------------------------------------------
@@ -1252,7 +1258,7 @@ export const occupations = [
     growth_pct: 3,
     education_level: "Bachelor's/Master's degree + Foreign Service exam",
     top_skills: ["Negotiation", "Cross-cultural communication", "Conflict mediation", "Political judgment"],
-    trait_profile: { quadrant_a: 0.35, quadrant_b: 0.45, quadrant_c: 0.85, quadrant_d: 0.45, pace_preference: 0.4, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.3, quadrant_c: 0.9, quadrant_d: 0.45, pace_preference: 0.4, risk_tolerance: 0.4 },
   },
 ];
 
@@ -1269,7 +1275,7 @@ export const alternativePaths = [
     growth_pct: 5,
     education_level: "Bachelor's degree + flight certification",
     top_skills: ["Procedural discipline", "Situational awareness", "Checklist execution", "Composure under pressure"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.97, quadrant_c: 0.3, quadrant_d: 0.1, pace_preference: 0.6, risk_tolerance: 0.15 },
+    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.97, quadrant_c: 0.2, quadrant_d: 0.08, pace_preference: 0.6, risk_tolerance: 0.15 },
   },
   {
     title: "Veterinarian",
@@ -1278,7 +1284,7 @@ export const alternativePaths = [
     growth_pct: 19,
     education_level: "Doctorate (DVM)",
     top_skills: ["Clinical diagnosis", "Procedural skill", "Client communication", "Composure under pressure"],
-    trait_profile: { quadrant_a: 0.55, quadrant_b: 0.8, quadrant_c: 0.55, quadrant_d: 0.15, pace_preference: 0.6, risk_tolerance: 0.25 },
+    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.48, quadrant_d: 0.12, pace_preference: 0.6, risk_tolerance: 0.25 },
   },
   {
     title: "Electrician",
@@ -1287,7 +1293,7 @@ export const alternativePaths = [
     growth_pct: 11,
     education_level: "Apprenticeship + license",
     top_skills: ["Code compliance", "Diagnostic troubleshooting", "Manual skill", "Safety protocol"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.85, quadrant_c: 0.25, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.45, quadrant_b: 0.88, quadrant_c: 0.2, quadrant_d: 0.12, pace_preference: 0.5, risk_tolerance: 0.2 },
   },
   {
     title: "Plumber",
@@ -1296,7 +1302,7 @@ export const alternativePaths = [
     growth_pct: 6,
     education_level: "Apprenticeship + license",
     top_skills: ["Diagnostic troubleshooting", "Code compliance", "Manual skill", "Customer communication"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.8, quadrant_c: 0.35, quadrant_d: 0.15, pace_preference: 0.5, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.42, quadrant_b: 0.85, quadrant_c: 0.28, quadrant_d: 0.12, pace_preference: 0.5, risk_tolerance: 0.2 },
   },
   {
     title: "Firefighter",
@@ -1305,7 +1311,7 @@ export const alternativePaths = [
     growth_pct: 4,
     education_level: "High school + fire academy",
     top_skills: ["Protocol adherence", "Physical readiness", "Rapid decision-making", "Teamwork under pressure"],
-    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.9, quadrant_c: 0.55, quadrant_d: 0.2, pace_preference: 0.9, risk_tolerance: 0.5 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.92, quadrant_c: 0.45, quadrant_d: 0.15, pace_preference: 0.9, risk_tolerance: 0.5 },
   },
   {
     title: "Police Officer",
@@ -1314,7 +1320,7 @@ export const alternativePaths = [
     growth_pct: 3,
     education_level: "High school/Associate degree + academy",
     top_skills: ["Protocol adherence", "Situational judgment", "Conflict de-escalation", "Report writing"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.85, quadrant_c: 0.55, quadrant_d: 0.15, pace_preference: 0.75, risk_tolerance: 0.45 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.88, quadrant_c: 0.48, quadrant_d: 0.12, pace_preference: 0.75, risk_tolerance: 0.45 },
   },
   {
     title: "Chef / Executive Chef",
@@ -1323,7 +1329,7 @@ export const alternativePaths = [
     growth_pct: 6,
     education_level: "Varies, often culinary school",
     top_skills: ["Kitchen management", "Creative menu design", "Speed under pressure", "Team leadership"],
-    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.7, quadrant_c: 0.45, quadrant_d: 0.6, pace_preference: 0.85, risk_tolerance: 0.45 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.85, quadrant_c: 0.3, quadrant_d: 0.48, pace_preference: 0.85, risk_tolerance: 0.45 },
   },
   {
     title: "Barista / Cafe Manager",
@@ -1332,7 +1338,7 @@ export const alternativePaths = [
     growth_pct: 5,
     education_level: "High school",
     top_skills: ["Customer service", "Speed under pressure", "Multitasking", "Product consistency"],
-    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.6, quadrant_c: 0.6, quadrant_d: 0.3, pace_preference: 0.8, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.48, quadrant_c: 0.85, quadrant_d: 0.3, pace_preference: 0.8, risk_tolerance: 0.3 },
   },
   {
     title: "Commercial Pilot (Charter/Cargo)",
@@ -1341,7 +1347,7 @@ export const alternativePaths = [
     growth_pct: 5,
     education_level: "Flight certification",
     top_skills: ["Procedural discipline", "Situational awareness", "Navigation", "Composure under pressure"],
-    trait_profile: { quadrant_a: 0.5, quadrant_b: 0.9, quadrant_c: 0.25, quadrant_d: 0.2, pace_preference: 0.6, risk_tolerance: 0.3 },
+    trait_profile: { quadrant_a: 0.42, quadrant_b: 0.92, quadrant_c: 0.22, quadrant_d: 0.15, pace_preference: 0.6, risk_tolerance: 0.3 },
   },
   {
     title: "Real Estate Agent",
@@ -1350,7 +1356,7 @@ export const alternativePaths = [
     growth_pct: 3,
     education_level: "High school + real estate license",
     top_skills: ["Negotiation", "Relationship building", "Local market knowledge", "Persistence"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.35, quadrant_c: 0.75, quadrant_d: 0.5, pace_preference: 0.55, risk_tolerance: 0.6 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.25, quadrant_c: 0.85, quadrant_d: 0.45, pace_preference: 0.55, risk_tolerance: 0.6 },
   },
   {
     title: "Dental Hygienist",
@@ -1359,7 +1365,7 @@ export const alternativePaths = [
     growth_pct: 9,
     education_level: "Associate degree + license",
     top_skills: ["Clinical protocol", "Patient care", "Attention to detail", "Manual dexterity"],
-    trait_profile: { quadrant_a: 0.4, quadrant_b: 0.85, quadrant_c: 0.5, quadrant_d: 0.05, pace_preference: 0.45, risk_tolerance: 0.1 },
+    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.88, quadrant_c: 0.45, quadrant_d: 0.05, pace_preference: 0.45, risk_tolerance: 0.1 },
   },
   {
     title: "Graphic Designer",
@@ -1368,7 +1374,7 @@ export const alternativePaths = [
     growth_pct: 3,
     education_level: "Bachelor's degree",
     top_skills: ["Visual design", "Software tools (Adobe suite)", "Creative concepting", "Client feedback iteration"],
-    trait_profile: { quadrant_a: 0.25, quadrant_b: 0.4, quadrant_c: 0.4, quadrant_d: 0.8, pace_preference: 0.45, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.25, quadrant_c: 0.42, quadrant_d: 0.88, pace_preference: 0.45, risk_tolerance: 0.4 },
   },
   {
     title: "Elementary School Teacher",
@@ -1377,7 +1383,7 @@ export const alternativePaths = [
     growth_pct: 1,
     education_level: "Bachelor's degree + certification",
     top_skills: ["Lesson planning", "Classroom management", "Patience", "Communication"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.65, quadrant_c: 0.8, quadrant_d: 0.3, pace_preference: 0.4, risk_tolerance: 0.2 },
+    trait_profile: { quadrant_a: 0.2, quadrant_b: 0.5, quadrant_c: 0.88, quadrant_d: 0.25, pace_preference: 0.4, risk_tolerance: 0.2 },
   },
   {
     title: "Event Planner",
@@ -1386,7 +1392,7 @@ export const alternativePaths = [
     growth_pct: 7,
     education_level: "Bachelor's degree",
     top_skills: ["Vendor coordination", "Sequencing under pressure", "Creative troubleshooting", "Client communication"],
-    trait_profile: { quadrant_a: 0.3, quadrant_b: 0.7, quadrant_c: 0.6, quadrant_d: 0.45, pace_preference: 0.75, risk_tolerance: 0.4 },
+    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.85, quadrant_c: 0.28, quadrant_d: 0.45, pace_preference: 0.75, risk_tolerance: 0.4 },
   },
   {
     title: "Film / TV Director",
@@ -1395,6 +1401,6 @@ export const alternativePaths = [
     growth_pct: 7,
     education_level: "Varies, often no formal requirement",
     top_skills: ["Creative vision", "Improvisation", "Risk-taking", "Collaborative leadership"],
-    trait_profile: { quadrant_a: 0.15, quadrant_b: 0.2, quadrant_c: 0.55, quadrant_d: 0.95, pace_preference: 0.5, risk_tolerance: 0.75 },
+    trait_profile: { quadrant_a: 0.1, quadrant_b: 0.15, quadrant_c: 0.5, quadrant_d: 0.95, pace_preference: 0.5, risk_tolerance: 0.75 },
   },
 ];

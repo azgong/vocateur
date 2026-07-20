@@ -12,7 +12,8 @@ export type TraitVector = {
 export type LifeStage = "high_school" | "university" | "early_career" | "career_changer";
 
 export type ModuleLog = {
-  moduleId: "analyst" | "physician" | "executive" | "founder";
+  chapterId: "analyst" | "physician" | "executive" | "founder";
+  sceneId: string;
   timeTakenMs: number;
   choiceSelected: string;
   revisionsMade: number;

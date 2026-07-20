@@ -4,29 +4,38 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProgressBar } from "./ProgressBar";
-import { AnalystModule } from "./modules/AnalystModule";
-import { PhysicianModule } from "./modules/PhysicianModule";
-import { ExecutiveModule } from "./modules/ExecutiveModule";
-import { FounderModule } from "./modules/FounderModule";
+import { SceneRenderer } from "./scenes/SceneRenderer";
 import { SelfReportStep } from "./SelfReportStep";
 import { ModuleLog, SelfReport } from "@/lib/assessment/types";
+import { CHAPTERS, SceneConfig } from "@/lib/assessment/scenes";
 
-type Step = "intro" | "module" | "self_report" | "submitting" | "error";
+type Step = "intro" | "scene" | "self_report" | "submitting" | "error";
 
-const MODULES = [AnalystModule, PhysicianModule, ExecutiveModule, FounderModule];
+const FLAT_SCENES: SceneConfig[] = CHAPTERS.flatMap((c) => c.scenes);
+
+function chapterInfoForIndex(index: number) {
+  let cursor = 0;
+  for (const chapter of CHAPTERS) {
+    if (index < cursor + chapter.scenes.length) {
+      return { chapter, sceneInChapter: index - cursor, chapterIndex: CHAPTERS.indexOf(chapter) };
+    }
+    cursor += chapter.scenes.length;
+  }
+  return { chapter: CHAPTERS[CHAPTERS.length - 1], sceneInChapter: 0, chapterIndex: CHAPTERS.length - 1 };
+}
 
 export function AssessmentFlow() {
   const router = useRouter();
   const [step, setStep] = useState<Step>("intro");
-  const [moduleIndex, setModuleIndex] = useState(0);
+  const [sceneIndex, setSceneIndex] = useState(0);
   const [logs, setLogs] = useState<ModuleLog[]>([]);
   const [selfReport, setSelfReport] = useState<SelfReport | null>(null);
 
-  function handleModuleComplete(log: ModuleLog) {
+  function handleSceneComplete(log: ModuleLog) {
     const nextLogs = [...logs, log];
     setLogs(nextLogs);
-    if (moduleIndex + 1 < MODULES.length) {
-      setModuleIndex((i) => i + 1);
+    if (sceneIndex + 1 < FLAT_SCENES.length) {
+      setSceneIndex((i) => i + 1);
     } else {
       setStep("self_report");
     }
@@ -56,13 +65,15 @@ export function AssessmentFlow() {
     submitAssessment(report);
   }
 
-  const CurrentModule = MODULES[moduleIndex];
+  const currentScene = FLAT_SCENES[sceneIndex];
+  const { chapter, sceneInChapter, chapterIndex } = chapterInfoForIndex(sceneIndex);
+  const isFirstSceneOfChapter = sceneInChapter === 0;
 
   return (
-    <div className="flex flex-1 flex-col items-center gap-10 px-6 py-16">
-      {step === "module" && <ProgressBar currentModuleIndex={moduleIndex} />}
+    <div className="flex flex-1 flex-col items-center gap-8 px-6 py-16">
+      {step === "scene" && <ProgressBar chapterIndex={chapterIndex} sceneInChapter={sceneInChapter} />}
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {step === "intro" && (
           <motion.div
             key="intro"
@@ -73,16 +84,17 @@ export function AssessmentFlow() {
             className="flex max-w-md flex-col items-center gap-6 text-center"
           >
             <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
-              Four scenarios. No quiz questions.
+              Twelve scenarios. No quiz questions.
             </h1>
             <p className="text-foreground/60">
-              You&rsquo;ll step into four real job moments — an analyst call, an ER shift, a workplace conflict, and a
-              founder&rsquo;s budget. How you move through each one is the signal. Takes about 5 minutes.
+              You&rsquo;ll step into four real job worlds &mdash; an analyst call, an ER shift, a workplace conflict, and a
+              founder&rsquo;s budget &mdash; three moments in each. How you move through them is the signal. Takes about 10
+              minutes.
             </p>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => setStep("module")}
+              onClick={() => setStep("scene")}
               className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
             >
               Start
@@ -90,7 +102,22 @@ export function AssessmentFlow() {
           </motion.div>
         )}
 
-        {step === "module" && <CurrentModule key={`module-${moduleIndex}`} onComplete={handleModuleComplete} />}
+        {step === "scene" && (
+          <motion.div key={`scene-wrap-${sceneIndex}`} className="flex w-full flex-col items-center gap-6">
+            {isFirstSceneOfChapter && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-sm font-medium text-foreground/40"
+              >
+                {chapter.intro}
+              </motion.p>
+            )}
+            <SceneRenderer key={`scene-${sceneIndex}`} scene={currentScene} onComplete={handleSceneComplete} />
+          </motion.div>
+        )}
 
         {step === "self_report" && <SelfReportStep key="self-report" onComplete={handleSelfReportComplete} />}
 

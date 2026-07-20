@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { scoreAssessment } from "@/lib/assessment/scoring";
 import { ModuleLog, SelfReport } from "@/lib/assessment/types";
+import { TOTAL_SCENES } from "@/lib/assessment/scenes";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const logs: ModuleLog[] = body.logs;
   const selfReport: SelfReport = body.selfReport;
 
-  if (!Array.isArray(logs) || logs.length !== 4 || !selfReport) {
+  if (!Array.isArray(logs) || logs.length !== TOTAL_SCENES || !selfReport) {
     return NextResponse.json({ error: "Incomplete assessment data." }, { status: 400 });
   }
 
