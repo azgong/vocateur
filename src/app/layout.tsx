@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Vocateur",
   description: "Find the career that actually fits how you think.",
   openGraph: {
-    title: "Vocateur — Voice Your Vocation",
+    title: "Vocateur",
     description: "Find the career that actually fits how you think.",
     url: "https://vocateur.app",
     siteName: "Vocateur",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vocateur — Voice Your Vocation",
+    title: "Vocateur",
     description: "Find the career that actually fits how you think.",
   },
 };

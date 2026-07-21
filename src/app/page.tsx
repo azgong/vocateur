@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { WaitlistForm } from "@/components/WaitlistForm";
 
 export default function Home() {
   return (
@@ -11,21 +10,30 @@ export default function Home() {
         <h1 className="font-[family-name:var(--font-display)] text-6xl font-medium tracking-tight sm:text-7xl">
           Vocateur
         </h1>
-        <p className="font-[family-name:var(--font-display)] text-xl italic text-accent">
-          Voice Your Vocation
-        </p>
         <p className="max-w-md text-lg text-foreground/60">
           Real job moments. One clear signal. Find the career that actually fits how you think.
         </p>
       </div>
-      <WaitlistForm />
-      <p className="text-sm text-foreground/40">Coming soon.</p>
+
       <Link
-        href="/privacy"
-        className="fixed bottom-6 text-xs text-foreground/30 underline underline-offset-2 hover:text-foreground/50"
+        href="/assessment"
+        className="rounded-full bg-accent px-10 py-4 text-base font-medium text-white shadow-[0_0_28px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_36px_-4px_var(--accent)]"
       >
-        Privacy Policy
+        Start your assessment
       </Link>
+      <p className="text-sm text-foreground/40">
+        Takes about 10 minutes. Free to see your top match &mdash; $9/mo or $79/yr to unlock everything, including
+        a personal AI career advisor.
+      </p>
+
+      <div className="fixed bottom-6 flex gap-4 text-xs text-foreground/30">
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-foreground/50">
+          Privacy Policy
+        </Link>
+        <Link href="/terms" className="underline underline-offset-2 hover:text-foreground/50">
+          Terms of Service
+        </Link>
+      </div>
     </main>
   );
 }

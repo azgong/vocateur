@@ -136,6 +136,17 @@ export function PaywallCTA({ sessionId, isAuthenticated }: { sessionId: string; 
       </AnimatePresence>
 
       <p className="text-xs text-white/50">or $79/yr — save ~30%</p>
+      <p className="text-[11px] text-white/40">
+        By subscribing you agree to our{" "}
+        <a href="/terms" className="underline underline-offset-2 hover:text-white/70">
+          Terms
+        </a>{" "}
+        and{" "}
+        <a href="/privacy" className="underline underline-offset-2 hover:text-white/70">
+          Privacy Policy
+        </a>
+        . Cancel anytime.
+      </p>
     </motion.div>
   );
 }

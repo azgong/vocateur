@@ -57,15 +57,14 @@ export default async function OpengraphImage() {
         </div>
         <div
           style={{
-            fontSize: 34,
+            fontSize: 30,
             fontWeight: 500,
             color: "#b7a9ff",
             fontFamily: "Fraunces",
-            fontStyle: "italic",
-            marginTop: 22,
+            marginTop: 26,
           }}
         >
-          Voice Your Vocation
+          Find the career that actually fits how you think
         </div>
       </div>
     ),
