@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -10,6 +11,11 @@ import { SaveResultsForm } from "@/components/results/SaveResultsForm";
 import { ViewRoadmapButton } from "@/components/results/ViewRoadmapButton";
 import { ManageSubscriptionLink } from "@/components/results/ManageSubscriptionLink";
 import { ResultsUpsell } from "@/components/results/ResultsUpsell";
+
+export const metadata: Metadata = {
+  title: "Your Results · Vocateur",
+  robots: { index: false, follow: false },
+};
 
 export default async function ResultsPage({
   params,
@@ -60,7 +66,7 @@ export default async function ResultsPage({
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your results</p>
-        <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight sm:text-5xl">
+        <h1 className="font-[family-name:var(--font-brand)] text-4xl font-medium tracking-tight sm:text-5xl">
           Here&rsquo;s what your choices point toward
         </h1>
       </div>

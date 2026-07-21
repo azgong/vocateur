@@ -48,7 +48,7 @@ export function AgeGate() {
         >
           {!blocked ? (
             <>
-              <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
+              <h2 className="font-[family-name:var(--font-brand)] text-2xl font-medium tracking-tight">
                 Quick check before you start
               </h2>
               <p className="text-sm text-foreground/60">
@@ -78,7 +78,7 @@ export function AgeGate() {
             </>
           ) : (
             <>
-              <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
+              <h2 className="font-[family-name:var(--font-brand)] text-2xl font-medium tracking-tight">
                 Sorry about that
               </h2>
               <p className="text-sm text-foreground/60">

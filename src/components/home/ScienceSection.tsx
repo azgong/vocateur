@@ -26,7 +26,7 @@ export function ScienceSection() {
     <section className="flex flex-col gap-10">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">The framework</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Built on a real thinking-style model
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">
@@ -40,7 +40,7 @@ export function ScienceSection() {
           <div key={q.key} className="flex flex-col gap-2 rounded-2xl border border-border-subtle bg-surface p-6">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: `var(--quadrant-${q.key})` }} />
-              <h3 className="font-[family-name:var(--font-display)] text-lg font-medium tracking-tight">{q.name}</h3>
+              <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">{q.name}</h3>
             </div>
             <p className="text-sm leading-relaxed text-foreground/60">{q.description}</p>
           </div>

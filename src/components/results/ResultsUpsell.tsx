@@ -6,7 +6,7 @@ export function ResultsUpsell({ sessionId }: { sessionId: string }) {
       className="relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl p-8 text-center text-white shadow-[0_0_60px_-16px_var(--accent)]"
       style={{ background: "linear-gradient(145deg, var(--accent), var(--accent-ink))" }}
     >
-      <h3 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+      <h3 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">
         Upgrade to Pro to unlock your roadmap
       </h3>
       <p className="max-w-md text-sm text-white/70">

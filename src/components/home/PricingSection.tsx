@@ -5,14 +5,14 @@ export function PricingSection() {
     <section className="flex flex-col gap-8">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Pricing</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Free to start, simple to unlock
         </h2>
       </div>
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="flex flex-col gap-4 rounded-3xl border border-border-subtle bg-surface p-8">
           <div>
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">Free</h3>
+            <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Free</h3>
             <p className="mt-1 text-3xl font-semibold">$0</p>
           </div>
           <ul className="flex flex-1 flex-col gap-2 text-sm text-foreground/60">
@@ -23,7 +23,7 @@ export function PricingSection() {
         </div>
         <div className="flex flex-col gap-4 rounded-3xl border border-accent bg-accent/[0.06] p-8 shadow-[0_0_40px_-16px_var(--accent)]">
           <div>
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight text-accent">Pro</h3>
+            <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight text-accent">Pro</h3>
             <p className="mt-1 text-3xl font-semibold">
               $9<span className="text-base font-normal text-foreground/50">/mo</span>
             </p>

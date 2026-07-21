@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { RoadmapContent } from "@/lib/assessment/roadmap";
@@ -5,6 +6,11 @@ import { Occupation } from "@/lib/assessment/matching";
 import { PrintButton } from "@/components/roadmap/PrintButton";
 import { ChatPanel } from "@/components/roadmap/ChatPanel";
 import { MarketOutlook } from "@/components/roadmap/MarketOutlook";
+
+export const metadata: Metadata = {
+  title: "Your Roadmap · Vocateur",
+  robots: { index: false, follow: false },
+};
 
 export default async function RoadmapPage({
   params,
@@ -31,7 +37,7 @@ export default async function RoadmapPage({
       <div className="flex items-start justify-between gap-4 print:hidden">
         <div>
           <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your roadmap</p>
-          <h1 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+          <h1 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">
             Toward {occupationTitle}
           </h1>
         </div>
@@ -45,7 +51,7 @@ export default async function RoadmapPage({
           <li key={i} className="relative">
             <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-accent shadow-[0_0_12px_-2px_var(--accent)]" />
             <span className="text-xs font-semibold uppercase tracking-wide text-accent/70">{m.timeframe}</span>
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">{m.title}</h3>
+            <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">{m.title}</h3>
             <p className="text-sm leading-relaxed text-foreground/60">{m.description}</p>
           </li>
         ))}

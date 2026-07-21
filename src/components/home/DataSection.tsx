@@ -3,7 +3,7 @@ export function DataSection() {
     <section className="flex flex-col gap-8 rounded-3xl border border-border-subtle bg-surface p-8 sm:p-10">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Real data, not vibes</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Every career is backed by government labor data
         </h2>
       </div>
@@ -26,7 +26,7 @@ export function DataSection() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="font-[family-name:var(--font-display)] text-3xl font-medium text-accent">{value}</span>
+      <span className="font-[family-name:var(--font-brand)] text-3xl font-medium text-accent">{value}</span>
       <span className="text-sm text-foreground/50">{label}</span>
     </div>
   );

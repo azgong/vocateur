@@ -3,18 +3,18 @@ import { ImageResponse } from "next/og";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-async function loadFraunces(weight: number) {
+async function loadSpaceGrotesk(weight: number) {
   const css = await (
-    await fetch(`https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,${weight}&display=swap`)
+    await fetch(`https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@${weight}&display=swap`)
   ).text();
   const match = css.match(/src: url\(([^)]+)\) format\('(opentype|truetype)'\)/);
   const url = match?.[1];
-  if (!url) throw new Error("Could not resolve Fraunces font URL");
+  if (!url) throw new Error("Could not resolve Space Grotesk font URL");
   return fetch(url).then((res) => res.arrayBuffer());
 }
 
 export default async function OpengraphImage() {
-  const [fraunces600, fraunces500] = await Promise.all([loadFraunces(600), loadFraunces(500)]);
+  const [spaceGrotesk700, spaceGrotesk500] = await Promise.all([loadSpaceGrotesk(700), loadSpaceGrotesk(500)]);
 
   return new ImageResponse(
     (
@@ -39,7 +39,7 @@ export default async function OpengraphImage() {
             textTransform: "uppercase",
             color: "#8b7bff",
             marginBottom: 28,
-            fontFamily: "Fraunces",
+            fontFamily: "Space Grotesk",
           }}
         >
           Not another personality quiz
@@ -47,9 +47,10 @@ export default async function OpengraphImage() {
         <div
           style={{
             fontSize: 128,
-            fontWeight: 600,
+            fontWeight: 700,
             color: "#f3f1fa",
-            fontFamily: "Fraunces",
+            fontFamily: "Space Grotesk",
+            textTransform: "uppercase",
             lineHeight: 1,
           }}
         >
@@ -60,7 +61,7 @@ export default async function OpengraphImage() {
             fontSize: 30,
             fontWeight: 500,
             color: "#b7a9ff",
-            fontFamily: "Fraunces",
+            fontFamily: "Space Grotesk",
             marginTop: 26,
           }}
         >
@@ -71,8 +72,8 @@ export default async function OpengraphImage() {
     {
       ...size,
       fonts: [
-        { name: "Fraunces", data: fraunces600, weight: 600, style: "normal" },
-        { name: "Fraunces", data: fraunces500, weight: 500, style: "normal" },
+        { name: "Space Grotesk", data: spaceGrotesk700, weight: 700, style: "normal" },
+        { name: "Space Grotesk", data: spaceGrotesk500, weight: 500, style: "normal" },
       ],
     },
   );

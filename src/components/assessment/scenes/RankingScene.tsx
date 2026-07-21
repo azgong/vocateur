@@ -87,7 +87,7 @@ export function RankingScene({
       className="flex w-full max-w-2xl flex-col gap-6"
     >
       <div className="flex items-center justify-between">
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">{scene.title}</h2>
         <div className="rounded-full bg-surface-2 px-3 py-1 text-sm font-semibold tabular-nums text-foreground/60">
           {(elapsedMs / 1000).toFixed(1)}s
         </div>

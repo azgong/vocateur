@@ -26,7 +26,7 @@ export function HowItWorks() {
     <section className="flex flex-col gap-10">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Four steps, about ten minutes
         </h2>
       </div>
@@ -37,7 +37,7 @@ export function HowItWorks() {
               {i + 1}
             </span>
             <div className="flex flex-col gap-1.5">
-              <h3 className="font-[family-name:var(--font-display)] text-lg font-medium tracking-tight">
+              <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">
                 {step.title}
               </h3>
               <p className="text-sm leading-relaxed text-foreground/60">{step.description}</p>

@@ -68,7 +68,7 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6 print:hidden">
       <div>
-        <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">
+        <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">
           Your career advisor
         </h3>
         <p className="text-sm text-foreground/50">

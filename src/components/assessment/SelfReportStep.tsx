@@ -69,7 +69,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
     >
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium text-accent">Almost there</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">
           A few quick questions
         </h2>
         <p className="text-sm text-foreground/50">

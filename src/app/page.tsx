@@ -5,11 +5,45 @@ import { ScienceSection } from "@/components/home/ScienceSection";
 import { DataSection } from "@/components/home/DataSection";
 import { ProShowcase } from "@/components/home/ProShowcase";
 import { PricingSection } from "@/components/home/PricingSection";
-import { FaqSection } from "@/components/home/FaqSection";
+import { FaqSection, FAQS } from "@/components/home/FaqSection";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Vocateur",
+    url: "https://vocateur.app",
+    logo: "https://vocateur.app/icon",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Vocateur",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: "A simulation-based career-matching assessment that maps your behavior to real careers backed by U.S. Bureau of Labor Statistics data, then unlocks a personalized roadmap and AI career advisor.",
+    url: "https://vocateur.app",
+    offers: [
+      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
+      { "@type": "Offer", name: "Pro Monthly", price: "9", priceCurrency: "USD" },
+      { "@type": "Offer", name: "Pro Annual", price: "79", priceCurrency: "USD" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+];
 
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="flex flex-col items-center gap-6 px-6 pt-24 pb-20 text-center">
         <Logo size={64} />
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">

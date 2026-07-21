@@ -31,7 +31,7 @@ export function MatchCard({
           <span className={`text-xs font-medium uppercase tracking-wide ${isTop ? "text-accent" : "text-foreground/40"}`}>
             {isTop ? "Top match" : `Match #${rank}`}
           </span>
-          <h3 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">{title}</h3>
+          <h3 className="font-[family-name:var(--font-brand)] text-2xl font-medium tracking-tight">{title}</h3>
         </div>
         <div
           className={`flex shrink-0 flex-col items-center justify-center rounded-full px-3 py-2 ${

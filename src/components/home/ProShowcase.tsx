@@ -15,7 +15,7 @@ function RoadmapDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">Your personalized roadmap</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Your personalized roadmap</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
         Not a generic checklist. Milestones built from your matched career, your life stage, your timeline, and
         the context you shared, in order, with a real reason for each step.
@@ -37,7 +37,7 @@ function AdvisorDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">A real advisor, not a chatbot</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A real advisor, not a chatbot</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
         Grounded in real BLS wage and growth data plus curated, role-specific advisory content. Paste your resume
         and it reviews it like a hiring manager in that field would, not generic resume tips.
@@ -59,7 +59,7 @@ function MockInterviewDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">Real mock interviews</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Real mock interviews</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
         Role-specific interview questions, one at a time, with honest feedback after each answer, the same way a
         real interviewer for that job would run the conversation.
@@ -80,7 +80,7 @@ function MarketDataDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-display)] text-xl font-medium tracking-tight">Real market predictions</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Real market predictions</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
         Every match comes with real U.S. Bureau of Labor Statistics projections through 2034: growth, wage, and
         openings, not a made-up outlook.
@@ -109,7 +109,7 @@ export function ProShowcase() {
     <section className="flex flex-col gap-10">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Everything unlocked once you know your match
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">

@@ -88,7 +88,7 @@ export function TimedSelectScene({
       className="flex w-full max-w-2xl flex-col gap-6"
     >
       <div className="flex items-center justify-between">
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
+        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">{scene.title}</h2>
         <motion.div
           animate={urgent ? { scale: [1, 1.15, 1] } : {}}
           transition={{ repeat: urgent ? Infinity : 0, duration: 0.6 }}

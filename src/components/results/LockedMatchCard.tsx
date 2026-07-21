@@ -4,7 +4,7 @@ export function LockedMatchCard({ rank, title, fitScore }: { rank: number; title
       <div className="flex items-start justify-between gap-4">
         <div>
           <span className="text-xs font-medium uppercase tracking-wide text-foreground/30">Match #{rank}</span>
-          <h3 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight text-foreground/60">
+          <h3 className="font-[family-name:var(--font-brand)] text-2xl font-medium tracking-tight text-foreground/60">
             {title}
           </h3>
         </div>
