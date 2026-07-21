@@ -12,6 +12,9 @@ export function InstallPrompt() {
   const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
     function handleBeforeInstall(e: Event) {
       e.preventDefault();
       setInstallEvent(e as BeforeInstallPromptEvent);
