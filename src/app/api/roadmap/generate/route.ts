@@ -60,6 +60,10 @@ export async function POST(req: NextRequest) {
     location: storedReport.location ?? "",
     timeline: storedReport.timeline ?? "just_exploring",
     values: storedReport.values ?? [],
+    currentGPA: storedReport.currentGPA ?? "",
+    currentActivities: storedReport.currentActivities ?? "",
+    weeklyTimeAvailable: storedReport.weeklyTimeAvailable ?? "4_7_hours",
+    resumeStatus: storedReport.resumeStatus ?? "needs_work",
     additionalContext: storedReport.additionalContext ?? "",
   };
 

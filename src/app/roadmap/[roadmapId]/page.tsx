@@ -53,16 +53,59 @@ export default async function RoadmapPage({
             <span className="text-xs font-semibold uppercase tracking-wide text-accent/70">{m.timeframe}</span>
             <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">{m.title}</h3>
             <p className="text-sm leading-relaxed text-foreground/60">{m.description}</p>
+            {m.actionItems?.length > 0 && (
+              <ul className="mt-2 flex flex-col gap-1.5">
+                {m.actionItems.map((item, j) => (
+                  <li key={j} className="flex gap-2 text-sm leading-relaxed text-foreground/60">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ol>
 
       {occupation && <MarketOutlook occupation={occupation} />}
 
-      {content.networkingScript && (
-        <div className="rounded-2xl border border-border-subtle bg-surface-2 p-6">
-          <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-foreground/50">Sample outreach message</h3>
-          <p className="text-sm italic leading-relaxed text-foreground/70">{content.networkingScript}</p>
+      {content.networking && (
+        <div className="flex flex-col gap-5 rounded-2xl border border-border-subtle bg-surface-2 p-6">
+          <div>
+            <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">Networking &amp; outreach</h3>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/70">{content.networking.whoToContact}</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/70">{content.networking.howToOutreach}</p>
+          </div>
+          {content.networking.templates?.length > 0 && (
+            <div className="flex flex-col gap-3">
+              {content.networking.templates.map((t, i) => (
+                <div key={i} className="rounded-xl border border-border-subtle bg-surface p-4">
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-foreground/50">{t.label}</p>
+                  <p className="text-sm italic leading-relaxed text-foreground/70">{t.message}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {content.resources?.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">Resources to look into</h3>
+          <div className="flex flex-col gap-2">
+            {content.resources.map((r, i) => (
+              <div key={i} className="rounded-xl border border-border-subtle bg-surface p-4">
+                {r.url ? (
+                  <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-accent underline underline-offset-2">
+                    {r.name}
+                  </a>
+                ) : (
+                  <p className="text-sm font-medium">{r.name}</p>
+                )}
+                <p className="mt-1 text-sm leading-relaxed text-foreground/60">{r.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

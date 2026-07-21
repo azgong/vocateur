@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LifeStage, SelfReport, Timeline } from "@/lib/assessment/types";
+import { LifeStage, ResumeStatus, SelfReport, Timeline, WeeklyTimeAvailable } from "@/lib/assessment/types";
 
 const VALUE_OPTIONS = ["Stability", "Impact", "Creativity", "Autonomy", "Money", "Prestige"];
 
@@ -46,6 +46,10 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   const [location, setLocation] = useState("");
   const [timeline, setTimeline] = useState<Timeline | null>(null);
   const [values, setValues] = useState<string[]>([]);
+  const [currentGPA, setCurrentGPA] = useState("");
+  const [currentActivities, setCurrentActivities] = useState("");
+  const [weeklyTimeAvailable, setWeeklyTimeAvailable] = useState<WeeklyTimeAvailable | null>(null);
+  const [resumeStatus, setResumeStatus] = useState<ResumeStatus | null>(null);
   const [additionalContext, setAdditionalContext] = useState("");
 
   function toggleValue(v: string) {
@@ -57,7 +61,14 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   const focusPlaceholder = isStudent ? "e.g. Undecided, Computer Science, Biology" : "e.g. Marketing coordinator, between jobs";
 
   const canSubmit =
-    lifeStage && furtherSchooling && geographicFlexibility && timeline && values.length > 0 && currentFocus.trim().length > 0;
+    lifeStage &&
+    furtherSchooling &&
+    geographicFlexibility &&
+    timeline &&
+    values.length > 0 &&
+    currentFocus.trim().length > 0 &&
+    weeklyTimeAvailable &&
+    resumeStatus;
 
   return (
     <motion.div
@@ -100,6 +111,37 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             value={currentFocus}
             onChange={(e) => setCurrentFocus(e.target.value)}
             placeholder={focusPlaceholder}
+            className={inputClass}
+          />
+        </div>
+      )}
+
+      {isStudent && (
+        <div className="flex flex-col gap-2">
+          <p className="font-medium">
+            Current GPA? <span className="font-normal text-foreground/40">(optional, helps set exact grade targets)</span>
+          </p>
+          <input
+            type="text"
+            value={currentGPA}
+            onChange={(e) => setCurrentGPA(e.target.value)}
+            placeholder="e.g. 3.6 unweighted, or not sure yet"
+            className={inputClass}
+          />
+        </div>
+      )}
+
+      {lifeStage && (
+        <div className="flex flex-col gap-2">
+          <p className="font-medium">
+            {isStudent ? "Clubs, activities, or projects you're already doing?" : "Relevant experience, projects, or activities so far?"}{" "}
+            <span className="font-normal text-foreground/40">(optional, so we build on what you have)</span>
+          </p>
+          <input
+            type="text"
+            value={currentActivities}
+            onChange={(e) => setCurrentActivities(e.target.value)}
+            placeholder={isStudent ? "e.g. robotics club, part-time retail job, student council" : "e.g. led a small team, freelance projects, volunteer work"}
             className={inputClass}
           />
         </div>
@@ -177,6 +219,32 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       </div>
 
       <div className="flex flex-col gap-2">
+        <p className="font-medium">How much time can you realistically put toward this per week?</p>
+        <OptionRow
+          options={[
+            { value: "1_3_hours", label: "1-3 hours" },
+            { value: "4_7_hours", label: "4-7 hours" },
+            { value: "8_plus_hours", label: "8+ hours" },
+          ]}
+          selected={weeklyTimeAvailable}
+          onSelect={setWeeklyTimeAvailable}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">Where&rsquo;s your resume or LinkedIn at right now?</p>
+        <OptionRow
+          options={[
+            { value: "solid", label: "Solid, just needs targeting" },
+            { value: "needs_work", label: "Exists, needs work" },
+            { value: "dont_have_one", label: "Don't have one yet" },
+          ]}
+          selected={resumeStatus}
+          onSelect={setResumeStatus}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
         <p className="font-medium">
           Anything else your advisor should know? <span className="font-normal text-foreground/40">(optional)</span>
         </p>
@@ -204,6 +272,10 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             location: location.trim(),
             timeline,
             values,
+            currentGPA: currentGPA.trim(),
+            currentActivities: currentActivities.trim(),
+            weeklyTimeAvailable,
+            resumeStatus,
             additionalContext: additionalContext.trim(),
           })
         }
