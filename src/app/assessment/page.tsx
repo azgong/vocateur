@@ -8,6 +8,24 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://vocateur.app/assessment" },
 };
 
-export default function AssessmentPage() {
-  return <AssessmentFlow />;
+export default async function AssessmentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ checkout?: string }>;
+}) {
+  const { checkout } = await searchParams;
+
+  return (
+    <>
+      {checkout === "success" && (
+        <div className="mx-auto mt-6 w-full max-w-2xl px-6">
+          <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-3 text-center text-sm text-accent">
+            You&rsquo;re on Pro. Finish the assessment below and your full results, roadmap, and advisor will
+            already be unlocked.
+          </div>
+        </div>
+      )}
+      <AssessmentFlow />
+    </>
+  );
 }

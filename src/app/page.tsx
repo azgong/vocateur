@@ -7,6 +7,7 @@ import { DataSection } from "@/components/home/DataSection";
 import { ProShowcase } from "@/components/home/ProShowcase";
 import { PricingSection } from "@/components/home/PricingSection";
 import { FaqSection, FAQS } from "@/components/home/FaqSection";
+import { createClient } from "@/lib/supabase/server";
 
 const jsonLd = [
   {
@@ -41,11 +42,16 @@ const jsonLd = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const authClient = await createClient();
+  const {
+    data: { user },
+  } = await authClient.auth.getUser();
+
   return (
     <main className="flex flex-1 flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="flex flex-col items-center gap-6 px-6 pt-24 pb-20 text-center">
+      <section className="flex flex-col items-center gap-7 px-6 pt-24 pb-20 text-center">
         <Logo size={64} />
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
           Not another personality quiz
@@ -59,14 +65,27 @@ export default function Home() {
 
         <Link
           href="/assessment"
-          className="rounded-full bg-accent px-10 py-4 text-base font-medium text-white shadow-[0_0_28px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_36px_-4px_var(--accent)]"
+          className="rounded-full bg-accent px-14 py-6 text-xl font-semibold text-white shadow-[0_0_50px_-10px_var(--accent)] transition-shadow hover:shadow-[0_0_64px_-6px_var(--accent)]"
         >
           Start your assessment
         </Link>
-        <p className="text-sm text-foreground/40">
-          Takes about 10 minutes. Free to see your top match. $9/mo or $79/yr to unlock everything,
-          including a personal AI career advisor.
-        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-foreground/50">
+          <span className="flex items-center gap-1.5">
+            <BenefitDot /> 10 minutes, 4 real job scenarios
+          </span>
+          <span className="flex items-center gap-1.5">
+            <BenefitDot /> Backed by real BLS wage data
+          </span>
+          <span className="flex items-center gap-1.5">
+            <BenefitDot /> Free to see your top match
+          </span>
+        </div>
+
+        <Link href="#pricing" className="text-sm text-foreground/50 underline underline-offset-4 hover:text-accent">
+          Already know you want Pro? Unlock everything now
+        </Link>
+
         <InstallPrompt />
       </section>
 
@@ -75,7 +94,7 @@ export default function Home() {
         <ScienceSection />
         <DataSection />
         <ProShowcase />
-        <PricingSection />
+        <PricingSection isAuthenticated={!!user} userEmail={user?.email ?? null} />
         <FaqSection />
       </div>
 
@@ -92,4 +111,8 @@ export default function Home() {
       </footer>
     </main>
   );
+}
+
+function BenefitDot() {
+  return <span className="h-1.5 w-1.5 rounded-full bg-accent" />;
 }
