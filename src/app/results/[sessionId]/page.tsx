@@ -63,7 +63,7 @@ export default async function ResultsPage({
   );
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-6 py-16 lg:px-0">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your results</p>
         <h1 className="font-[family-name:var(--font-brand)] text-4xl font-medium tracking-tight sm:text-5xl">

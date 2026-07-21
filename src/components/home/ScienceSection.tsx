@@ -35,7 +35,7 @@ export function ScienceSection() {
           approach problems, not a clinical or neuroscientific diagnosis.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {QUADRANTS.map((q) => (
           <div key={q.key} className="flex flex-col gap-2 rounded-2xl border border-border-subtle bg-surface p-6">
             <div className="flex items-center gap-2">

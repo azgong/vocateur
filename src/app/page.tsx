@@ -68,7 +68,7 @@ export default function Home() {
         </p>
       </section>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-24 px-6 pb-24">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pb-24 lg:px-12">
         <HowItWorks />
         <ScienceSection />
         <DataSection />

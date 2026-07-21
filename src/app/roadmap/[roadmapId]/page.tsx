@@ -33,7 +33,7 @@ export default async function RoadmapPage({
   const occupationTitle = occupation?.title ?? "your match";
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16 print:py-0">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-6 py-16 print:py-0 lg:px-0">
       <div className="flex items-start justify-between gap-4 print:hidden">
         <div>
           <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your roadmap</p>

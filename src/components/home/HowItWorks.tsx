@@ -30,7 +30,7 @@ export function HowItWorks() {
           Four steps, about ten minutes
         </h2>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((step, i) => (
           <div key={step.title} className="flex gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/15 text-sm font-semibold text-accent">

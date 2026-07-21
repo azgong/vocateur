@@ -30,7 +30,7 @@ export function FaqSection() {
           Before you start
         </h2>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="grid gap-4 lg:grid-cols-2">
         {FAQS.map((item) => (
           <div key={item.q} className="rounded-2xl border border-border-subtle bg-surface p-6">
             <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">{item.q}</h3>

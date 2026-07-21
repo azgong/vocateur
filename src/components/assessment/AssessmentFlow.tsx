@@ -85,7 +85,7 @@ export function AssessmentFlow() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="flex max-w-xl flex-col items-center gap-6 text-center"
+            className="flex max-w-xl flex-col items-center gap-6 text-center lg:max-w-2xl"
           >
             <h1 className="font-[family-name:var(--font-brand)] text-4xl font-medium tracking-tight">
               Twelve scenarios. No quiz questions.
@@ -113,7 +113,7 @@ export function AssessmentFlow() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="flex max-w-xl flex-col items-center gap-5 text-center"
+            className="flex max-w-xl flex-col items-center gap-5 text-center lg:max-w-2xl"
           >
             <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${chapterMeta.text}`}>
               Chapter {chapterIndex + 1} of {CHAPTERS.length} &middot; {chapterMeta.name}
