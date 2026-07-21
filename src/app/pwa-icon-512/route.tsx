@@ -1,10 +1,7 @@
 import { ImageResponse } from "next/og";
 import { loadSpaceGrotesk } from "@/lib/ogFont";
 
-export const size = { width: 180, height: 180 };
-export const contentType = "image/png";
-
-export default async function AppleIcon() {
+export async function GET() {
   const spaceGrotesk = await loadSpaceGrotesk(700);
 
   return new ImageResponse(
@@ -21,32 +18,22 @@ export default async function AppleIcon() {
           backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
         }}
       >
-        <div
-          style={{
-            fontSize: 94,
-            fontWeight: 700,
-            color: "#f3f1fa",
-            fontFamily: "Space Grotesk",
-            lineHeight: 1,
-          }}
-        >
-          V
-        </div>
+        <div style={{ fontSize: 272, fontWeight: 700, color: "#f3f1fa", fontFamily: "Space Grotesk", lineHeight: 1 }}>V</div>
         <div
           style={{
             position: "absolute",
-            top: 40,
-            right: 43,
+            top: 112,
+            right: 120,
             width: 0,
             height: 0,
-            borderLeft: "14px solid transparent",
-            borderRight: "14px solid transparent",
-            borderBottom: "23px solid #b7a9ff",
+            borderLeft: "40px solid transparent",
+            borderRight: "40px solid transparent",
+            borderBottom: "64px solid #b7a9ff",
             transform: "rotate(45deg)",
           }}
         />
       </div>
     ),
-    { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
+    { width: 512, height: 512, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
   );
 }

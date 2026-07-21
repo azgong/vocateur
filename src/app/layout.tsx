@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { AuroraBackdrop } from "@/components/AuroraBackdrop";
 import { AgeGate } from "@/components/AgeGate";
@@ -36,6 +36,15 @@ export const metadata: Metadata = {
     title: "Vocateur",
     description: "Find the career that actually fits how you think.",
   },
+  appleWebApp: {
+    capable: true,
+    title: "Vocateur",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#08070d",
 };
 
 export default function RootLayout({

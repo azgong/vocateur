@@ -307,7 +307,7 @@ Respond with ONLY valid JSON matching this exact shape, no markdown fences, no p
   "resources": [{"name": string, "description": string, "url": string (optional, omit if not confident)}]
 }
 
-Include 4-6 milestones ordered chronologically, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers).`;
+Include 4-6 milestones ordered chronologically, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers). End every complete sentence with a period.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {

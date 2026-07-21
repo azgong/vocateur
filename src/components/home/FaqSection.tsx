@@ -1,3 +1,5 @@
+import { ScrollReveal } from "@/components/ScrollReveal";
+
 export const FAQS = [
   {
     q: "Is this a personality test?",
@@ -24,18 +26,18 @@ export const FAQS = [
 export function FaqSection() {
   return (
     <section className="flex flex-col gap-8">
-      <div className="text-center">
+      <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Questions</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Before you start
         </h2>
-      </div>
+      </ScrollReveal>
       <div className="grid gap-4 lg:grid-cols-2">
-        {FAQS.map((item) => (
-          <div key={item.q} className="rounded-2xl border border-border-subtle bg-surface p-6">
+        {FAQS.map((item, i) => (
+          <ScrollReveal key={item.q} delay={(i % 2) * 0.08} className="rounded-2xl border border-border-subtle bg-surface p-6">
             <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">{item.q}</h3>
             <p className="mt-2 text-sm leading-relaxed text-foreground/60">{item.a}</p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </section>

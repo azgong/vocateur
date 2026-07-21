@@ -1,3 +1,5 @@
+import { ScrollReveal } from "@/components/ScrollReveal";
+
 const QUADRANTS = [
   {
     key: "a" as const,
@@ -24,7 +26,7 @@ const QUADRANTS = [
 export function ScienceSection() {
   return (
     <section className="flex flex-col gap-10">
-      <div className="text-center">
+      <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">The framework</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Built on a real thinking-style model
@@ -34,22 +36,24 @@ export function ScienceSection() {
           widely used in organizational psychology and career coaching. It&rsquo;s a conceptual model for how people
           approach problems, not a clinical or neuroscientific diagnosis.
         </p>
-      </div>
+      </ScrollReveal>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {QUADRANTS.map((q) => (
-          <div key={q.key} className="flex flex-col gap-2 rounded-2xl border border-border-subtle bg-surface p-6">
+        {QUADRANTS.map((q, i) => (
+          <ScrollReveal key={q.key} delay={i * 0.08} className="flex flex-col gap-2 rounded-2xl border border-border-subtle bg-surface p-6">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: `var(--quadrant-${q.key})` }} />
               <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">{q.name}</h3>
             </div>
             <p className="text-sm leading-relaxed text-foreground/60">{q.description}</p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
-      <p className="mx-auto max-w-xl text-center text-sm text-foreground/50">
-        Instead of asking &ldquo;are you organized?&rdquo;, we put you in an unscripted moment that requires being
-        organized (or not) and score what you actually did.
-      </p>
+      <ScrollReveal>
+        <p className="mx-auto max-w-xl text-center text-sm text-foreground/50">
+          Instead of asking &ldquo;are you organized?&rdquo;, we put you in an unscripted moment that requires being
+          organized (or not) and score what you actually did.
+        </p>
+      </ScrollReveal>
     </section>
   );
 }

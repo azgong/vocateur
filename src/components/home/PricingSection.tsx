@@ -1,16 +1,17 @@
 import Link from "next/link";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export function PricingSection() {
   return (
     <section className="flex flex-col gap-8">
-      <div className="text-center">
+      <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Pricing</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Free to start, simple to unlock
         </h2>
-      </div>
+      </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2">
-        <div className="flex flex-col gap-4 rounded-3xl border border-border-subtle bg-surface p-8">
+        <ScrollReveal className="flex flex-col gap-4 rounded-3xl border border-border-subtle bg-surface p-8">
           <div>
             <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Free</h3>
             <p className="mt-1 text-3xl font-semibold">$0</p>
@@ -20,8 +21,8 @@ export function PricingSection() {
             <li>Your top 3 career matches</li>
             <li>Real reasoning behind each match</li>
           </ul>
-        </div>
-        <div className="flex flex-col gap-4 rounded-3xl border border-accent bg-accent/[0.06] p-8 shadow-[0_0_40px_-16px_var(--accent)]">
+        </ScrollReveal>
+        <ScrollReveal delay={0.1} className="flex flex-col gap-4 rounded-3xl border border-accent bg-accent/[0.06] p-8 shadow-[0_0_40px_-16px_var(--accent)]">
           <div>
             <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight text-accent">Pro</h3>
             <p className="mt-1 text-3xl font-semibold">
@@ -38,20 +39,20 @@ export function PricingSection() {
             <li>Real, role-specific mock interview practice, any time you want a rep</li>
             <li>PDF export &middot; cancel anytime</li>
           </ul>
-        </div>
+        </ScrollReveal>
       </div>
-      <p className="text-center text-sm text-foreground/50">
-        Take the free assessment first. You&rsquo;ll see the option to upgrade once you have real matches
-        to unlock.
-      </p>
-      <div className="flex justify-center">
+      <ScrollReveal className="flex flex-col items-center gap-6">
+        <p className="text-center text-sm text-foreground/50">
+          Take the free assessment first. You&rsquo;ll see the option to upgrade once you have real matches
+          to unlock.
+        </p>
         <Link
           href="/assessment"
           className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] transition-shadow hover:shadow-[0_0_36px_-4px_var(--accent)]"
         >
           Start your assessment
         </Link>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }

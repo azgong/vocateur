@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ScienceSection } from "@/components/home/ScienceSection";
 import { DataSection } from "@/components/home/DataSection";
@@ -66,6 +67,7 @@ export default function Home() {
           Takes about 10 minutes. Free to see your top match. $9/mo or $79/yr to unlock everything,
           including a personal AI career advisor.
         </p>
+        <InstallPrompt />
       </section>
 
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pb-24 lg:px-12">

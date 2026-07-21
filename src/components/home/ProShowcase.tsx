@@ -1,3 +1,5 @@
+import { ScrollReveal } from "@/components/ScrollReveal";
+
 function ExampleBadge() {
   return (
     <span className="absolute right-4 top-4 rounded-full border border-border-subtle bg-background/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-foreground/40">
@@ -107,7 +109,7 @@ function MarketDataDemo() {
 export function ProShowcase() {
   return (
     <section className="flex flex-col gap-10">
-      <div className="text-center">
+      <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Built to keep helping, not just to unlock once
@@ -116,12 +118,12 @@ export function ProShowcase() {
           Real examples of what Pro actually looks like, not a feature list. Every number and message below is
           illustrative, not a real user&rsquo;s data.
         </p>
-      </div>
+      </ScrollReveal>
       <div className="grid gap-4 sm:grid-cols-2">
-        <RoadmapDemo />
-        <AdvisorDemo />
-        <MockInterviewDemo />
-        <MarketDataDemo />
+        <ScrollReveal delay={0}><RoadmapDemo /></ScrollReveal>
+        <ScrollReveal delay={0.08}><AdvisorDemo /></ScrollReveal>
+        <ScrollReveal delay={0.16}><MockInterviewDemo /></ScrollReveal>
+        <ScrollReveal delay={0.24}><MarketDataDemo /></ScrollReveal>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import { ScrollReveal } from "@/components/ScrollReveal";
+
 const STEPS = [
   {
     title: "Step into four real job simulations",
@@ -24,15 +26,15 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="flex flex-col gap-10">
-      <div className="text-center">
+      <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
           Four steps, about ten minutes
         </h2>
-      </div>
+      </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((step, i) => (
-          <div key={step.title} className="flex gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
+          <ScrollReveal key={step.title} delay={i * 0.08} className="flex gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/15 text-sm font-semibold text-accent">
               {i + 1}
             </span>
@@ -42,7 +44,7 @@ export function HowItWorks() {
               </h3>
               <p className="text-sm leading-relaxed text-foreground/60">{step.description}</p>
             </div>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </section>
