@@ -90,16 +90,16 @@ export default async function ResultsPage({
         </div>
       ) : (
         <>
-          <div className="flex justify-center">
-            <SaveResultsForm sessionId={sessionId} />
-          </div>
-
-          <ResultsUpsell sessionId={sessionId} />
-
           <div className="flex flex-col gap-4 opacity-90">
             {lockedMatches.map((m, i) => (
               <LockedMatchCard key={m.occupation.id} rank={i + 4} title={m.occupation.title} fitScore={m.fitScore} />
             ))}
+          </div>
+
+          <ResultsUpsell sessionId={sessionId} />
+
+          <div className="flex justify-center">
+            <SaveResultsForm sessionId={sessionId} />
           </div>
         </>
       )}
