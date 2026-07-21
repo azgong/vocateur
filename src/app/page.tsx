@@ -15,7 +15,7 @@ export default function Home() {
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
           Not another personality quiz
         </span>
-        <h1 className="font-[family-name:var(--font-brand)] text-6xl font-bold tracking-tight sm:text-7xl">
+        <h1 className="font-[family-name:var(--font-brand)] text-6xl font-bold uppercase tracking-tight sm:text-7xl">
           Vocateur
         </h1>
         <p className="max-w-md text-lg text-foreground/60">
