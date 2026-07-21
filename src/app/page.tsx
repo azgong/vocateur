@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-10 px-6 py-24 text-center">
       <div className="flex flex-col items-center gap-5">
+        <Logo size={64} />
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
           Not another personality quiz
         </span>

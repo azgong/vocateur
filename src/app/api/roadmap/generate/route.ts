@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { generateRoadmap } from "@/lib/assessment/roadmap";
-import { LifeStage } from "@/lib/assessment/types";
+import { SelfReport } from "@/lib/assessment/types";
 import { Occupation } from "@/lib/assessment/matching";
 
 export async function POST(req: NextRequest) {
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   }
 
   const [{ data: session }, { data: occupation }] = await Promise.all([
-    admin.from("assessment_sessions").select("life_stage").eq("id", sessionId).single(),
+    admin.from("assessment_sessions").select("life_stage, self_report").eq("id", sessionId).single(),
     admin.from("occupations").select("*").eq("id", occupationId).single(),
   ]);
 
@@ -50,7 +50,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Session or occupation not found." }, { status: 404 });
   }
 
-  const content = await generateRoadmap(occupation as Occupation, session.life_stage as LifeStage);
+  // self_report is stored as { ...selfReport, moduleLogs } — pull out just the SelfReport shape.
+  const storedReport = (session.self_report ?? {}) as Partial<SelfReport> & { moduleLogs?: unknown };
+  const selfReport: SelfReport = {
+    lifeStage: session.life_stage,
+    currentFocus: storedReport.currentFocus ?? "",
+    furtherSchooling: storedReport.furtherSchooling ?? "maybe",
+    geographicFlexibility: storedReport.geographicFlexibility ?? "national",
+    location: storedReport.location ?? "",
+    timeline: storedReport.timeline ?? "just_exploring",
+    values: storedReport.values ?? [],
+    additionalContext: storedReport.additionalContext ?? "",
+  };
+
+  const content = await generateRoadmap(occupation as Occupation, selfReport);
 
   const { data: roadmap, error } = await admin
     .from("roadmaps")

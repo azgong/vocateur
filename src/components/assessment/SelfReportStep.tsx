@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LifeStage, SelfReport } from "@/lib/assessment/types";
+import { LifeStage, SelfReport, Timeline } from "@/lib/assessment/types";
 
 const VALUE_OPTIONS = ["Stability", "Impact", "Creativity", "Autonomy", "Money", "Prestige"];
 
@@ -35,17 +35,29 @@ function OptionRow<T extends string>({
   );
 }
 
+const inputClass =
+  "w-full rounded-2xl border-2 border-border-subtle bg-surface px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent placeholder:text-foreground/30";
+
 export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport) => void }) {
+  const [lifeStage, setLifeStage] = useState<LifeStage | null>(null);
+  const [currentFocus, setCurrentFocus] = useState("");
   const [furtherSchooling, setFurtherSchooling] = useState<SelfReport["furtherSchooling"] | null>(null);
   const [geographicFlexibility, setGeographicFlexibility] = useState<SelfReport["geographicFlexibility"] | null>(null);
-  const [lifeStage, setLifeStage] = useState<LifeStage | null>(null);
+  const [location, setLocation] = useState("");
+  const [timeline, setTimeline] = useState<Timeline | null>(null);
   const [values, setValues] = useState<string[]>([]);
+  const [additionalContext, setAdditionalContext] = useState("");
 
   function toggleValue(v: string) {
     setValues((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : prev.length < 3 ? [...prev, v] : prev));
   }
 
-  const canSubmit = furtherSchooling && geographicFlexibility && lifeStage && values.length > 0;
+  const isStudent = lifeStage === "high_school" || lifeStage === "university";
+  const focusLabel = isStudent ? "What are you studying (or planning to)?" : "What do you currently do?";
+  const focusPlaceholder = isStudent ? "e.g. Undecided, Computer Science, Biology" : "e.g. Marketing coordinator, between jobs";
+
+  const canSubmit =
+    lifeStage && furtherSchooling && geographicFlexibility && timeline && values.length > 0 && currentFocus.trim().length > 0;
 
   return (
     <motion.div
@@ -55,11 +67,15 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       transition={{ duration: 0.3 }}
       className="flex w-full max-w-lg flex-col gap-8"
     >
-      <div>
+      <div className="flex flex-col gap-2">
         <p className="text-sm font-medium text-accent">Almost there</p>
         <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
           A few quick questions
         </h2>
+        <p className="text-sm text-foreground/50">
+          The more you tell us here, the more specific your roadmap and advisor conversations will be &mdash;
+          this isn&rsquo;t graded, it&rsquo;s just context we hand directly to the AI building your plan.
+        </p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -75,6 +91,19 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
           onSelect={setLifeStage}
         />
       </div>
+
+      {lifeStage && (
+        <div className="flex flex-col gap-2">
+          <p className="font-medium">{focusLabel}</p>
+          <input
+            type="text"
+            value={currentFocus}
+            onChange={(e) => setCurrentFocus(e.target.value)}
+            placeholder={focusPlaceholder}
+            className={inputClass}
+          />
+        </div>
+      )}
 
       <div className="flex flex-col gap-2">
         <p className="font-medium">Open to more schooling if the path called for it?</p>
@@ -103,6 +132,31 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       </div>
 
       <div className="flex flex-col gap-2">
+        <p className="font-medium">Where are you located? <span className="font-normal text-foreground/40">(optional)</span></p>
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="e.g. Toronto, ON or Austin, TX"
+          className={inputClass}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">How soon do you want real progress toward this?</p>
+        <OptionRow
+          options={[
+            { value: "already_committed", label: "Already committed" },
+            { value: "within_a_year", label: "Within a year" },
+            { value: "one_to_three_years", label: "1-3 years" },
+            { value: "just_exploring", label: "Just exploring" },
+          ]}
+          selected={timeline}
+          onSelect={setTimeline}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
         <p className="font-medium">Pick up to 3 things that matter most in your work.</p>
         <div className="flex flex-wrap gap-2">
           {VALUE_OPTIONS.map((v) => (
@@ -122,6 +176,19 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
         </div>
       </div>
 
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">
+          Anything else your advisor should know? <span className="font-normal text-foreground/40">(optional)</span>
+        </p>
+        <textarea
+          value={additionalContext}
+          onChange={(e) => setAdditionalContext(e.target.value)}
+          placeholder="e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation"
+          rows={3}
+          className={`${inputClass} resize-none`}
+        />
+      </div>
+
       <motion.button
         type="button"
         disabled={!canSubmit}
@@ -129,7 +196,16 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
         whileTap={{ scale: 0.97 }}
         onClick={() =>
           canSubmit &&
-          onComplete({ furtherSchooling, geographicFlexibility, lifeStage, values })
+          onComplete({
+            lifeStage,
+            currentFocus: currentFocus.trim(),
+            furtherSchooling,
+            geographicFlexibility,
+            location: location.trim(),
+            timeline,
+            values,
+            additionalContext: additionalContext.trim(),
+          })
         }
         className="self-center rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-40 disabled:shadow-none"
       >

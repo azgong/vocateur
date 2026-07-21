@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { LifeStage } from "./types";
+import { LifeStage, SelfReport } from "./types";
 import { Occupation } from "./matching";
 
 export type RoadmapContent = {
@@ -67,7 +67,27 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
   return content;
 }
 
-async function callClaude(occupation: Occupation, lifeStage: LifeStage): Promise<RoadmapContent | null> {
+const TIMELINE_BRIEF: Record<SelfReport["timeline"], string> = {
+  already_committed: "They're already committed to making this move — treat the first milestone as something to act on immediately, not someday.",
+  within_a_year: "They want real progress within the next year — keep milestones concrete and near-term.",
+  one_to_three_years: "They're working on a 1-3 year horizon — it's fine to include milestones that build over that longer window.",
+  just_exploring: "They're still just exploring this path — keep early milestones low-commitment (research, conversations, small projects) before anything that requires a big leap.",
+};
+
+function personalContextBlock(selfReport: SelfReport): string {
+  const lines = [
+    selfReport.currentFocus ? `Current focus: ${selfReport.currentFocus}` : null,
+    selfReport.location ? `Location: ${selfReport.location} — tailor examples (programs, employers, cost of living) to this where it genuinely helps.` : null,
+    `Timeline: ${TIMELINE_BRIEF[selfReport.timeline]}`,
+    selfReport.geographicFlexibility === "local" ? "They want to stay local — don't suggest relocating." : null,
+    selfReport.furtherSchooling === "no" ? "They do not want more formal schooling — favor certifications, self-study, and on-the-job paths over degree programs." : null,
+    selfReport.values.length ? `What matters most to them at work: ${selfReport.values.join(", ")} — let this shape which milestones you emphasize.` : null,
+    selfReport.additionalContext ? `Additional context they shared directly: ${selfReport.additionalContext}` : null,
+  ].filter(Boolean);
+  return lines.join("\n");
+}
+
+async function callClaude(occupation: Occupation, selfReport: SelfReport): Promise<RoadmapContent | null> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
 
@@ -84,7 +104,10 @@ async function callClaude(occupation: Occupation, lifeStage: LifeStage): Promise
 
   const prompt = `Write a personalized career roadmap for someone who matched to "${occupation.title}" (${occupation.description}, top skills: ${occupation.top_skills.join(", ")}, typical education: ${occupation.education_level}).
 ${advisoryContext ? `\nReal advisory context for this specific role — ground your milestones in this rather than generic advice:\n${advisoryContext}\n` : ""}
-They are ${LIFE_STAGE_BRIEF[lifeStage]}
+They are ${LIFE_STAGE_BRIEF[selfReport.lifeStage]}
+
+PERSONAL CONTEXT — use this to make milestones genuinely specific to this person, not generic:
+${personalContextBlock(selfReport)}
 
 Respond with ONLY valid JSON matching this exact shape, no markdown fences, no preamble:
 {"headline": string, "milestones": [{"timeframe": string, "title": string, "description": string}], "networkingScript": string (optional, only include for university/early_career/career_changer stages)}
@@ -112,7 +135,7 @@ Include 3-5 milestones ordered chronologically.`;
   return null;
 }
 
-export async function generateRoadmap(occupation: Occupation, lifeStage: LifeStage): Promise<RoadmapContent> {
-  const llmResult = await callClaude(occupation, lifeStage);
-  return llmResult ?? templatedRoadmap(occupation, lifeStage);
+export async function generateRoadmap(occupation: Occupation, selfReport: SelfReport): Promise<RoadmapContent> {
+  const llmResult = await callClaude(occupation, selfReport);
+  return llmResult ?? templatedRoadmap(occupation, selfReport.lifeStage);
 }

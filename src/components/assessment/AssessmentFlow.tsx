@@ -8,8 +8,9 @@ import { SceneRenderer } from "./scenes/SceneRenderer";
 import { SelfReportStep } from "./SelfReportStep";
 import { ModuleLog, SelfReport } from "@/lib/assessment/types";
 import { CHAPTERS, SceneConfig } from "@/lib/assessment/scenes";
+import { QUADRANT_META, CHAPTER_QUADRANT } from "@/lib/assessment/quadrantStyle";
 
-type Step = "intro" | "scene" | "self_report" | "submitting" | "error";
+type Step = "intro" | "chapter_intro" | "scene" | "self_report" | "submitting" | "error";
 
 const FLAT_SCENES: SceneConfig[] = CHAPTERS.flatMap((c) => c.scenes);
 
@@ -35,7 +36,10 @@ export function AssessmentFlow() {
     const nextLogs = [...logs, log];
     setLogs(nextLogs);
     if (sceneIndex + 1 < FLAT_SCENES.length) {
-      setSceneIndex((i) => i + 1);
+      const nextIndex = sceneIndex + 1;
+      setSceneIndex(nextIndex);
+      const { sceneInChapter } = chapterInfoForIndex(nextIndex);
+      setStep(sceneInChapter === 0 ? "chapter_intro" : "scene");
     } else {
       setStep("self_report");
     }
@@ -67,7 +71,7 @@ export function AssessmentFlow() {
 
   const currentScene = FLAT_SCENES[sceneIndex];
   const { chapter, sceneInChapter, chapterIndex } = chapterInfoForIndex(sceneIndex);
-  const isFirstSceneOfChapter = sceneInChapter === 0;
+  const chapterMeta = QUADRANT_META[CHAPTER_QUADRANT[chapter.id]];
 
   return (
     <div className="flex flex-1 flex-col items-center gap-8 px-6 py-16">
@@ -94,7 +98,7 @@ export function AssessmentFlow() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => setStep("scene")}
+              onClick={() => setStep("chapter_intro")}
               className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
             >
               Start
@@ -102,19 +106,35 @@ export function AssessmentFlow() {
           </motion.div>
         )}
 
+        {step === "chapter_intro" && (
+          <motion.div
+            key={`chapter-intro-${chapter.id}`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+            className="flex max-w-md flex-col items-center gap-5 text-center"
+          >
+            <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${chapterMeta.text}`}>
+              Chapter {chapterIndex + 1} of {CHAPTERS.length} &middot; {chapterMeta.name}
+            </span>
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+              {chapter.quadrantLabel}
+            </h1>
+            <p className="text-foreground/60">{chapter.focus}</p>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setStep("scene")}
+              className={`self-center rounded-full px-8 py-3 text-sm font-medium ${chapterMeta.buttonText} ${chapterMeta.bg} ${chapterMeta.ring}`}
+            >
+              Begin
+            </motion.button>
+          </motion.div>
+        )}
+
         {step === "scene" && (
           <motion.div key={`scene-wrap-${sceneIndex}`} className="flex w-full flex-col items-center gap-6">
-            {isFirstSceneOfChapter && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-sm font-medium text-foreground/40"
-              >
-                {chapter.intro}
-              </motion.p>
-            )}
             <SceneRenderer key={`scene-${sceneIndex}`} scene={currentScene} onComplete={handleSceneComplete} />
           </motion.div>
         )}

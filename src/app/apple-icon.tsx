@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 64, height: 64 };
+export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 async function loadFraunces(weight: number) {
@@ -13,7 +13,7 @@ async function loadFraunces(weight: number) {
   return fetch(url).then((res) => res.arrayBuffer());
 }
 
-export default async function Icon() {
+export default async function AppleIcon() {
   const fraunces = await loadFraunces(700);
 
   return new ImageResponse(
@@ -28,26 +28,25 @@ export default async function Icon() {
           justifyContent: "center",
           backgroundColor: "#08070d",
           backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
-          borderRadius: 14,
         }}
       >
         <div
           style={{
-            fontSize: 34,
+            fontSize: 96,
             fontWeight: 700,
             color: "#f3f1fa",
             fontFamily: "Fraunces",
             lineHeight: 1,
-            marginTop: -2,
+            marginTop: -6,
           }}
         >
           V
         </div>
-        <div style={{ display: "flex", gap: 3, marginTop: 3 }}>
-          <div style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#4f9dff" }} />
-          <div style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#35d69b" }} />
-          <div style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#ff6b8a" }} />
-          <div style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#ffc24b" }} />
+        <div style={{ display: "flex", gap: 9, marginTop: 10 }}>
+          <div style={{ width: 16, height: 16, borderRadius: 8, backgroundColor: "#4f9dff" }} />
+          <div style={{ width: 16, height: 16, borderRadius: 8, backgroundColor: "#35d69b" }} />
+          <div style={{ width: 16, height: 16, borderRadius: 8, backgroundColor: "#ff6b8a" }} />
+          <div style={{ width: 16, height: 16, borderRadius: 8, backgroundColor: "#ffc24b" }} />
         </div>
       </div>
     ),

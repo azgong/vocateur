@@ -91,6 +91,9 @@ export type Chapter = {
   id: ChapterId;
   name: string;
   intro: string;
+  /** Shown on the dedicated chapter title screen: what this chapter is built to assess. */
+  quadrantLabel: string;
+  focus: string;
   scenes: SceneConfig[];
 };
 
@@ -99,6 +102,9 @@ export const CHAPTERS: Chapter[] = [
     id: "analyst",
     name: "Analyst",
     intro: "An analyst call.",
+    quadrantLabel: "Quadrant A — Analytical",
+    focus:
+      "This chapter is built around analytical thinking — the logical, fact-based, data-first way some people naturally approach problems. The three moments ahead reward rigor and evidence over gut instinct.",
     scenes: [
       {
         type: "timedSelect",
@@ -156,6 +162,9 @@ export const CHAPTERS: Chapter[] = [
     id: "physician",
     name: "Physician",
     intro: "An ER shift.",
+    quadrantLabel: "Quadrant B — Sequential",
+    focus:
+      "This chapter is built around sequential thinking — the structured, detail-oriented, process-driven way some people operate under pressure. The three moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
     scenes: [
       {
         type: "ranking",
@@ -214,6 +223,9 @@ export const CHAPTERS: Chapter[] = [
     id: "executive",
     name: "Executive",
     intro: "A workplace conflict.",
+    quadrantLabel: "Quadrant C — Interpersonal",
+    focus:
+      "This chapter is built around interpersonal thinking — the relational, emotionally attuned, people-first way some people lead. The three moments ahead reward reading people and situations, not just the facts on the page.",
     scenes: [
       {
         type: "choice",
@@ -275,6 +287,9 @@ export const CHAPTERS: Chapter[] = [
     id: "founder",
     name: "Founder",
     intro: "A founder's budget.",
+    quadrantLabel: "Quadrant D — Imaginative",
+    focus:
+      "This chapter is built around imaginative thinking — the big-picture, intuitive, risk-embracing way some people build under uncertainty. The three moments ahead reward vision and conviction over caution.",
     scenes: [
       {
         type: "allocation",

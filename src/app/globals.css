@@ -23,30 +23,6 @@
   --quadrant-d-ink: #402a02;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #faf8f4;
-    --foreground: #16121f;
-    --surface: #ffffff;
-    --surface-2: #f3f0ea;
-    --border-subtle: rgba(22, 18, 31, 0.08);
-    --border-strong: rgba(22, 18, 31, 0.16);
-
-    --accent: #6a56e8;
-    --accent-soft: #ece8ff;
-    --accent-ink: #ffffff;
-
-    --quadrant-a: #2f6fd6;
-    --quadrant-a-ink: #ffffff;
-    --quadrant-b: #16916a;
-    --quadrant-b-ink: #ffffff;
-    --quadrant-c: #e14d6d;
-    --quadrant-c-ink: #ffffff;
-    --quadrant-d: #c98211;
-    --quadrant-d-ink: #ffffff;
-  }
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -107,13 +83,6 @@ body {
   right: -15%;
   background: radial-gradient(circle, var(--quadrant-c), transparent 70%);
   animation-delay: -11s;
-}
-
-@media (prefers-color-scheme: light) {
-  .aurora-backdrop::before,
-  .aurora-backdrop::after {
-    opacity: 0.18;
-  }
 }
 
 @keyframes aurora-drift {

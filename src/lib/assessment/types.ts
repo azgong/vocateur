@@ -20,9 +20,16 @@ export type ModuleLog = {
   extra?: Record<string, unknown>;
 };
 
+export type Timeline = "already_committed" | "within_a_year" | "one_to_three_years" | "just_exploring";
+
 export type SelfReport = {
+  lifeStage: LifeStage;
+  /** Field of study (high_school/university) or current role/field (early_career/career_changer). */
+  currentFocus: string;
   furtherSchooling: "yes" | "no" | "maybe";
   geographicFlexibility: "local" | "national" | "global";
+  location: string;
+  timeline: Timeline;
   values: string[];
-  lifeStage: LifeStage;
+  additionalContext: string;
 };
