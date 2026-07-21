@@ -1,7 +1,7 @@
 import { TraitVector } from "./types";
 
 // A "chapter" is one of the four narrative worlds (Analyst/Physician/Executive/Founder).
-// Each chapter runs 3 scenes. No scene is a pure single-quadrant test — every scene's
+// Each chapter runs 3 scenes. No scene is a pure single-quadrant test: every scene's
 // trait contributions blend a primary quadrant with a meaningful secondary one, and the
 // UI never labels a scene by quadrant/trait name, so there's nothing for a user to
 // reverse-engineer and answer strategically toward.
@@ -94,6 +94,8 @@ export type Chapter = {
   /** Shown on the dedicated chapter title screen: what this chapter is built to assess. */
   quadrantLabel: string;
   focus: string;
+  /** A short narrative setup for the chapter's world, shown as a "case file" on the title screen. */
+  caseStudy: string;
   scenes: SceneConfig[];
 };
 
@@ -102,9 +104,11 @@ export const CHAPTERS: Chapter[] = [
     id: "analyst",
     name: "Analyst",
     intro: "An analyst call.",
-    quadrantLabel: "Quadrant A — Analytical",
+    quadrantLabel: "Quadrant A: Analytical",
     focus:
-      "This chapter is built around analytical thinking — the logical, fact-based, data-first way some people naturally approach problems. The three moments ahead reward rigor and evidence over gut instinct.",
+      "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The three moments ahead reward rigor and evidence over gut instinct.",
+    caseStudy:
+      "You're three weeks into a research associate role at a mid-size investment fund. The senior partner is out sick, the client call starts in ten minutes, and the numbers on your screen need to make sense before it does.",
     scenes: [
       {
         type: "timedSelect",
@@ -152,7 +156,7 @@ export const CHAPTERS: Chapter[] = [
           { id: "quantify_it", label: "Re-run the model with her point quantified as a real variable.", traitContribution: { quadrant_a: 0.95, quadrant_b: 0.55, quadrant_c: 0.15, quadrant_d: 0.2 } },
           { id: "present_both", label: "Present both numbers and let the room decide.", traitContribution: { quadrant_a: 0.6, quadrant_b: 0.35, quadrant_c: 0.55, quadrant_d: 0.2 } },
           { id: "trust_her", label: "Trust her experience and go with the qualitative read.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.2, quadrant_c: 0.6, quadrant_d: 0.3 } },
-          { id: "trust_model", label: "Trust the model — data over intuition, every time.", traitContribution: { quadrant_a: 0.97, quadrant_b: 0.3, quadrant_c: 0.05, quadrant_d: 0.1 } },
+          { id: "trust_model", label: "Trust the model: data over intuition, every time.", traitContribution: { quadrant_a: 0.97, quadrant_b: 0.3, quadrant_c: 0.05, quadrant_d: 0.1 } },
         ],
         description: "deciding whether to trust a valuation model over a senior analyst's gut call",
       },
@@ -162,16 +166,18 @@ export const CHAPTERS: Chapter[] = [
     id: "physician",
     name: "Physician",
     intro: "An ER shift.",
-    quadrantLabel: "Quadrant B — Sequential",
+    quadrantLabel: "Quadrant B: Sequential",
     focus:
-      "This chapter is built around sequential thinking — the structured, detail-oriented, process-driven way some people operate under pressure. The three moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
+      "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The three moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
+    caseStudy:
+      "It's hour nine of a twelve-hour ER shift at a busy urban hospital. The waiting room just got fuller, the charge nurse is stretched thin, and every decision you make in the next few minutes has a real person attached to it.",
     scenes: [
       {
         type: "ranking",
         id: "triage",
         chapterId: "physician",
         title: "Triage the incoming cases",
-        prompt: "Five patients just arrived. Tap them in the order you'd see them, most urgent first. Once you place a case, it's locked — no undo.",
+        prompt: "Five patients just arrived. Tap them in the order you'd see them, most urgent first. Once you place a case, it's locked, no undo.",
         displayOrder: [
           { id: "wrist", primaryLabel: "Wrist injury after a fall", secondaryLabel: "Visible deformity, pain 6/10, alert" },
           { id: "chest_pain", primaryLabel: "Chest pain and shortness of breath", secondaryLabel: "Sweating, pain radiating to left arm" },
@@ -223,9 +229,11 @@ export const CHAPTERS: Chapter[] = [
     id: "executive",
     name: "Executive",
     intro: "A workplace conflict.",
-    quadrantLabel: "Quadrant C — Interpersonal",
+    quadrantLabel: "Quadrant C: Interpersonal",
     focus:
-      "This chapter is built around interpersonal thinking — the relational, emotionally attuned, people-first way some people lead. The three moments ahead reward reading people and situations, not just the facts on the page.",
+      "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The three moments ahead reward reading people and situations, not just the facts on the page.",
+    caseStudy:
+      "You were just promoted to team lead. Two people you used to sit next to are now people you manage, and they're not getting along. Everything you know about them so far is coming through a screen.",
     scenes: [
       {
         type: "choice",
@@ -234,7 +242,7 @@ export const CHAPTERS: Chapter[] = [
         title: "Mediate the conflict",
         context: [
           { speaker: "Alex (Slack DM)", text: "Jordan keeps rewriting my work without telling me. I found out about it in a client meeting. I look incompetent." },
-          { speaker: "Jordan (Slack DM)", text: "Alex's draft had errors that would've gone to the client. I fixed it under deadline — there wasn't time to loop back." },
+          { speaker: "Jordan (Slack DM)", text: "Alex's draft had errors that would've gone to the client. I fixed it under deadline. There wasn't time to loop back." },
         ],
         prompt: "You only have these two messages. What do you do?",
         confirmLabel: "Go with this",
@@ -242,7 +250,7 @@ export const CHAPTERS: Chapter[] = [
           { id: "private_listen", label: "Meet with each of them privately first, before deciding anything.", traitContribution: { quadrant_a: 0.3, quadrant_b: 0.3, quadrant_c: 0.85, quadrant_d: 0.2 } },
           { id: "immediate_compromise", label: "Bring them together right now and propose a compromise on the spot.", traitContribution: { quadrant_a: 0.15, quadrant_b: 0.2, quadrant_c: 0.75, quadrant_d: 0.45 } },
           { id: "feelings_first", label: "Focus on how each person is feeling before touching the actual disagreement.", traitContribution: { quadrant_a: 0.1, quadrant_b: 0.15, quadrant_c: 0.95, quadrant_d: 0.25 } },
-          { id: "escalate", label: "Escalate to their manager — you don't have the full picture.", traitContribution: { quadrant_a: 0.25, quadrant_b: 0.6, quadrant_c: 0.35, quadrant_d: 0.1 } },
+          { id: "escalate", label: "Escalate to their manager, since you don't have the full picture.", traitContribution: { quadrant_a: 0.25, quadrant_b: 0.6, quadrant_c: 0.35, quadrant_d: 0.1 } },
         ],
         description: "mediating a conflict between two coworkers from two DMs and no other context",
       },
@@ -257,7 +265,7 @@ export const CHAPTERS: Chapter[] = [
           { id: "step_by_step", label: "Walk through exactly what was wrong and why, step by step.", traitContribution: { quadrant_a: 0.75, quadrant_b: 0.35, quadrant_c: 0.6, quadrant_d: 0.1 } },
           { id: "praise_first", label: "Start with what they did well, then get into the error.", traitContribution: { quadrant_a: 0.4, quadrant_b: 0.25, quadrant_c: 0.9, quadrant_d: 0.15 } },
           { id: "ask_process", label: "Ask them to walk you through their process first.", traitContribution: { quadrant_a: 0.45, quadrant_b: 0.2, quadrant_c: 0.85, quadrant_d: 0.25 } },
-          { id: "keep_brief", label: "Keep it brief — just flag the error and the fix, move on.", traitContribution: { quadrant_a: 0.7, quadrant_b: 0.5, quadrant_c: 0.35, quadrant_d: 0.1 } },
+          { id: "keep_brief", label: "Keep it brief: just flag the error and the fix, move on.", traitContribution: { quadrant_a: 0.7, quadrant_b: 0.5, quadrant_c: 0.35, quadrant_d: 0.1 } },
         ],
         description: "giving feedback after a direct report's error reached a client",
       },
@@ -266,7 +274,7 @@ export const CHAPTERS: Chapter[] = [
         id: "read_the_room",
         chapterId: "executive",
         title: "Read the room",
-        prompt: "Stand-up just ended. One teammate needs a check-in before the day gets away from you. Skim the last hour of messages — who is it?",
+        prompt: "Stand-up just ended. One teammate needs a check-in before the day gets away from you. Skim the last hour of messages: who is it?",
         items: [
           { id: "pr_up", primaryLabel: "\"on it, will have the PR up by 2\"", secondaryLabel: "", correct: false },
           { id: "rough_morning", primaryLabel: "\"sorry, having a rough morning, might be a bit slow today\"", secondaryLabel: "", correct: true },
@@ -287,16 +295,18 @@ export const CHAPTERS: Chapter[] = [
     id: "founder",
     name: "Founder",
     intro: "A founder's budget.",
-    quadrantLabel: "Quadrant D — Imaginative",
+    quadrantLabel: "Quadrant D: Imaginative",
     focus:
-      "This chapter is built around imaginative thinking — the big-picture, intuitive, risk-embracing way some people build under uncertainty. The three moments ahead reward vision and conviction over caution.",
+      "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The three moments ahead reward vision and conviction over caution.",
+    caseStudy:
+      "Eight months after launch, the seed money is finite and the calendar keeps moving whether the product is ready or not. You're the one who has to decide where the next dollar and the next month go.",
     scenes: [
       {
         type: "allocation",
         id: "allocate_runway",
         chapterId: "founder",
         title: "Allocate your runway",
-        prompt: "You've got 100 points of budget and six months of runway left. Split it however you want — there's no correct answer here.",
+        prompt: "You've got 100 points of budget and six months of runway left. Split it however you want. There's no correct answer here.",
         categories: [
           { id: "product", label: "Product", hint: "Build the next feature customers are asking for" },
           { id: "marketing", label: "Marketing & Growth", hint: "Spend to acquire more users, fast" },
@@ -332,10 +342,10 @@ export const CHAPTERS: Chapter[] = [
         prompt: "Growth has been flat for 6 weeks. Half your team thinks you should pivot the core product. The other half says stay the course and fix onboarding.",
         confirmLabel: "Make the call",
         options: [
-          { id: "pivot", label: "Pivot — flat growth for 6 weeks is a real signal.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.1, quadrant_c: 0.2, quadrant_d: 0.95 } },
+          { id: "pivot", label: "Pivot: flat growth for 6 weeks is a real signal.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.1, quadrant_c: 0.2, quadrant_d: 0.95 } },
           { id: "fix_onboarding", label: "Stay the course, fix onboarding first, revisit in a month.", traitContribution: { quadrant_a: 0.5, quadrant_b: 0.6, quadrant_c: 0.3, quadrant_d: 0.35 } },
           { id: "call_churned_users", label: "Get on calls with 10 churned users this week before deciding.", traitContribution: { quadrant_a: 0.45, quadrant_b: 0.25, quadrant_c: 0.75, quadrant_d: 0.5 } },
-          { id: "split_team", label: "Split the team — half on a pivot prototype, half on onboarding.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.4, quadrant_c: 0.35, quadrant_d: 0.7 } },
+          { id: "split_team", label: "Split the team: half on a pivot prototype, half on onboarding.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.4, quadrant_c: 0.35, quadrant_d: 0.7 } },
         ],
         description: "deciding whether to pivot the product after six weeks of flat growth",
       },

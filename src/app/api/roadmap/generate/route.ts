@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Session or occupation not found." }, { status: 404 });
   }
 
-  // self_report is stored as { ...selfReport, moduleLogs } — pull out just the SelfReport shape.
+  // self_report is stored as { ...selfReport, moduleLogs }; pull out just the SelfReport shape.
   const storedReport = (session.self_report ?? {}) as Partial<SelfReport> & { moduleLogs?: unknown };
   const selfReport: SelfReport = {
     lifeStage: session.life_stage,

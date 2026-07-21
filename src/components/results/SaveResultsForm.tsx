@@ -31,7 +31,7 @@ export function SaveResultsForm({ sessionId }: { sessionId: string }) {
             animate={{ opacity: 1 }}
             className="text-center text-sm font-medium text-foreground/80"
           >
-            Saved — check your inbox for a copy.
+            Saved. Check your inbox for a copy.
           </motion.p>
         ) : (
           <motion.form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">

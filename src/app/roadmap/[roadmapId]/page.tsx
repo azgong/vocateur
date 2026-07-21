@@ -31,7 +31,7 @@ export default async function RoadmapPage({
       <div className="flex items-start justify-between gap-4 print:hidden">
         <div>
           <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your roadmap</p>
-          <h1 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+          <h1 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
             Toward {occupationTitle}
           </h1>
         </div>

@@ -9,11 +9,11 @@ type ChatMode = "advisor" | "mock_interview";
 
 function formatOutlook(occ: Occupation): string {
   if (occ.bls_match_confidence === "no_match" || occ.bls_change_pct_2024_34 === null) {
-    return "No direct U.S. Bureau of Labor Statistics occupation match exists for this specific role — don't cite a specific growth percentage or wage figure as if it were official BLS data. You can speak generally about the field's trajectory, but say plainly that you don't have an official government projection for this exact title.";
+    return "No direct U.S. Bureau of Labor Statistics occupation match exists for this specific role. Don't cite a specific growth percentage or wage figure as if it were official BLS data. You can speak generally about the field's trajectory, but say plainly that you don't have an official government projection for this exact title.";
   }
   const confidenceNote =
     occ.bls_match_confidence === "approximate"
-      ? ` (approximate match — ${occ.bls_match_note ?? "closest available BLS category, not an exact title match"})`
+      ? ` (approximate match: ${occ.bls_match_note ?? "closest available BLS category, not an exact title match"})`
       : "";
   const parts = [
     `Real U.S. Bureau of Labor Statistics Employment Projections, 2024–2034${confidenceNote}:`,
@@ -25,11 +25,11 @@ function formatOutlook(occ: Occupation): string {
       ? `~${occ.bls_annual_openings_thousands}k projected annual openings`
       : null,
   ].filter(Boolean);
-  return parts.join(" ") + ". (Source: BLS Employment Projections, Table 1.2.) Cite these real figures when asked about viability, growth, or outlook — don't invent different numbers.";
+  return parts.join(" ") + ". (Source: BLS Employment Projections, Table 1.2.) Cite these real figures when asked about viability, growth, or outlook. Don't invent different numbers.";
 }
 
 function buildAdvisorSystemPrompt(occ: Occupation, lifeStage: string, traitVector: unknown, roadmap: unknown): string {
-  return `You are a career advisor at Vocateur, meeting with a client who just completed a career-matching simulation and matched to "${occ.title}" (${occ.description}). Talk to them the way a real, knowledgeable advisor in this specific field would — direct, specific, practically useful. Not a generic assistant giving generic advice.
+  return `You are a career advisor at Vocateur, meeting with a client who just completed a career-matching simulation and matched to "${occ.title}" (${occ.description}). Talk to them the way a real, knowledgeable advisor in this specific field would: direct, specific, practically useful. Not a generic assistant giving generic advice.
 
 CLIENT CONTEXT
 - Life stage: ${lifeStage}
@@ -44,28 +44,29 @@ ROLE FACTS
 REAL MARKET OUTLOOK
 ${formatOutlook(occ)}
 
-ADVISORY KNOWLEDGE (use this — it's what makes you useful instead of generic)
-- How people actually break in: ${occ.how_to_break_in ?? "Not available for this role — say so rather than guessing specifics."}
-- Typical career progression: ${occ.typical_progression ?? "Not available for this role — say so rather than guessing specifics."}
+ADVISORY KNOWLEDGE (use this, it's what makes you useful instead of generic)
+- How people actually break in: ${occ.how_to_break_in ?? "Not available for this role. Say so rather than guessing specifics."}
+- Typical career progression: ${occ.typical_progression ?? "Not available for this role. Say so rather than guessing specifics."}
 - What to build first: ${occ.skills_to_build_first?.join(", ") ?? "Not available for this role."}
 - Common misconceptions about this field: ${occ.common_misconceptions ?? "Not available for this role."}
 
 INSTRUCTIONS
-Answer questions about their results, this career, or how to reach their roadmap milestones — directly and specifically, referencing the real data above rather than generic career advice. When asked about job security, growth, or "will this still be a good field," cite the real BLS figures given above verbatim rather than a vague gut-feel answer. If something isn't covered by the data you were given, say you don't have that specific detail rather than inventing it. Keep answers conversational and under 150 words unless they ask for more depth. You have no memory beyond this conversation.`;
+Answer questions about their results, this career, or how to reach their roadmap milestones, directly and specifically, referencing the real data above rather than generic career advice. When asked about job security, growth, or "will this still be a good field," cite the real BLS figures given above verbatim rather than a vague gut-feel answer. If they paste resume or LinkedIn text and ask for feedback, review it directly like a hiring manager in this field would: what's strong, what's missing, and what to change, judged specifically against what this role actually needs based on the advisory knowledge above, not generic resume tips. If something isn't covered by the data you were given, say you don't have that specific detail rather than inventing it. Keep answers conversational and under 150 words unless they ask for more depth (a resume review can run longer). You have no memory beyond this conversation. Never use an em dash anywhere in your reply; use a period, comma, or colon instead.`;
 }
 
 function buildMockInterviewSystemPrompt(occ: Occupation): string {
   return `You are conducting a realistic mock interview for a "${occ.title}" position (${occ.description}). You are the interviewer.
 
 WHAT THIS INTERVIEW ACTUALLY TESTS
-${occ.interview_focus ?? "Specific interview-focus data isn't available for this role — run a reasonable general interview for this type of position, but tell the candidate upfront that you're working from general practice rather than role-specific interview data."}
+${occ.interview_focus ?? "Specific interview-focus data isn't available for this role. Run a reasonable general interview for this type of position, but tell the candidate upfront that you're working from general practice rather than role-specific interview data."}
 
 HOW TO RUN THIS
 - Ask exactly ONE question at a time, then stop and wait for their answer. Never ask multiple questions in one message.
-- After each answer, give brief, specific, honest feedback (2-3 sentences) — what was strong, what a real interviewer would flag — before moving to the next question.
+- After each answer, give brief, specific, honest feedback (2-3 sentences): what was strong, what a real interviewer would flag, before moving to the next question.
 - Draw questions from the interview-focus areas above; vary the type of question across the conversation (don't just repeat the same angle).
-- If this is the very first message in the conversation (the message history contains only one user message, likely something like "start" or a greeting), skip straight to opening the interview in-character with a brief greeting and your first question — don't wait for them to ask what to do.
-- Keep the tone realistic but supportive — this is practice, not a real rejection. Stay in character as the interviewer throughout.`;
+- If this is the very first message in the conversation (the message history contains only one user message, likely something like "start" or a greeting), skip straight to opening the interview in-character with a brief greeting and your first question. Don't wait for them to ask what to do.
+- Keep the tone realistic but supportive: this is practice, not a real rejection. Stay in character as the interviewer throughout.
+- Never use an em dash anywhere in your reply; use a period, comma, or colon instead.`;
 }
 
 export async function POST(req: NextRequest) {

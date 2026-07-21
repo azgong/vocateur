@@ -48,7 +48,7 @@ export function AgeGate() {
         >
           {!blocked ? (
             <>
-              <h2 className="small-caps font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
+              <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
                 Quick check before you start
               </h2>
               <p className="text-sm text-foreground/60">
@@ -66,7 +66,7 @@ export function AgeGate() {
                   onClick={confirm}
                   className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-white shadow-[0_0_24px_-6px_var(--accent)]"
                 >
-                  I&rsquo;m 13 or older — continue
+                  I&rsquo;m 13 or older, continue
                 </motion.button>
                 <button
                   onClick={() => setBlocked(true)}
@@ -78,7 +78,7 @@ export function AgeGate() {
             </>
           ) : (
             <>
-              <h2 className="small-caps font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
+              <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-tight">
                 Sorry about that
               </h2>
               <p className="text-sm text-foreground/60">

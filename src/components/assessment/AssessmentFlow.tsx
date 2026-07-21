@@ -81,18 +81,18 @@ export function AssessmentFlow() {
         {step === "intro" && (
           <motion.div
             key="intro"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="flex max-w-md flex-col items-center gap-6 text-center"
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="flex max-w-xl flex-col items-center gap-6 text-center"
           >
-            <h1 className="small-caps font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
+            <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
               Twelve scenarios. No quiz questions.
             </h1>
             <p className="text-foreground/60">
-              You&rsquo;ll step into four real job worlds &mdash; an analyst call, an ER shift, a workplace conflict, and a
-              founder&rsquo;s budget &mdash; three moments in each. How you move through them is the signal. Takes about 10
+              You&rsquo;ll step into four real job worlds: an analyst call, an ER shift, a workplace conflict, and a
+              founder&rsquo;s budget. Three moments in each. How you move through them is the signal. Takes about 10
               minutes.
             </p>
             <motion.button
@@ -109,19 +109,23 @@ export function AssessmentFlow() {
         {step === "chapter_intro" && (
           <motion.div
             key={`chapter-intro-${chapter.id}`}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="flex max-w-md flex-col items-center gap-5 text-center"
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="flex max-w-xl flex-col items-center gap-5 text-center"
           >
             <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${chapterMeta.text}`}>
               Chapter {chapterIndex + 1} of {CHAPTERS.length} &middot; {chapterMeta.name}
             </span>
-            <h1 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
               {chapter.quadrantLabel}
             </h1>
             <p className="text-foreground/60">{chapter.focus}</p>
+            <div className={`flex flex-col gap-1.5 rounded-2xl border p-5 text-left ${chapterMeta.borderSoft} bg-surface`}>
+              <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${chapterMeta.text}`}>Case file</span>
+              <p className="text-sm leading-relaxed text-foreground/70">{chapter.caseStudy}</p>
+            </div>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}

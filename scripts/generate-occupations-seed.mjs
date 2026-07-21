@@ -36,7 +36,7 @@ const sql = `-- Adds real BLS employment-outlook data (2024-2034 Employment Proj
 -- progression, skills to build first, common misconceptions, interview focus) to
 -- every occupation. BLS fields are null where no clean SOC-code match exists
 -- (bls_match_confidence = 'no_match') rather than a fabricated number. Advisory
--- content is an LLM-assisted draft, flagged for founder review before launch —
+-- content is an LLM-assisted draft, flagged for founder review before launch,
 -- same pattern as the trait_profile data. See scripts/occupations-data.mjs.
 delete from occupations;
 

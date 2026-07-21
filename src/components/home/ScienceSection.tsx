@@ -25,14 +25,14 @@ export function ScienceSection() {
   return (
     <section className="flex flex-col gap-10">
       <div className="text-center">
-        <p className="small-caps text-sm font-medium tracking-[0.2em] text-accent uppercase">The framework</p>
-        <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">The framework</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
           Built on a real thinking-style model
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">
           Vocateur is grounded in the Herrmann Whole Brain® Model, a four-quadrant thinking-style framework
           widely used in organizational psychology and career coaching. It&rsquo;s a conceptual model for how people
-          approach problems &mdash; not a clinical or neuroscientific diagnosis.
+          approach problems, not a clinical or neuroscientific diagnosis.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">

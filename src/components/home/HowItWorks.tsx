@@ -2,12 +2,12 @@ const STEPS = [
   {
     title: "Step into four real job simulations",
     description:
-      "An analyst call, an ER shift, a workplace conflict, a founder's budget — three unscripted moments in each, about 10 minutes total. No “rate yourself 1-5” questions.",
+      "An analyst call, an ER shift, a workplace conflict, a founder's budget: three unscripted moments in each, about 10 minutes total. No “rate yourself 1-5” questions.",
   },
   {
     title: "Get scored on what you actually do",
     description:
-      "Not which box you checked — how you actually move under time pressure and ambiguity. That behavior is the signal.",
+      "Not which box you checked, but how you actually move under time pressure and ambiguity. That behavior is the signal.",
   },
   {
     title: "See your top matches, free",
@@ -25,8 +25,8 @@ export function HowItWorks() {
   return (
     <section className="flex flex-col gap-10">
       <div className="text-center">
-        <p className="small-caps text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
-        <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
           Four steps, about ten minutes
         </h2>
       </div>

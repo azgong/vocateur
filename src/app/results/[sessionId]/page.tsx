@@ -60,7 +60,7 @@ export default async function ResultsPage({
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your results</p>
-        <h1 className="small-caps font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight sm:text-5xl">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight sm:text-5xl">
           Here&rsquo;s what your choices point toward
         </h1>
       </div>

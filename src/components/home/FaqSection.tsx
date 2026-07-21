@@ -1,7 +1,7 @@
 const FAQS = [
   {
     q: "Is this a personality test?",
-    a: "No. Personality tests ask you to self-report (“rate yourself 1-5”). Vocateur puts you into unscripted job scenarios and scores what you actually do under time pressure and ambiguity — that behavior is the signal, not a checkbox.",
+    a: "No. Personality tests ask you to self-report (“rate yourself 1-5”). Vocateur puts you into unscripted job scenarios and scores what you actually do under time pressure and ambiguity. That behavior is the signal, not a checkbox.",
   },
   {
     q: "How is this different from things like 16Personalities or CliftonStrengths?",
@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: "Can I cancel anytime?",
-    a: "Yes — subscriptions are self-serve and cancel anytime from your account, no email required.",
+    a: "Yes. Subscriptions are self-serve and cancel anytime from your account, no email required.",
   },
   {
     q: "What happens to my data?",
@@ -25,8 +25,8 @@ export function FaqSection() {
   return (
     <section className="flex flex-col gap-8">
       <div className="text-center">
-        <p className="small-caps text-sm font-medium tracking-[0.2em] text-accent uppercase">Questions</p>
-        <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Questions</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
           Before you start
         </h2>
       </div>

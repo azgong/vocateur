@@ -59,7 +59,7 @@ export function UpgradePlans({
           <span className="mx-3 text-foreground/30">or</span>
           $79<span className="text-sm font-normal text-foreground/50">/yr</span>
         </p>
-        <p className="text-xs text-foreground/40">Annual saves about 27% &mdash; cancel anytime.</p>
+        <p className="text-xs text-foreground/40">Annual saves about 27%. Cancel anytime.</p>
       </div>
 
       {isAuthenticated ? (
@@ -71,7 +71,7 @@ export function UpgradePlans({
             disabled={checkoutLoading !== null}
             className="rounded-full bg-accent px-8 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60"
           >
-            {checkoutLoading === "monthly" ? "Redirecting…" : "Upgrade — $9/mo"}
+            {checkoutLoading === "monthly" ? "Redirecting…" : "Upgrade: $9/mo"}
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -80,7 +80,7 @@ export function UpgradePlans({
             disabled={checkoutLoading !== null}
             className="rounded-full border-2 border-border-strong px-8 py-3 text-sm font-semibold text-foreground disabled:opacity-60"
           >
-            {checkoutLoading === "annual" ? "Redirecting…" : "Upgrade — $79/yr"}
+            {checkoutLoading === "annual" ? "Redirecting…" : "Upgrade: $79/yr"}
           </motion.button>
         </div>
       ) : (
@@ -124,7 +124,7 @@ export function UpgradePlans({
 
           {stage === "sent" && (
             <motion.p key="sent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm font-medium text-foreground/70">
-              Check your email for a sign-in link &mdash; it&rsquo;ll bring you right back here to finish upgrading.
+              Check your email for a sign-in link. It&rsquo;ll bring you right back here to finish upgrading.
             </motion.p>
           )}
         </AnimatePresence>

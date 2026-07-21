@@ -5,7 +5,7 @@ function clamp01(n: number) {
 }
 
 /**
- * Weighted-sum trait scoring — no ML. Each module contributes a partial
+ * Weighted-sum trait scoring, no ML. Each module contributes a partial
  * trait delta (set by the module itself based on the specific choice made,
  * see each module's CHOICE_TRAITS map) plus a behavioral adjustment derived
  * from time taken and revisions. Self-report nudges pace/risk slightly.

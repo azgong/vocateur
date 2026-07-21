@@ -4,13 +4,14 @@ export type Quadrant = "a" | "b" | "c" | "d";
 
 export const QUADRANT_META: Record<
   Quadrant,
-  { name: string; bg: string; bgSoft: string; border: string; text: string; buttonText: string; ring: string }
+  { name: string; bg: string; bgSoft: string; border: string; borderSoft: string; text: string; buttonText: string; ring: string }
 > = {
   a: {
     name: "Analyst",
     bg: "bg-quadrant-a",
     bgSoft: "bg-quadrant-a/10",
     border: "border-quadrant-a",
+    borderSoft: "border-quadrant-a/30",
     text: "text-quadrant-a",
     buttonText: "text-quadrant-a-ink",
     ring: "shadow-[0_0_28px_-8px_var(--quadrant-a)]",
@@ -20,6 +21,7 @@ export const QUADRANT_META: Record<
     bg: "bg-quadrant-b",
     bgSoft: "bg-quadrant-b/10",
     border: "border-quadrant-b",
+    borderSoft: "border-quadrant-b/30",
     text: "text-quadrant-b",
     buttonText: "text-quadrant-b-ink",
     ring: "shadow-[0_0_28px_-8px_var(--quadrant-b)]",
@@ -29,6 +31,7 @@ export const QUADRANT_META: Record<
     bg: "bg-quadrant-c",
     bgSoft: "bg-quadrant-c/10",
     border: "border-quadrant-c",
+    borderSoft: "border-quadrant-c/30",
     text: "text-quadrant-c",
     buttonText: "text-quadrant-c-ink",
     ring: "shadow-[0_0_28px_-8px_var(--quadrant-c)]",
@@ -38,6 +41,7 @@ export const QUADRANT_META: Record<
     bg: "bg-quadrant-d",
     bgSoft: "bg-quadrant-d/10",
     border: "border-quadrant-d",
+    borderSoft: "border-quadrant-d/30",
     text: "text-quadrant-d",
     buttonText: "text-quadrant-d-ink",
     ring: "shadow-[0_0_28px_-8px_var(--quadrant-d)]",

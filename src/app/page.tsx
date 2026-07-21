@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ScienceSection } from "@/components/home/ScienceSection";
 import { DataSection } from "@/components/home/DataSection";
-import { AdvisorSection } from "@/components/home/AdvisorSection";
+import { ProShowcase } from "@/components/home/ProShowcase";
 import { PricingSection } from "@/components/home/PricingSection";
 import { FaqSection } from "@/components/home/FaqSection";
 
@@ -12,10 +12,10 @@ export default function Home() {
     <main className="flex flex-1 flex-col">
       <section className="flex flex-col items-center gap-6 px-6 pt-24 pb-20 text-center">
         <Logo size={64} />
-        <span className="small-caps text-xs font-medium tracking-[0.3em] text-accent uppercase">
+        <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
           Not another personality quiz
         </span>
-        <h1 className="small-caps font-[family-name:var(--font-display)] text-6xl font-medium tracking-tight sm:text-7xl">
+        <h1 className="font-[family-name:var(--font-brand)] text-6xl font-bold tracking-tight sm:text-7xl">
           Vocateur
         </h1>
         <p className="max-w-md text-lg text-foreground/60">
@@ -29,7 +29,7 @@ export default function Home() {
           Start your assessment
         </Link>
         <p className="text-sm text-foreground/40">
-          Takes about 10 minutes. Free to see your top match &mdash; $9/mo or $79/yr to unlock everything,
+          Takes about 10 minutes. Free to see your top match. $9/mo or $79/yr to unlock everything,
           including a personal AI career advisor.
         </p>
       </section>
@@ -38,7 +38,7 @@ export default function Home() {
         <HowItWorks />
         <ScienceSection />
         <DataSection />
-        <AdvisorSection />
+        <ProShowcase />
         <PricingSection />
         <FaqSection />
       </div>

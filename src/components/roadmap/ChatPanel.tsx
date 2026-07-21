@@ -17,7 +17,7 @@ const MODE_META: Record<ChatMode, { label: string; placeholder: string; starter:
     label: "Mock interview",
     placeholder: "Type your answer…",
     starter: "I'm ready to start the mock interview.",
-    empty: "Start a realistic mock interview for your matched role — one question at a time, with real feedback.",
+    empty: "Start a realistic mock interview for your matched role: one question at a time, with real feedback.",
   },
 };
 

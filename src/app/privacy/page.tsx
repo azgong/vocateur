@@ -1,12 +1,12 @@
 export const metadata = {
-  title: "Privacy Policy — Vocateur",
+  title: "Privacy Policy · Vocateur",
 };
 
 export default function PrivacyPage() {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-6 py-20">
       <div className="flex flex-col gap-2">
-        <h1 className="small-caps font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
           Privacy Policy
         </h1>
         <p className="text-sm text-foreground/40">Effective July 19, 2026</p>
@@ -39,21 +39,21 @@ export default function PrivacyPage() {
           <h2 className="text-base font-semibold text-foreground">What we collect</h2>
           <ul className="flex flex-col gap-1.5 pl-4">
             <li className="list-disc">
-              <span className="font-medium text-foreground/90">Email address</span> — when you join the waitlist or
+              <span className="font-medium text-foreground/90">Email address</span>: when you join the waitlist or
               create an account, used for sign-in (passwordless magic links) and product communication.
             </li>
             <li className="list-disc">
-              <span className="font-medium text-foreground/90">Assessment responses</span> — the choices, timing,
+              <span className="font-medium text-foreground/90">Assessment responses</span>: the choices, timing,
               and self-reported context (like life stage and what you value in work) you provide while taking the
               assessment, used to compute your results and generate your roadmap.
             </li>
             <li className="list-disc">
-              <span className="font-medium text-foreground/90">Subscription and payment status</span> — whether you
+              <span className="font-medium text-foreground/90">Subscription and payment status</span>: whether you
               have an active subscription and your plan type. We never see or store your full card number; payments
               are handled directly by Stripe.
             </li>
             <li className="list-disc">
-              <span className="font-medium text-foreground/90">Support communications</span> — anything you send us
+              <span className="font-medium text-foreground/90">Support communications</span>: anything you send us
               directly, like emails to our support address.
             </li>
           </ul>
@@ -78,11 +78,11 @@ export default function PrivacyPage() {
             run Vocateur, each bound to only use it to provide their service to us:
           </p>
           <ul className="flex flex-col gap-1.5 pl-4">
-            <li className="list-disc"><span className="font-medium text-foreground/90">Supabase</span> — database, authentication, and secure storage of your account and assessment data</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Stripe</span> — payment processing and subscription management</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Anthropic</span> — generates your rationale, roadmap, and AI conversation responses from your assessment results</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Resend</span> — delivers sign-in and account emails</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Vercel</span> — hosts the application</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Supabase</span>: database, authentication, and secure storage of your account and assessment data</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Stripe</span>: payment processing and subscription management</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Anthropic</span>: generates your rationale, roadmap, and AI conversation responses from your assessment results</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Resend</span>: delivers sign-in and account emails</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Vercel</span>: hosts the application</li>
           </ul>
         </section>
 

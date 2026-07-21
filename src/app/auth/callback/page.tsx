@@ -13,7 +13,7 @@ export default function AuthCallbackPage() {
       const next = params.get("next") ?? "/";
 
       // Implicit flow: Supabase can return the session directly in the URL fragment,
-      // which never reaches the server — only client-side JS can see it.
+      // which never reaches the server; only client-side JS can see it.
       const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
       const accessToken = hashParams.get("access_token");
       const refreshToken = hashParams.get("refresh_token");

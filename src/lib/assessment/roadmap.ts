@@ -56,7 +56,7 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
       milestones: [
         { timeframe: "Next 3 months", title: "Skill gap check", description: `Identify which of your existing skills already transfer, and which of ${occupation.top_skills.slice(0, 2).join(", ")} need building.` },
         { timeframe: "Next 6-12 months", title: "Certification or bootcamp", description: `Consider a structured program suited to career changers rather than a full second degree where possible.` },
-        { timeframe: "Ongoing", title: "Networking at your stage", description: `Seek out other career changers who moved into ${occupation.title.toLowerCase()}, not just traditional entrants — their path is more comparable to yours.` },
+        { timeframe: "Ongoing", title: "Networking at your stage", description: `Seek out other career changers who moved into ${occupation.title.toLowerCase()}, not just traditional entrants. Their path is more comparable to yours.` },
       ],
     },
   };
@@ -68,20 +68,20 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
 }
 
 const TIMELINE_BRIEF: Record<SelfReport["timeline"], string> = {
-  already_committed: "They're already committed to making this move — treat the first milestone as something to act on immediately, not someday.",
-  within_a_year: "They want real progress within the next year — keep milestones concrete and near-term.",
-  one_to_three_years: "They're working on a 1-3 year horizon — it's fine to include milestones that build over that longer window.",
-  just_exploring: "They're still just exploring this path — keep early milestones low-commitment (research, conversations, small projects) before anything that requires a big leap.",
+  already_committed: "They're already committed to making this move. Treat the first milestone as something to act on immediately, not someday.",
+  within_a_year: "They want real progress within the next year. Keep milestones concrete and near-term.",
+  one_to_three_years: "They're working on a 1-3 year horizon. It's fine to include milestones that build over that longer window.",
+  just_exploring: "They're still just exploring this path. Keep early milestones low-commitment (research, conversations, small projects) before anything that requires a big leap.",
 };
 
 function personalContextBlock(selfReport: SelfReport): string {
   const lines = [
     selfReport.currentFocus ? `Current focus: ${selfReport.currentFocus}` : null,
-    selfReport.location ? `Location: ${selfReport.location} — tailor examples (programs, employers, cost of living) to this where it genuinely helps.` : null,
+    selfReport.location ? `Location: ${selfReport.location}. Tailor examples (programs, employers, cost of living) to this where it genuinely helps.` : null,
     `Timeline: ${TIMELINE_BRIEF[selfReport.timeline]}`,
-    selfReport.geographicFlexibility === "local" ? "They want to stay local — don't suggest relocating." : null,
-    selfReport.furtherSchooling === "no" ? "They do not want more formal schooling — favor certifications, self-study, and on-the-job paths over degree programs." : null,
-    selfReport.values.length ? `What matters most to them at work: ${selfReport.values.join(", ")} — let this shape which milestones you emphasize.` : null,
+    selfReport.geographicFlexibility === "local" ? "They want to stay local. Don't suggest relocating." : null,
+    selfReport.furtherSchooling === "no" ? "They do not want more formal schooling. Favor certifications, self-study, and on-the-job paths over degree programs." : null,
+    selfReport.values.length ? `What matters most to them at work: ${selfReport.values.join(", ")}. Let this shape which milestones you emphasize.` : null,
     selfReport.additionalContext ? `Additional context they shared directly: ${selfReport.additionalContext}` : null,
   ].filter(Boolean);
   return lines.join("\n");
@@ -103,16 +103,16 @@ async function callClaude(occupation: Occupation, selfReport: SelfReport): Promi
     .join("\n");
 
   const prompt = `Write a personalized career roadmap for someone who matched to "${occupation.title}" (${occupation.description}, top skills: ${occupation.top_skills.join(", ")}, typical education: ${occupation.education_level}).
-${advisoryContext ? `\nReal advisory context for this specific role — ground your milestones in this rather than generic advice:\n${advisoryContext}\n` : ""}
+${advisoryContext ? `\nReal advisory context for this specific role. Ground your milestones in this rather than generic advice:\n${advisoryContext}\n` : ""}
 They are ${LIFE_STAGE_BRIEF[selfReport.lifeStage]}
 
-PERSONAL CONTEXT — use this to make milestones genuinely specific to this person, not generic:
+PERSONAL CONTEXT, use this to make milestones genuinely specific to this person, not generic:
 ${personalContextBlock(selfReport)}
 
 Respond with ONLY valid JSON matching this exact shape, no markdown fences, no preamble:
 {"headline": string, "milestones": [{"timeframe": string, "title": string, "description": string}], "networkingScript": string (optional, only include for university/early_career/career_changer stages)}
 
-Include 3-5 milestones ordered chronologically.`;
+Include 3-5 milestones ordered chronologically. Never use an em dash anywhere in your response; use a period, comma, or colon instead.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {

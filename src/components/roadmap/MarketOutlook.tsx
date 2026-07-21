@@ -30,13 +30,13 @@ export function MarketOutlook({ occupation }: { occupation: Occupation }) {
             </div>
             <div>
               <p className="text-2xl font-semibold tabular-nums">
-                {occupation.bls_median_wage_2024 ? formatWage(occupation.bls_median_wage_2024) : "—"}
+                {occupation.bls_median_wage_2024 ? formatWage(occupation.bls_median_wage_2024) : "N/A"}
               </p>
               <p className="text-xs text-foreground/50">Median annual wage</p>
             </div>
             <div>
               <p className="text-2xl font-semibold tabular-nums">
-                {occupation.bls_annual_openings_thousands ? `${occupation.bls_annual_openings_thousands}k` : "—"}
+                {occupation.bls_annual_openings_thousands ? `${occupation.bls_annual_openings_thousands}k` : "N/A"}
               </p>
               <p className="text-xs text-foreground/50">Annual openings</p>
             </div>

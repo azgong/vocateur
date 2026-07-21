@@ -2,8 +2,8 @@ export function DataSection() {
   return (
     <section className="flex flex-col gap-8 rounded-3xl border border-border-subtle bg-surface p-8 sm:p-10">
       <div className="text-center">
-        <p className="small-caps text-sm font-medium tracking-[0.2em] text-accent uppercase">Real data, not vibes</p>
-        <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Real data, not vibes</p>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight sm:text-4xl">
           Every career is backed by government labor data
         </h2>
       </div>

@@ -61,20 +61,20 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.3 }}
-      className="flex w-full max-w-lg flex-col gap-8"
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="flex w-full max-w-2xl flex-col gap-8"
     >
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium text-accent">Almost there</p>
-        <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
           A few quick questions
         </h2>
         <p className="text-sm text-foreground/50">
-          The more you tell us here, the more specific your roadmap and advisor conversations will be &mdash;
-          this isn&rsquo;t graded, it&rsquo;s just context we hand directly to the AI building your plan.
+          The more you tell us here, the more specific your roadmap and advisor conversations will be.
+          This isn&rsquo;t graded, it&rsquo;s just context we hand directly to the AI building your plan.
         </p>
       </div>
 

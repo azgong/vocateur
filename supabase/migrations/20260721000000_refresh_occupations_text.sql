@@ -1,10 +1,8 @@
--- Adds real BLS employment-outlook data (2024-2034 Employment Projections, Table 1.2,
--- bls.gov/emp) and structured career-advisory content (how to break in, typical
--- progression, skills to build first, common misconceptions, interview focus) to
--- every occupation. BLS fields are null where no clean SOC-code match exists
--- (bls_match_confidence = 'no_match') rather than a fabricated number. Advisory
--- content is an LLM-assisted draft, flagged for founder review before launch,
--- same pattern as the trait_profile data. See scripts/occupations-data.mjs.
+-- Re-seeds occupations with the same data as 20260720000001, but with every
+-- em dash removed from the prose fields (description, how_to_break_in,
+-- typical_progression, common_misconceptions, interview_focus, bls_match_note)
+-- per a hard no-em-dash rule for all site content. No field names, IDs, or
+-- numeric values changed. See scripts/occupations-data.mjs.
 delete from occupations;
 
 insert into occupations (
