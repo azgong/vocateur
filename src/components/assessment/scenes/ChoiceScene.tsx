@@ -57,7 +57,7 @@ export function ChoiceScene({
       transition={{ duration: 0.3 }}
       className="flex w-full max-w-lg flex-col gap-6"
     >
-      <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
+      <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
 
       {scene.context && (
         <div className="flex flex-col gap-3 rounded-2xl bg-surface-2 p-4 text-sm">

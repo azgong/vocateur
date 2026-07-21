@@ -6,7 +6,7 @@ export default function PrivacyPage() {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-6 py-20">
       <div className="flex flex-col gap-2">
-        <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
+        <h1 className="small-caps font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
           Privacy Policy
         </h1>
         <p className="text-sm text-foreground/40">Effective July 19, 2026</p>

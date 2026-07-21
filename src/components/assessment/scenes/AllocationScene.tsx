@@ -86,7 +86,7 @@ export function AllocationScene({
       transition={{ duration: 0.3 }}
       className="flex w-full max-w-lg flex-col gap-6"
     >
-      <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
+      <h2 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">{scene.title}</h2>
 
       <p className="text-sm text-foreground/60">{scene.prompt}</p>
 

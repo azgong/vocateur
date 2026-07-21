@@ -51,6 +51,14 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Small-caps treatment for the wordmark and page titles — every letter reads
+   as a capital, but only the first is full height, so it stays elegant rather
+   than shouting like ALL CAPS. */
+.small-caps {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.01em;
+}
+
 /* Signature ambient backdrop: soft drifting color blooms behind key screens. */
 .aurora-backdrop {
   position: fixed;

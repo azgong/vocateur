@@ -87,7 +87,7 @@ export function AssessmentFlow() {
             transition={{ duration: 0.3 }}
             className="flex max-w-md flex-col items-center gap-6 text-center"
           >
-            <h1 className="font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
+            <h1 className="small-caps font-[family-name:var(--font-display)] text-4xl font-medium tracking-tight">
               Twelve scenarios. No quiz questions.
             </h1>
             <p className="text-foreground/60">
@@ -118,7 +118,7 @@ export function AssessmentFlow() {
             <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${chapterMeta.text}`}>
               Chapter {chapterIndex + 1} of {CHAPTERS.length} &middot; {chapterMeta.name}
             </span>
-            <h1 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
+            <h1 className="small-caps font-[family-name:var(--font-display)] text-3xl font-medium tracking-tight">
               {chapter.quadrantLabel}
             </h1>
             <p className="text-foreground/60">{chapter.focus}</p>
