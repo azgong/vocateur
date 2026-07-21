@@ -21,6 +21,12 @@ export function PricingSection() {
             <li>Your top 3 career matches</li>
             <li>Real reasoning behind each match</li>
           </ul>
+          <Link
+            href="/assessment"
+            className="rounded-full border-2 border-border-strong px-6 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            Start free
+          </Link>
         </ScrollReveal>
         <ScrollReveal delay={0.1} className="flex flex-col gap-4 rounded-3xl border border-accent bg-accent/[0.06] p-8 shadow-[0_0_40px_-16px_var(--accent)]">
           <div>
@@ -39,19 +45,19 @@ export function PricingSection() {
             <li>Real, role-specific mock interview practice, any time you want a rep</li>
             <li>PDF export &middot; cancel anytime</li>
           </ul>
+          <Link
+            href="/assessment"
+            className="rounded-full bg-accent px-6 py-2.5 text-center text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] transition-shadow hover:shadow-[0_0_36px_-4px_var(--accent)]"
+          >
+            Start assessment to unlock Pro
+          </Link>
         </ScrollReveal>
       </div>
-      <ScrollReveal className="flex flex-col items-center gap-6">
-        <p className="text-center text-sm text-foreground/50">
-          Take the free assessment first. You&rsquo;ll see the option to upgrade once you have real matches
-          to unlock.
+      <ScrollReveal className="text-center">
+        <p className="text-sm text-foreground/50">
+          You take the free assessment first. The option to upgrade appears once you have real matches to
+          unlock.
         </p>
-        <Link
-          href="/assessment"
-          className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] transition-shadow hover:shadow-[0_0_36px_-4px_var(--accent)]"
-        >
-          Start your assessment
-        </Link>
       </ScrollReveal>
     </section>
   );
