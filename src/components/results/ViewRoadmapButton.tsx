@@ -4,7 +4,15 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-export function ViewRoadmapButton({ sessionId, occupationId }: { sessionId: string; occupationId: string }) {
+export function ViewRoadmapButton({
+  sessionId,
+  occupationId,
+  variant = "primary",
+}: {
+  sessionId: string;
+  occupationId: string;
+  variant?: "primary" | "compact";
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,6 +37,22 @@ export function ViewRoadmapButton({ sessionId, occupationId }: { sessionId: stri
       setError(true);
       setLoading(false);
     }
+  }
+
+  if (variant === "compact") {
+    return (
+      <div className="flex flex-col items-start gap-1">
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={loading}
+          className="text-sm font-medium text-accent underline underline-offset-2 disabled:opacity-50"
+        >
+          {loading ? "Building your roadmap…" : "See the roadmap for this path"}
+        </button>
+        {error && <p className="text-xs text-quadrant-c">Something went wrong. Try again.</p>}
+      </div>
+    );
   }
 
   return (

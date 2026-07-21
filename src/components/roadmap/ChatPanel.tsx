@@ -21,6 +21,13 @@ const MODE_META: Record<ChatMode, { label: string; placeholder: string; starter:
   },
 };
 
+const SUGGESTED_PROMPTS = [
+  { label: "Review my resume", fill: "Can you review my resume for this role? Here it is: " },
+  { label: "Analyze a job posting", fill: "Am I a good fit for this posting, and what should I highlight? Here it is: " },
+  { label: "Help me negotiate an offer", fill: "I have an offer and want help negotiating. Here are the details: " },
+  { label: "Review my LinkedIn", fill: "Can you review my LinkedIn headline and About section? Here it is: " },
+];
+
 export function ChatPanel({ roadmapId }: { roadmapId: string }) {
   const [mode, setMode] = useState<ChatMode>("advisor");
   const [threads, setThreads] = useState<Record<ChatMode, Message[]>>({ advisor: [], mock_interview: [] });
@@ -95,7 +102,23 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
 
       <div className="flex max-h-80 flex-col gap-3 overflow-y-auto">
         {messages.length === 0 && status !== "loading" && (
-          <p className="text-sm text-foreground/40">{MODE_META[mode].empty}</p>
+          <div className="flex flex-col gap-3">
+            <p className="text-sm text-foreground/40">{MODE_META[mode].empty}</p>
+            {mode === "advisor" && (
+              <div className="flex flex-wrap gap-2">
+                {SUGGESTED_PROMPTS.map((p) => (
+                  <button
+                    key={p.label}
+                    type="button"
+                    onClick={() => setInput(p.fill)}
+                    className="rounded-full border border-border-subtle bg-surface-2 px-3 py-1.5 text-xs font-medium text-foreground/70 transition-colors hover:border-accent hover:text-accent"
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         )}
         {messages
           .filter((m) => !(mode === "mock_interview" && m.role === "user" && m.content === MODE_META.mock_interview.starter))

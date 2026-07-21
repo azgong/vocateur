@@ -79,6 +79,7 @@ export default async function ResultsPage({
             title={m.occupation.title}
             fitScore={m.fitScore}
             rationale={rationales[i]}
+            roadmapLink={isSubscribed ? { sessionId, occupationId: m.occupation.id } : undefined}
           />
         ))}
       </div>

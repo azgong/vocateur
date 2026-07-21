@@ -15,10 +15,10 @@ function RoadmapDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Your personalized roadmap</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A roadmap for every match, that tracks your progress</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
-        Not a generic checklist. Milestones built from your matched career, your life stage, your timeline, and
-        the context you shared, in order, with a real reason for each step.
+        Not a generic checklist, and not just one. Pro unlocks a roadmap for any of your 10 matches, with checkable
+        milestones that track your real progress over time, not a document you read once and forget.
       </p>
       <ol className="relative flex flex-col gap-4 border-l-2 border-border-subtle pl-5">
         {milestones.map((m) => (
@@ -37,18 +37,18 @@ function AdvisorDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A real advisor, not a chatbot</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A full-service advisor, not a one-time unlock</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
-        Grounded in real BLS wage and growth data plus curated, role-specific advisory content. Paste your resume
-        and it reviews it like a hiring manager in that field would, not generic resume tips.
+        Resume review, cover letter feedback, LinkedIn review, a real job posting fit check, salary negotiation
+        prep. Come back whenever something real comes up, not just once to see your roadmap.
       </p>
       <div className="flex flex-col gap-2">
         <div className="self-end rounded-2xl rounded-br-sm bg-surface-2 px-4 py-2.5 text-sm text-foreground/80">
-          Can you look at my resume for this role?
+          I have an offer and want help negotiating.
         </div>
         <div className="self-start rounded-2xl rounded-bl-sm border border-accent/20 bg-accent/[0.06] px-4 py-2.5 text-sm text-foreground/80">
-          Paste it in. I&rsquo;ll tell you exactly what a hiring manager for this role checks first, and what&rsquo;s
-          missing.
+          Send me the numbers. I&rsquo;ll use the real BLS wage data for this field to help you figure out a
+          reasonable range and how to make the case.
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@ export function ProShowcase() {
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
-          Everything unlocked once you know your match
+          Built to keep helping, not just to unlock once
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">
           Real examples of what Pro actually looks like, not a feature list. Every number and message below is

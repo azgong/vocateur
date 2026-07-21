@@ -27,15 +27,15 @@ export function PricingSection() {
             <p className="mt-1 text-3xl font-semibold">
               $9<span className="text-base font-normal text-foreground/50">/mo</span>
             </p>
-            <p className="text-xs text-foreground/40">or $79/yr, save about 27%</p>
+            <p className="text-xs text-foreground/40">or $79/yr, save about 27%, best for a full job search</p>
           </div>
           <ul className="flex flex-1 flex-col gap-2 text-sm text-foreground/70">
             <li>Everything in Free</li>
             <li>All 10 matches with full reasoning</li>
-            <li>A personalized, step-by-step roadmap built around your actual context</li>
-            <li>A real career advisor grounded in BLS data, including resume review</li>
-            <li>Real, role-specific mock interview practice</li>
-            <li>Real market predictions: growth, wage, and openings through 2034</li>
+            <li>A roadmap for any of your matches, with checkable progress tracking</li>
+            <li>Resume, cover letter, and LinkedIn review, whenever you have a new draft</li>
+            <li>Job posting fit checks and salary negotiation prep, grounded in real BLS data</li>
+            <li>Real, role-specific mock interview practice, any time you want a rep</li>
             <li>PDF export &middot; cancel anytime</li>
           </ul>
         </div>

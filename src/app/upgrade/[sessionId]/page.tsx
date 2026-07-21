@@ -51,35 +51,35 @@ export default async function UpgradePage({
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
         <h1 className="font-[family-name:var(--font-brand)] text-4xl font-medium tracking-tight sm:text-5xl">
-          Upgrade to Pro to unlock your roadmap
+          Upgrade to Pro to keep this working for you
         </h1>
         <p className="mx-auto mt-4 max-w-md text-foreground/60">
           {topMatchTitle
-            ? `You matched with ${topMatchTitle}. Here's everything Pro unlocks for that path, plus all 10 of your matches.`
-            : "Here's everything Pro unlocks, plus all 10 of your matches."}
+            ? `You matched with ${topMatchTitle}. Pro isn't a one-time unlock, it's a career advisor and roadmap for all 10 of your matches, there whenever something real comes up.`
+            : "Pro isn't a one-time unlock, it's a career advisor and roadmap for all 10 of your matches, there whenever something real comes up."}
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <FeatureCard
           quadrant="a"
-          title="Your full personalized roadmap"
-          description="Step-by-step milestones built around your matched career, your life stage, your timeline, and the context you shared. Not a generic template."
+          title="A roadmap for every match, that tracks progress"
+          description="Step-by-step milestones for any of your 10 matches, not just the top one, with checkable progress you can come back to over months."
         />
         <FeatureCard
           quadrant="c"
-          title="A real advisor, not a chatbot"
-          description="Chat with an advisor grounded in real BLS wage and growth data for your exact field. Paste your resume and it reviews it like a hiring manager in that field would."
+          title="A full-service advisor, not a chatbot"
+          description="Resume, cover letter, and LinkedIn review, job posting fit checks, and salary negotiation prep, all grounded in real BLS data for your field. Come back whenever something real comes up."
         />
         <FeatureCard
           quadrant="d"
           title="Real mock interviews"
-          description="Role-specific interview questions, one at a time, with honest feedback after each answer, any time you want a rep."
+          description="Role-specific interview questions, one at a time, with honest feedback after each answer, any time you want a rep before a real one."
         />
         <FeatureCard
           quadrant="b"
           title="Real market predictions"
-          description="Growth, wage, and openings through 2034 from the U.S. Bureau of Labor Statistics for your exact matched field. Not a made-up outlook."
+          description="Growth, wage, and openings through 2034 from the U.S. Bureau of Labor Statistics for any of your matched fields. Not a made-up outlook."
         />
       </div>
 

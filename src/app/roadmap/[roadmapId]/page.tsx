@@ -6,6 +6,7 @@ import { Occupation } from "@/lib/assessment/matching";
 import { PrintButton } from "@/components/roadmap/PrintButton";
 import { ChatPanel } from "@/components/roadmap/ChatPanel";
 import { MarketOutlook } from "@/components/roadmap/MarketOutlook";
+import { MilestoneChecklist } from "@/components/roadmap/MilestoneChecklist";
 
 export const metadata: Metadata = {
   title: "Your Roadmap · Vocateur",
@@ -22,7 +23,7 @@ export default async function RoadmapPage({
 
   const { data: roadmap } = await supabase
     .from("roadmaps")
-    .select("id, content, life_stage, occupation_id, occupations(*)")
+    .select("id, content, life_stage, occupation_id, completed_items, occupations(*)")
     .eq("id", roadmapId)
     .single();
 
@@ -31,6 +32,7 @@ export default async function RoadmapPage({
   const content = roadmap.content as RoadmapContent;
   const occupation = roadmap.occupations as unknown as Occupation | null;
   const occupationTitle = occupation?.title ?? "your match";
+  const completedItems = (roadmap.completed_items ?? {}) as Record<string, boolean>;
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-6 py-16 print:py-0 lg:px-0">
@@ -46,26 +48,7 @@ export default async function RoadmapPage({
 
       <p className="text-lg leading-relaxed text-foreground/70">{content.headline}</p>
 
-      <ol className="relative flex flex-col gap-8 border-l-2 border-border-subtle pl-6">
-        {content.milestones.map((m, i) => (
-          <li key={i} className="relative">
-            <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-accent shadow-[0_0_12px_-2px_var(--accent)]" />
-            <span className="text-xs font-semibold uppercase tracking-wide text-accent/70">{m.timeframe}</span>
-            <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">{m.title}</h3>
-            <p className="text-sm leading-relaxed text-foreground/60">{m.description}</p>
-            {m.actionItems?.length > 0 && (
-              <ul className="mt-2 flex flex-col gap-1.5">
-                {m.actionItems.map((item, j) => (
-                  <li key={j} className="flex gap-2 text-sm leading-relaxed text-foreground/60">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ol>
+      <MilestoneChecklist roadmapId={roadmapId} milestones={content.milestones} initialCompleted={completedItems} />
 
       {occupation && <MarketOutlook occupation={occupation} />}
 

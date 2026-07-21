@@ -1,17 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ViewRoadmapButton } from "./ViewRoadmapButton";
 
 export function MatchCard({
   rank,
   title,
   fitScore,
   rationale,
+  roadmapLink,
 }: {
   rank: number;
   title: string;
   fitScore: number;
   rationale: string;
+  roadmapLink?: { sessionId: string; occupationId: string };
 }) {
   const isTop = rank === 1;
 
@@ -43,6 +46,9 @@ export function MatchCard({
         </div>
       </div>
       <p className="text-sm leading-relaxed text-foreground/60">{rationale}</p>
+      {roadmapLink && !isTop && (
+        <ViewRoadmapButton sessionId={roadmapLink.sessionId} occupationId={roadmapLink.occupationId} variant="compact" />
+      )}
     </motion.div>
   );
 }
