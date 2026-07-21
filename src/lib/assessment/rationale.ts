@@ -55,7 +55,7 @@ async function callClaude(occupation: Occupation, logs: ModuleLog[]): Promise<st
 Their behavior across the scenarios:
 ${choiceSummary}
 
-Write a 2-3 sentence rationale explaining why this behavior pattern points toward "${occupation.title}". Reference their specific choices concretely (not generic trait labels), picking 2-3 of the most telling moments rather than listing all of them. Write directly to the user ("you"). No preamble, just the rationale text. Never use an em dash; use a period, comma, or colon instead.`;
+Write a 2-3 sentence rationale explaining why this behavior pattern points toward "${occupation.title}". Reference their specific choices concretely (not generic trait labels), picking 2-3 of the most telling moments rather than listing all of them. Write directly to the user ("you"). No preamble, just the rationale text. Never use an em dash; use a period, comma, or colon instead. Plain text only, no markdown.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {

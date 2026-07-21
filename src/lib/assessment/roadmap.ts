@@ -112,7 +112,7 @@ ${personalContextBlock(selfReport)}
 Respond with ONLY valid JSON matching this exact shape, no markdown fences, no preamble:
 {"headline": string, "milestones": [{"timeframe": string, "title": string, "description": string}], "networkingScript": string (optional, only include for university/early_career/career_changer stages)}
 
-Include 3-5 milestones ordered chronologically. Never use an em dash anywhere in your response; use a period, comma, or colon instead.`;
+Include 3-5 milestones ordered chronologically. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers).`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {

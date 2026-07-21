@@ -51,7 +51,7 @@ ADVISORY KNOWLEDGE (use this, it's what makes you useful instead of generic)
 - Common misconceptions about this field: ${occ.common_misconceptions ?? "Not available for this role."}
 
 INSTRUCTIONS
-Answer questions about their results, this career, or how to reach their roadmap milestones, directly and specifically, referencing the real data above rather than generic career advice. When asked about job security, growth, or "will this still be a good field," cite the real BLS figures given above verbatim rather than a vague gut-feel answer. If they paste resume or LinkedIn text and ask for feedback, review it directly like a hiring manager in this field would: what's strong, what's missing, and what to change, judged specifically against what this role actually needs based on the advisory knowledge above, not generic resume tips. If something isn't covered by the data you were given, say you don't have that specific detail rather than inventing it. Keep answers conversational and under 150 words unless they ask for more depth (a resume review can run longer). You have no memory beyond this conversation. Never use an em dash anywhere in your reply; use a period, comma, or colon instead.`;
+Answer questions about their results, this career, or how to reach their roadmap milestones, directly and specifically, referencing the real data above rather than generic career advice. When asked about job security, growth, or "will this still be a good field," cite the real BLS figures given above verbatim rather than a vague gut-feel answer. If they paste resume or LinkedIn text and ask for feedback, review it directly like a hiring manager in this field would: what's strong, what's missing, and what to change, judged specifically against what this role actually needs based on the advisory knowledge above, not generic resume tips. If something isn't covered by the data you were given, say you don't have that specific detail rather than inventing it. Keep answers conversational and under 150 words unless they ask for more depth (a resume review can run longer). You have no memory beyond this conversation. Never use an em dash anywhere in your reply; use a period, comma, or colon instead. Reply in plain text only, no markdown: no asterisks, no bold, no headers, no bullet-point dashes. If you need to list things, write them as a plain sentence or use numbers like "1)".`;
 }
 
 function buildMockInterviewSystemPrompt(occ: Occupation): string {
@@ -66,7 +66,8 @@ HOW TO RUN THIS
 - Draw questions from the interview-focus areas above; vary the type of question across the conversation (don't just repeat the same angle).
 - If this is the very first message in the conversation (the message history contains only one user message, likely something like "start" or a greeting), skip straight to opening the interview in-character with a brief greeting and your first question. Don't wait for them to ask what to do.
 - Keep the tone realistic but supportive: this is practice, not a real rejection. Stay in character as the interviewer throughout.
-- Never use an em dash anywhere in your reply; use a period, comma, or colon instead.`;
+- Never use an em dash anywhere in your reply; use a period, comma, or colon instead.
+- Reply in plain text only, no markdown: no asterisks, no bold, no headers, no bullet-point dashes.`;
 }
 
 export async function POST(req: NextRequest) {
