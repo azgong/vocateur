@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProgressBar } from "./ProgressBar";
@@ -11,8 +11,46 @@ import { CHAPTERS, SceneConfig } from "@/lib/assessment/scenes";
 import { QUADRANT_META, CHAPTER_QUADRANT } from "@/lib/assessment/quadrantStyle";
 
 type Step = "intro" | "chapter_intro" | "scene" | "self_report" | "submitting" | "error";
+type ResumableStep = "chapter_intro" | "scene" | "self_report";
 
 const FLAT_SCENES: SceneConfig[] = CHAPTERS.flatMap((c) => c.scenes);
+const STORAGE_KEY = "vocateur_assessment_progress";
+
+type SavedProgress = { step: ResumableStep; sceneIndex: number; logs: ModuleLog[] };
+
+function isResumableStep(step: Step): step is ResumableStep {
+  return step === "chapter_intro" || step === "scene" || step === "self_report";
+}
+
+function subscribeToStorage() {
+  return () => {};
+}
+
+function getStorageSnapshot(): string | null {
+  return window.localStorage.getItem(STORAGE_KEY);
+}
+
+function getStorageServerSnapshot(): string | null {
+  return null;
+}
+
+function parseSavedProgress(raw: string | null): SavedProgress | null {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as SavedProgress;
+    if (
+      !isResumableStep(parsed.step) ||
+      !Array.isArray(parsed.logs) ||
+      parsed.logs.length !== parsed.sceneIndex ||
+      parsed.sceneIndex > FLAT_SCENES.length
+    ) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+}
 
 function chapterInfoForIndex(index: number) {
   let cursor = 0;
@@ -31,6 +69,29 @@ export function AssessmentFlow() {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [logs, setLogs] = useState<ModuleLog[]>([]);
   const [selfReport, setSelfReport] = useState<SelfReport | null>(null);
+  const [resumeDismissed, setResumeDismissed] = useState(false);
+
+  const savedProgressRaw = useSyncExternalStore(subscribeToStorage, getStorageSnapshot, getStorageServerSnapshot);
+  const resumeData = resumeDismissed ? null : parseSavedProgress(savedProgressRaw);
+
+  useEffect(() => {
+    if (!isResumableStep(step)) return;
+    const toSave: SavedProgress = { step, sceneIndex, logs };
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+  }, [step, sceneIndex, logs]);
+
+  function handleResume() {
+    if (!resumeData) return;
+    setSceneIndex(resumeData.sceneIndex);
+    setLogs(resumeData.logs);
+    setStep(resumeData.step);
+    setResumeDismissed(true);
+  }
+
+  function handleStartOver() {
+    window.localStorage.removeItem(STORAGE_KEY);
+    setResumeDismissed(true);
+  }
 
   function handleSceneComplete(log: ModuleLog) {
     const nextLogs = [...logs, log];
@@ -58,6 +119,7 @@ export function AssessmentFlow() {
         setStep("error");
         return;
       }
+      window.localStorage.removeItem(STORAGE_KEY);
       router.push(`/results/${data.sessionId}`);
     } catch {
       setStep("error");
@@ -95,14 +157,40 @@ export function AssessmentFlow() {
               founder&rsquo;s budget. Six moments in each. How you move through them is the signal. Takes about 20
               minutes.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setStep("chapter_intro")}
-              className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
-            >
-              Start
-            </motion.button>
+            {resumeData ? (
+              <div className="flex flex-col items-center gap-3">
+                <p className="text-sm font-medium text-accent">
+                  {resumeData.step === "self_report"
+                    ? "You finished all 24 scenarios. Just a few questions left."
+                    : `You're partway through, scene ${resumeData.sceneIndex + 1} of ${FLAT_SCENES.length}.`}
+                </p>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={handleResume}
+                    className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
+                  >
+                    Continue where I left off
+                  </motion.button>
+                  <button
+                    onClick={handleStartOver}
+                    className="rounded-full border-2 border-border-strong px-8 py-3 text-sm font-medium text-foreground/70"
+                  >
+                    Start over
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setStep("chapter_intro")}
+                className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)]"
+              >
+                Start
+              </motion.button>
+            )}
           </motion.div>
         )}
 
