@@ -4,7 +4,7 @@ const STEPS = [
   {
     title: "Step into four real job simulations",
     description:
-      "An analyst call, an ER shift, a workplace conflict, a founder's budget: three unscripted moments in each, about 10 minutes total. No “rate yourself 1-5” questions.",
+      "An analyst call, an ER shift, a workplace conflict, a founder's budget: six unscripted moments in each, about 20 minutes total. No “rate yourself 1-5” questions.",
   },
   {
     title: "Get scored on what you actually do",
@@ -29,7 +29,7 @@ export function HowItWorks() {
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
-          Four steps, about ten minutes
+          Four steps, about twenty minutes
         </h2>
       </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

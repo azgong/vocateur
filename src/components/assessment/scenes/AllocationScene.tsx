@@ -84,9 +84,9 @@ export function AllocationScene({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="flex w-full max-w-2xl flex-col gap-6 lg:max-w-3xl"
+      className="flex w-full max-w-2xl flex-col gap-6 lg:max-w-3xl xl:max-w-4xl"
     >
-      <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">{scene.title}</h2>
+      <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight lg:text-4xl">{scene.title}</h2>
 
       <p className="text-sm text-foreground/60">{scene.prompt}</p>
 

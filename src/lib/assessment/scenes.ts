@@ -1,7 +1,7 @@
 import { TraitVector } from "./types";
 
 // A "chapter" is one of the four narrative worlds (Analyst/Physician/Executive/Founder).
-// Each chapter runs 3 scenes. No scene is a pure single-quadrant test: every scene's
+// Each chapter runs 6 scenes. No scene is a pure single-quadrant test: every scene's
 // trait contributions blend a primary quadrant with a meaningful secondary one, and the
 // UI never labels a scene by quadrant/trait name, so there's nothing for a user to
 // reverse-engineer and answer strategically toward.
@@ -106,7 +106,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "An analyst call.",
     quadrantLabel: "Quadrant A: Analytical",
     focus:
-      "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The three moments ahead reward rigor and evidence over gut instinct.",
+      "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The six moments ahead reward rigor and evidence over gut instinct.",
     caseStudy:
       "You're three weeks into a research associate role at a mid-size investment fund. The senior partner is out sick, the client call starts in ten minutes, and the numbers on your screen need to make sense before it does.",
     scenes: [
@@ -160,6 +160,59 @@ export const CHAPTERS: Chapter[] = [
         ],
         description: "deciding whether to trust a valuation model over a senior analyst's gut call",
       },
+      {
+        type: "ranking",
+        id: "sequence_diligence",
+        chapterId: "analyst",
+        title: "Sequence the diligence",
+        prompt: "The partner wants a go or no-go recommendation on an acquisition target by Friday. Five workstreams are still open. Order them by which should be tackled first to surface a dealbreaker fastest.",
+        displayOrder: [
+          { id: "audit", primaryLabel: "Reconcile the financial statements", secondaryLabel: "Check if the numbers actually tie out" },
+          { id: "legal", primaryLabel: "Review legal and regulatory exposure", secondaryLabel: "Any pending litigation or compliance issues" },
+          { id: "customer_concentration", primaryLabel: "Check customer concentration", secondaryLabel: "How much revenue rides on the top 3 clients" },
+          { id: "management_background", primaryLabel: "Vet the founding team's background", secondaryLabel: "Reference checks and past ventures" },
+          { id: "competitive_landscape", primaryLabel: "Map the competitive landscape", secondaryLabel: "Who else is eating this market" },
+        ],
+        correctOrder: ["audit", "legal", "customer_concentration", "management_background", "competitive_landscape"],
+        primaryQuadrant: "quadrant_a",
+        secondaryQuadrant: "quadrant_b",
+        description: "sequencing five diligence workstreams to surface a dealbreaker fastest",
+      },
+      {
+        type: "choice",
+        id: "model_midnight",
+        chapterId: "analyst",
+        title: "The model doesn't tie out",
+        prompt: "It's midnight. The pitch is at 9am. Your model is off by $2M and you can't find the error. What do you do?",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "rebuild_from_scratch", label: "Rebuild the model from scratch, checking every formula.", traitContribution: { quadrant_a: 0.95, quadrant_b: 0.55, quadrant_c: 0.05, quadrant_d: 0.15 } },
+          { id: "sleep_on_it", label: "Stop, sleep on it, and look again with fresh eyes at 6am.", traitContribution: { quadrant_a: 0.5, quadrant_b: 0.4, quadrant_c: 0.15, quadrant_d: 0.45 } },
+          { id: "flag_the_partner", label: "Message the partner now and flag the discrepancy honestly.", traitContribution: { quadrant_a: 0.55, quadrant_b: 0.3, quadrant_c: 0.75, quadrant_d: 0.15 } },
+          { id: "estimate_and_footnote", label: "Estimate the gap, footnote the assumption, and move on.", traitContribution: { quadrant_a: 0.4, quadrant_b: 0.25, quadrant_c: 0.15, quadrant_d: 0.75 } },
+        ],
+        description: "deciding how to handle a model that doesn't tie out the night before a pitch",
+      },
+      {
+        type: "timedSelect",
+        id: "catch_memo_error",
+        chapterId: "analyst",
+        title: "Catch the error in the memo",
+        prompt: "This memo goes to the client in ten minutes. Skim it once. One line has an error that doesn't belong. Find it.",
+        items: [
+          { id: "rev_line", primaryLabel: "Revenue grew 12% year over year to $4.2M.", secondaryLabel: "", correct: false },
+          { id: "margin_line", primaryLabel: "Gross margin held steady at 61% for the third straight quarter.", secondaryLabel: "", correct: false },
+          { id: "headcount_line", primaryLabel: "Headcount grew from 40 to 52 employees this quarter.", secondaryLabel: "", correct: false },
+          { id: "typo_line", primaryLabel: "Customer churn dropped to 400% from 6% last quarter.", secondaryLabel: "", correct: true },
+          { id: "cash_line", primaryLabel: "Cash runway extended to 14 months after the bridge round.", secondaryLabel: "", correct: false },
+          { id: "nps_line", primaryLabel: "Net promoter score rose 8 points to 42.", secondaryLabel: "", correct: false },
+        ],
+        timeLimitMs: 15000,
+        correctContribution: { quadrant_a: 0.9, quadrant_b: 0.4, quadrant_c: 0.1, quadrant_d: 0.15 },
+        incorrectContribution: { quadrant_a: 0.5, quadrant_b: 0.3, quadrant_c: 0.15, quadrant_d: 0.2 },
+        confirmVerb: "Flag",
+        description: "catching an erroneous line in a client memo before it goes out",
+      },
     ],
   },
   {
@@ -168,7 +221,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "An ER shift.",
     quadrantLabel: "Quadrant B: Sequential",
     focus:
-      "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The three moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
+      "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The six moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
     caseStudy:
       "It's hour nine of a twelve-hour ER shift at a busy urban hospital. The waiting room just got fuller, the charge nurse is stretched thin, and every decision you make in the next few minutes has a real person attached to it.",
     scenes: [
@@ -223,6 +276,59 @@ export const CHAPTERS: Chapter[] = [
         secondaryQuadrant: "quadrant_c",
         description: "prioritizing a 90-second end-of-shift handoff",
       },
+      {
+        type: "choice",
+        id: "consult_conflict",
+        chapterId: "physician",
+        title: "The consult that doesn't add up",
+        prompt: "A specialist's consult note recommends a treatment that conflicts with your own read of the labs. The patient is stable, but you need a decision before rounds in 20 minutes.",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "follow_protocol", label: "Follow the standard protocol for this diagnosis exactly.", traitContribution: { quadrant_a: 0.5, quadrant_b: 0.9, quadrant_c: 0.2, quadrant_d: 0.1 } },
+          { id: "call_specialist", label: "Call the specialist directly to reconcile the two reads.", traitContribution: { quadrant_a: 0.5, quadrant_b: 0.45, quadrant_c: 0.75, quadrant_d: 0.2 } },
+          { id: "order_one_more_test", label: "Order one more targeted test before deciding.", traitContribution: { quadrant_a: 0.85, quadrant_b: 0.55, quadrant_c: 0.15, quadrant_d: 0.2 } },
+          { id: "trust_own_read", label: "Trust your own read of the labs and proceed.", traitContribution: { quadrant_a: 0.6, quadrant_b: 0.35, quadrant_c: 0.15, quadrant_d: 0.65 } },
+        ],
+        description: "deciding between your own read and a specialist's conflicting recommendation before rounds",
+      },
+      {
+        type: "timedSelect",
+        id: "drug_interaction",
+        chapterId: "physician",
+        title: "Spot the drug interaction",
+        prompt: "A new medication order just came in for a patient already on three others. Scan the list, one combination is dangerous. Which one?",
+        items: [
+          { id: "combo1", primaryLabel: "Acetaminophen + Ibuprofen", secondaryLabel: "", correct: false },
+          { id: "combo2", primaryLabel: "Lisinopril + Metformin", secondaryLabel: "", correct: false },
+          { id: "combo3", primaryLabel: "Warfarin + new NSAID order", secondaryLabel: "", correct: true },
+          { id: "combo4", primaryLabel: "Atorvastatin + Levothyroxine", secondaryLabel: "", correct: false },
+          { id: "combo5", primaryLabel: "Amlodipine + Hydrochlorothiazide", secondaryLabel: "", correct: false },
+          { id: "combo6", primaryLabel: "Omeprazole + Calcium supplement", secondaryLabel: "", correct: false },
+        ],
+        timeLimitMs: 15000,
+        correctContribution: { quadrant_a: 0.5, quadrant_b: 0.9, quadrant_c: 0.1, quadrant_d: 0.15 },
+        incorrectContribution: { quadrant_a: 0.3, quadrant_b: 0.55, quadrant_c: 0.15, quadrant_d: 0.15 },
+        confirmVerb: "Flag",
+        description: "catching a dangerous drug interaction in a new medication order under time pressure",
+      },
+      {
+        type: "ranking",
+        id: "restock_wave",
+        chapterId: "physician",
+        title: "Restock before the next wave",
+        prompt: "You've got 5 minutes before the next ambulance wave hits. Rank these tasks by what actually matters most before patients arrive.",
+        displayOrder: [
+          { id: "notify_team", primaryLabel: "Notify the full team the wave is inbound", secondaryLabel: "So no one is caught off guard" },
+          { id: "airway_cart", primaryLabel: "Confirm the airway cart is fully stocked", secondaryLabel: "Intubation kit, oxygen, suction" },
+          { id: "bed_assignments", primaryLabel: "Clear and assign open beds", secondaryLabel: "Know exactly where new patients go" },
+          { id: "gauze_restock", primaryLabel: "Restock gauze and basic supplies", secondaryLabel: "Routine but necessary" },
+          { id: "chart_cleanup", primaryLabel: "Finish charting on discharged patients", secondaryLabel: "Paperwork from an hour ago" },
+        ],
+        correctOrder: ["notify_team", "airway_cart", "bed_assignments", "gauze_restock", "chart_cleanup"],
+        primaryQuadrant: "quadrant_b",
+        secondaryQuadrant: "quadrant_a",
+        description: "prioritizing prep tasks in the five minutes before a new patient wave arrives",
+      },
     ],
   },
   {
@@ -231,7 +337,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "A workplace conflict.",
     quadrantLabel: "Quadrant C: Interpersonal",
     focus:
-      "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The three moments ahead reward reading people and situations, not just the facts on the page.",
+      "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The six moments ahead reward reading people and situations, not just the facts on the page.",
     caseStudy:
       "You were just promoted to team lead. Two people you used to sit next to are now people you manage, and they're not getting along. Everything you know about them so far is coming through a screen.",
     scenes: [
@@ -289,6 +395,58 @@ export const CHAPTERS: Chapter[] = [
         confirmVerb: "Check in on",
         description: "spotting who on the team needed a check-in from a stream of Slack messages",
       },
+      {
+        type: "ranking",
+        id: "onboard_new_hire",
+        chapterId: "executive",
+        title: "Onboard the new hire",
+        prompt: "A new report starts Monday. You have one hour to prep their first week. Rank these by what actually matters most for a strong start.",
+        displayOrder: [
+          { id: "laptop_access", primaryLabel: "Confirm laptop and system access works", secondaryLabel: "Basic logistics" },
+          { id: "clear_priorities", primaryLabel: "Write down their top 3 priorities for the month", secondaryLabel: "So ambiguity doesn't stall them" },
+          { id: "intro_team", primaryLabel: "Schedule 1:1 intros with each teammate", secondaryLabel: "So they feel like part of the group fast" },
+          { id: "feedback_norms", primaryLabel: "Explain how and when you give feedback", secondaryLabel: "So critique doesn't land as a surprise later" },
+          { id: "shadow_time", primaryLabel: "Block time for them to shadow a live meeting", secondaryLabel: "See how the team actually works" },
+        ],
+        correctOrder: ["laptop_access", "clear_priorities", "intro_team", "feedback_norms", "shadow_time"],
+        primaryQuadrant: "quadrant_c",
+        secondaryQuadrant: "quadrant_b",
+        description: "prioritizing a new hire's first week for the strongest start",
+      },
+      {
+        type: "choice",
+        id: "reluctant_volunteer",
+        chapterId: "executive",
+        title: "The reluctant volunteer",
+        prompt: "You need someone to lead a cross-team project nobody wants. One person on your team is capable but clearly reluctant. What do you do?",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "ask_directly", label: "Ask them directly and honestly why they're hesitant.", traitContribution: { quadrant_a: 0.3, quadrant_b: 0.25, quadrant_c: 0.9, quadrant_d: 0.2 } },
+          { id: "assign_it", label: "Assign it. Sometimes the job needs to get done regardless.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.6, quadrant_c: 0.25, quadrant_d: 0.35 } },
+          { id: "sweeten_the_deal", label: "Offer something that makes it worth their while.", traitContribution: { quadrant_a: 0.4, quadrant_b: 0.2, quadrant_c: 0.55, quadrant_d: 0.6 } },
+          { id: "find_someone_else", label: "Look for a more willing volunteer first.", traitContribution: { quadrant_a: 0.3, quadrant_b: 0.3, quadrant_c: 0.65, quadrant_d: 0.25 } },
+        ],
+        description: "deciding how to handle a capable but reluctant volunteer for an unwanted project",
+      },
+      {
+        type: "timedSelect",
+        id: "promotion_review",
+        chapterId: "executive",
+        title: "Who needs the promotion conversation",
+        prompt: "Performance reviews are due tomorrow. Skim these self-assessments fast. One person is clearly underselling themselves and needs you to push back before you finalize it.",
+        items: [
+          { id: "person_a", primaryLabel: "\"I hit all my targets this quarter, nothing major to flag.\"", secondaryLabel: "", correct: false },
+          { id: "person_b", primaryLabel: "\"I guess I did okay, though I'm sure others carried more weight than me.\"", secondaryLabel: "", correct: true },
+          { id: "person_c", primaryLabel: "\"Shipped the redesign two weeks early, feeling good about it.\"", secondaryLabel: "", correct: false },
+          { id: "person_d", primaryLabel: "\"Missed one deadline, but the client extension made up for it.\"", secondaryLabel: "", correct: false },
+          { id: "person_e", primaryLabel: "\"On track for everything, would like to discuss next steps.\"", secondaryLabel: "", correct: false },
+        ],
+        timeLimitMs: 15000,
+        correctContribution: { quadrant_a: 0.1, quadrant_b: 0.15, quadrant_c: 0.95, quadrant_d: 0.35 },
+        incorrectContribution: { quadrant_a: 0.15, quadrant_b: 0.2, quadrant_c: 0.5, quadrant_d: 0.2 },
+        confirmVerb: "Flag",
+        description: "spotting which teammate is underselling their own performance review before finalizing it",
+      },
     ],
   },
   {
@@ -297,7 +455,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "A founder's budget.",
     quadrantLabel: "Quadrant D: Imaginative",
     focus:
-      "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The three moments ahead reward vision and conviction over caution.",
+      "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The six moments ahead reward vision and conviction over caution.",
     caseStudy:
       "Eight months after launch, the seed money is finite and the calendar keeps moving whether the product is ready or not. You're the one who has to decide where the next dollar and the next month go.",
     scenes: [
@@ -348,6 +506,57 @@ export const CHAPTERS: Chapter[] = [
           { id: "split_team", label: "Split the team: half on a pivot prototype, half on onboarding.", traitContribution: { quadrant_a: 0.35, quadrant_b: 0.4, quadrant_c: 0.35, quadrant_d: 0.7 } },
         ],
         description: "deciding whether to pivot the product after six weeks of flat growth",
+      },
+      {
+        type: "ranking",
+        id: "investor_questions",
+        chapterId: "founder",
+        title: "Answer the investor's questions",
+        prompt: "An investor update is due tonight. You only have time to properly answer 5 of their questions. Rank by what they'll actually care about most.",
+        displayOrder: [
+          { id: "burn_rate", primaryLabel: "What's your current burn rate and runway?", secondaryLabel: "The number every investor asks first" },
+          { id: "biggest_risk", primaryLabel: "What's the biggest risk right now?", secondaryLabel: "Shows self-awareness" },
+          { id: "big_win", primaryLabel: "What's the biggest win since the last update?", secondaryLabel: "Momentum signal" },
+          { id: "hiring_plan", primaryLabel: "Who are you hiring next?", secondaryLabel: "Team-building signal" },
+          { id: "competitor_move", primaryLabel: "What did a competitor just launch?", secondaryLabel: "Market awareness" },
+        ],
+        correctOrder: ["burn_rate", "biggest_risk", "big_win", "hiring_plan", "competitor_move"],
+        primaryQuadrant: "quadrant_d",
+        secondaryQuadrant: "quadrant_a",
+        description: "prioritizing which investor questions matter most with limited time to answer",
+      },
+      {
+        type: "choice",
+        id: "cofounder_disagreement",
+        chapterId: "founder",
+        title: "The cofounder disagreement",
+        prompt: "Your cofounder wants to raise a big round now. You think it's premature and dilutes too early. You need to align before the board call tomorrow.",
+        confirmLabel: "Make the call",
+        options: [
+          { id: "raise_now", label: "Back the raise. Momentum and capital now beats caution.", traitContribution: { quadrant_a: 0.3, quadrant_b: 0.15, quadrant_c: 0.25, quadrant_d: 0.9 } },
+          { id: "hold_off", label: "Hold off. Prove more traction first, raise on better terms later.", traitContribution: { quadrant_a: 0.65, quadrant_b: 0.55, quadrant_c: 0.2, quadrant_d: 0.35 } },
+          { id: "bring_data", label: "Bring hard data to the conversation and let the numbers decide.", traitContribution: { quadrant_a: 0.9, quadrant_b: 0.45, quadrant_c: 0.25, quadrant_d: 0.3 } },
+          { id: "align_privately", label: "Talk it through privately with your cofounder before the board sees any split.", traitContribution: { quadrant_a: 0.3, quadrant_b: 0.35, quadrant_c: 0.85, quadrant_d: 0.35 } },
+        ],
+        description: "resolving a disagreement with your cofounder about raising before a board call",
+      },
+      {
+        type: "allocation",
+        id: "demo_day_split",
+        chapterId: "founder",
+        title: "Split the demo day slot",
+        prompt: "You've got 3 minutes on stage and 100 points of attention to give. Split it across what you actually want the room to remember.",
+        categories: [
+          { id: "vision", label: "The big vision", hint: "Where this goes in 5 years" },
+          { id: "traction", label: "Traction and numbers", hint: "What's actually working right now" },
+          { id: "team", label: "The team", hint: "Why you're the ones to do this" },
+          { id: "ask", label: "The ask", hint: "What you actually need from the room" },
+        ],
+        concentrationQuadrant: "quadrant_d",
+        balanceQuadrant: "quadrant_a",
+        balanceCategoryId: "traction",
+        confirmLabel: "Lock in the pitch",
+        description: "allocating a 3-minute demo day pitch across vision, traction, team, and the ask",
       },
     ],
   },

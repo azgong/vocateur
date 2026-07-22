@@ -6,7 +6,7 @@ import { CHAPTERS } from "@/lib/assessment/scenes";
 
 export function ProgressBar({ chapterIndex, sceneInChapter }: { chapterIndex: number; sceneInChapter: number }) {
   return (
-    <div className="flex w-full max-w-md items-center gap-3">
+    <div className="flex w-full max-w-2xl items-center gap-3 lg:max-w-3xl xl:max-w-4xl">
       {CHAPTERS.map((chapter, ci) => {
         const meta = QUADRANT_META[CHAPTER_QUADRANT[chapter.id]];
         const isPastChapter = ci < chapterIndex;

@@ -72,7 +72,7 @@ export default async function Home() {
 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-foreground/50">
           <span className="flex items-center gap-1.5">
-            <BenefitDot /> 10 minutes, 4 real job scenarios
+            <BenefitDot /> 20 minutes, 24 real job scenarios
           </span>
           <span className="flex items-center gap-1.5">
             <BenefitDot /> Backed by real BLS wage data
