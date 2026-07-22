@@ -74,7 +74,7 @@ export function PricingSection({
             <p className="mt-1 text-3xl font-semibold">
               $9<span className="text-base font-normal text-foreground/50">/mo</span>
             </p>
-            <p className="text-xs text-foreground/40">or $79/yr, save about 27%, best for a full job search</p>
+            <p className="text-xs text-foreground/40">or $89/yr, save about 18%, best for a full job search</p>
           </div>
           <ul className="flex flex-1 flex-col gap-2.5 text-sm text-foreground/70">
             {PRO_FEATURES.map((f) => (

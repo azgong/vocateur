@@ -79,7 +79,7 @@ export function HomeProCheckout({
             disabled={checkoutLoading !== null}
             className="flex-1 rounded-full border-2 border-accent/40 px-6 py-3 text-sm font-semibold text-accent disabled:opacity-60"
           >
-            {checkoutLoading === "annual" ? "Redirecting…" : "Get Pro: $79/yr"}
+            {checkoutLoading === "annual" ? "Redirecting…" : "Get Pro: $89/yr"}
           </motion.button>
         </div>
         {stage === "error" && <p className="text-center text-sm text-quadrant-c">Something went wrong. Try again.</p>}
@@ -112,7 +112,7 @@ export function HomeProCheckout({
               onClick={() => startCheckout("annual")}
               className="flex-1 rounded-full border-2 border-accent/40 px-6 py-3 text-sm font-semibold text-accent"
             >
-              Get Pro: $79/yr
+              Get Pro: $89/yr
             </motion.button>
           </motion.div>
         )}

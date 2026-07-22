@@ -57,9 +57,9 @@ export function UpgradePlans({
         <p className="text-2xl font-semibold">
           $9<span className="text-sm font-normal text-foreground/50">/mo</span>
           <span className="mx-3 text-foreground/30">or</span>
-          $79<span className="text-sm font-normal text-foreground/50">/yr</span>
+          $89<span className="text-sm font-normal text-foreground/50">/yr</span>
         </p>
-        <p className="text-xs text-foreground/40">Annual saves about 27%. Cancel anytime.</p>
+        <p className="text-xs text-foreground/40">Annual saves about 18%. Cancel anytime.</p>
       </div>
 
       {isAuthenticated ? (
@@ -80,7 +80,7 @@ export function UpgradePlans({
             disabled={checkoutLoading !== null}
             className="rounded-full border-2 border-border-strong px-8 py-3 text-sm font-semibold text-foreground disabled:opacity-60"
           >
-            {checkoutLoading === "annual" ? "Redirecting…" : "Upgrade: $79/yr"}
+            {checkoutLoading === "annual" ? "Redirecting…" : "Upgrade: $89/yr"}
           </motion.button>
         </div>
       ) : (

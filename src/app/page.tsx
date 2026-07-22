@@ -28,7 +28,7 @@ const jsonLd = [
     offers: [
       { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
       { "@type": "Offer", name: "Pro Monthly", price: "9", priceCurrency: "USD" },
-      { "@type": "Offer", name: "Pro Annual", price: "79", priceCurrency: "USD" },
+      { "@type": "Offer", name: "Pro Annual", price: "89", priceCurrency: "USD" },
     ],
   },
   {

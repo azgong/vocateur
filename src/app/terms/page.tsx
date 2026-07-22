@@ -50,7 +50,7 @@ export default function TermsPage() {
           <h2 className="text-base font-semibold text-foreground">Subscriptions and billing</h2>
           <p>
             The initial assessment and top match are free. Full results, your roadmap, and the AI career advisor
-            require a paid subscription ($9/month or $79/year, as shown at checkout). Subscriptions renew
+            require a paid subscription ($9/month or $89/year, as shown at checkout). Subscriptions renew
             automatically until canceled. Payments are processed by Stripe. We don&rsquo;t store your card
             details. You can cancel anytime from your account&rsquo;s billing portal; cancellation stops future
             renewals, and you&rsquo;ll keep access through the end of the period you already paid for. We don&rsquo;t

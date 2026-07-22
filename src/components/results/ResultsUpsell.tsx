@@ -35,7 +35,7 @@ export function ResultsUpsell({ sessionId }: { sessionId: string }) {
           Upgrade to Pro to keep going
         </h3>
         <p className="mx-auto mt-2 max-w-md text-sm text-white/70">
-          Everything below unlocks the moment you upgrade. $9/mo or $79/yr, cancel anytime.
+          Everything below unlocks the moment you upgrade. $9/mo or $89/yr, cancel anytime.
         </p>
       </div>
 
