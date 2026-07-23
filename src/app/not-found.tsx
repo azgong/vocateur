@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center">
       <Logo size={48} />
-      <h1 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">
+      <h1 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight">
         Page not found
       </h1>
       <p className="max-w-sm text-foreground/60">

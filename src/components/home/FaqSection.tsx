@@ -25,10 +25,10 @@ export const FAQS = [
 
 export function FaqSection() {
   return (
-    <section className="flex flex-col gap-8">
+    <section id="faq" className="flex flex-col gap-8 scroll-mt-24">
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Questions</p>
-        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
           Before you start
         </h2>
       </ScrollReveal>

@@ -25,11 +25,11 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="flex flex-col gap-10">
+    <section id="how-it-works" className="flex flex-col gap-10 scroll-mt-24">
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
-        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
-          Four steps, about twenty minutes
+        <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
+          Four steps, about ten minutes
         </h2>
       </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -43,6 +43,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-brand: var(--font-brand);
+  --font-title: var(--font-title);
 }
 
 body {
@@ -97,6 +98,31 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .aurora-backdrop::before,
   .aurora-backdrop::after {
+    animation: none;
+  }
+}
+
+/* Floating decorative product cards around the hero. */
+.hero-float {
+  animation: hero-float 7s ease-in-out infinite alternate;
+}
+
+.hero-float-late {
+  animation: hero-float 8s ease-in-out -4s infinite alternate;
+}
+
+@keyframes hero-float {
+  0% {
+    transform: translateY(0) rotate(var(--float-tilt, -2deg));
+  }
+  100% {
+    transform: translateY(-14px) rotate(var(--float-tilt-end, 2deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float,
+  .hero-float-late {
     animation: none;
   }
 }

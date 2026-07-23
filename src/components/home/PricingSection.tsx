@@ -33,7 +33,7 @@ export function PricingSection({
     <section id="pricing" className="flex flex-col gap-8 scroll-mt-24">
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Pricing</p>
-        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
           Free to start, simple to unlock
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-foreground/50">

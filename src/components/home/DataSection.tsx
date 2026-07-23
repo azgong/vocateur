@@ -6,7 +6,7 @@ export function DataSection() {
       <section className="flex flex-col gap-8 rounded-3xl border border-border-subtle bg-surface p-8 sm:p-10">
         <div className="text-center">
           <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Real data, not vibes</p>
-          <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
+          <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
             Every career is backed by government labor data
           </h2>
         </div>

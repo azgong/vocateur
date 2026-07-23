@@ -19,6 +19,16 @@ export async function POST(req: NextRequest) {
   }
 
   const admin = createAdminClient();
+
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  if (profile?.subscription_status === "active") {
+    return NextResponse.json({ error: "Already subscribed." }, { status: 409 });
+  }
+
   const stripe = getStripe();
   const origin = req.nextUrl.origin;
   const customerId = await getOrCreateStripeCustomer(admin, stripe, { id: user.id, email: user.email });

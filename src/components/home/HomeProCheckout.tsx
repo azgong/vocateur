@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { createClient } from "@/lib/supabase/client";
+import { SignInPanel } from "@/components/auth/SignInPanel";
 
 type Plan = "monthly" | "annual";
 
@@ -13,15 +13,14 @@ export function HomeProCheckout({
   isAuthenticated: boolean;
   userEmail: string | null;
 }) {
-  const [stage, setStage] = useState<"cta" | "email" | "sent" | "error">("cta");
+  const [stage, setStage] = useState<"cta" | "auth" | "error">("cta");
   const [pendingPlan, setPendingPlan] = useState<Plan | null>(null);
-  const [email, setEmail] = useState("");
   const [checkoutLoading, setCheckoutLoading] = useState<Plan | null>(null);
 
   async function startCheckout(plan: Plan) {
     if (!isAuthenticated) {
       setPendingPlan(plan);
-      setStage("email");
+      setStage("auth");
       return;
     }
     setCheckoutLoading(plan);
@@ -42,21 +41,6 @@ export function HomeProCheckout({
       setStage("error");
       setCheckoutLoading(null);
     }
-  }
-
-  async function handleSendLink(e: React.FormEvent) {
-    e.preventDefault();
-    if (!pendingPlan) return;
-    setStage("sent");
-    const supabase = createClient();
-    const nextPath = `/api/checkout/redirect?plan=${pendingPlan}`;
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
-      },
-    });
-    if (error) setStage("error");
   }
 
   if (isAuthenticated) {
@@ -117,33 +101,18 @@ export function HomeProCheckout({
           </motion.div>
         )}
 
-        {stage === "email" && (
-          <motion.form
-            key="email-form"
+        {stage === "auth" && pendingPlan && (
+          <motion.div
+            key="auth-panel"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            onSubmit={handleSendLink}
-            className="flex flex-col gap-2 sm:flex-row"
+            className="flex justify-center"
           >
-            <input
-              type="email"
-              required
-              autoFocus
-              placeholder="you@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 rounded-full border border-border-subtle bg-background px-4 py-2.5 text-sm text-foreground outline-none focus:border-accent"
+            <SignInPanel
+              next={`/api/checkout/redirect?plan=${pendingPlan}`}
+              note="Sign in once and you go straight to secure card payment."
             />
-            <button type="submit" className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white">
-              Continue to payment
-            </button>
-          </motion.form>
-        )}
-
-        {stage === "sent" && (
-          <motion.p key="sent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-sm font-medium text-foreground/70">
-            Check your email for a sign-in link. It will take you straight to checkout.
-          </motion.p>
+          </motion.div>
         )}
       </AnimatePresence>
       {stage === "error" && <p className="text-center text-sm text-quadrant-c">Something went wrong. Try again.</p>}

@@ -108,10 +108,10 @@ function MarketDataDemo() {
 
 export function ProShowcase() {
   return (
-    <section className="flex flex-col gap-10">
+    <section id="pro" className="flex flex-col gap-10 scroll-mt-24">
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
-        <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight sm:text-4xl">
+        <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
           Built to keep helping, not just to unlock once
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">

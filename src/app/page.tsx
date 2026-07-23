@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Logo } from "@/components/Logo";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ScienceSection } from "@/components/home/ScienceSection";
@@ -51,34 +50,37 @@ export default async function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="flex flex-col items-center gap-7 px-6 pt-24 pb-20 text-center">
-        <Logo size={64} />
+      <section className="relative flex flex-col items-center gap-7 overflow-hidden px-6 pt-24 pb-20 text-center">
+        <HeroFloatCards />
+
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
           Not another personality quiz
         </span>
-        <h1 className="font-[family-name:var(--font-brand)] text-6xl font-bold uppercase tracking-tight sm:text-7xl">
-          Vocateur
+        <h1 className="max-w-3xl font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl">
+          Meet the career that fits how you think.
+          <span className="text-accent-soft"> In ten minutes.</span>
         </h1>
-        <p className="max-w-md text-lg text-foreground/60">
-          Real job moments. One clear signal. Find the career that actually fits how you think.
+        <p className="max-w-xl text-lg text-foreground/60">
+          Play through real job moments and quick skill games. Vocateur reads how you actually decide, then
+          matches you to high-paying careers with real salary data and a step-by-step way in.
         </p>
 
         <Link
           href="/assessment"
           className="rounded-full bg-accent px-14 py-6 text-xl font-semibold text-white shadow-[0_0_50px_-10px_var(--accent)] transition-shadow hover:shadow-[0_0_64px_-6px_var(--accent)]"
         >
-          Start your assessment
+          Start the simulation
         </Link>
 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-foreground/50">
           <span className="flex items-center gap-1.5">
-            <BenefitDot /> 20 minutes, 24 real job scenarios
+            <BenefitDot /> About 10 minutes, scenarios plus skill games
           </span>
           <span className="flex items-center gap-1.5">
             <BenefitDot /> Backed by real BLS wage data
           </span>
           <span className="flex items-center gap-1.5">
-            <BenefitDot /> Free to see your top match
+            <BenefitDot /> Free to see your top matches
           </span>
         </div>
 
@@ -98,21 +100,62 @@ export default async function Home() {
         <FaqSection />
       </div>
 
-      <footer className="flex flex-col items-center gap-3 border-t border-border-subtle px-6 py-10 text-center">
-        <Logo size={32} />
-        <div className="flex gap-4 text-xs text-foreground/40">
-          <Link href="/privacy" className="underline underline-offset-2 hover:text-foreground/60">
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="underline underline-offset-2 hover:text-foreground/60">
-            Terms of Service
-          </Link>
-        </div>
-      </footer>
     </main>
   );
 }
 
 function BenefitDot() {
   return <span className="h-1.5 w-1.5 rounded-full bg-accent" />;
+}
+
+/* Decorative floating product cards flanking the hero, desktop only. */
+function HeroFloatCards() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 hidden xl:block">
+      <div
+        className="hero-float absolute left-[4%] top-24 w-56 rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
+        style={{ "--float-tilt": "-3deg", "--float-tilt-end": "-1deg" } as React.CSSProperties}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Top match</p>
+        <p className="mt-1 text-sm font-semibold">Aerospace Engineer</p>
+        <div className="mt-2 flex items-center gap-2">
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border-subtle">
+            <div className="h-full w-[94%] rounded-full bg-accent" />
+          </div>
+          <span className="text-xs font-semibold tabular-nums text-accent">94%</span>
+        </div>
+        <p className="mt-2 text-[11px] text-foreground/50">$130,720 median wage, +6% growth</p>
+      </div>
+
+      <div
+        className="hero-float-late absolute right-[3%] top-32 w-60 rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
+        style={{ "--float-tilt": "2deg", "--float-tilt-end": "4deg" } as React.CSSProperties}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Your advisor</p>
+        <div className="mt-2 self-end rounded-xl rounded-br-sm bg-surface-2 px-3 py-2 text-[11px] text-foreground/70">
+          I have an interview at SpaceX on Friday.
+        </div>
+        <div className="mt-1.5 rounded-xl rounded-bl-sm border border-accent/20 bg-accent/[0.08] px-3 py-2 text-[11px] text-foreground/70">
+          Let&rsquo;s run a mock round for it right now.
+        </div>
+      </div>
+
+      <div
+        className="hero-float absolute bottom-6 right-[3%] w-52 rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
+        style={{ "--float-tilt": "-2deg", "--float-tilt-end": "1deg" } as React.CSSProperties}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Roadmap</p>
+        <div className="mt-2 flex items-center gap-2">
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-bold text-white">
+            ✓
+          </span>
+          <p className="text-[11px] text-foreground/70">Ship a project recruiters ask about</p>
+        </div>
+        <div className="mt-1.5 flex items-center gap-2">
+          <span className="h-4 w-4 rounded-full border border-border-strong" />
+          <p className="text-[11px] text-foreground/50">Reach out to 3 people in the role</p>
+        </div>
+      </div>
+    </div>
+  );
 }
