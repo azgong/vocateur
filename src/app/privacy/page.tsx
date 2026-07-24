@@ -83,6 +83,7 @@ export default function PrivacyPage() {
             <li className="list-disc"><span className="font-medium text-foreground/90">Anthropic</span>: generates your rationale, roadmap, and AI conversation responses from your assessment results</li>
             <li className="list-disc"><span className="font-medium text-foreground/90">Resend</span>: delivers sign-in and account emails</li>
             <li className="list-disc"><span className="font-medium text-foreground/90">Vercel</span>: hosts the application</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Google and GitHub</span>: if you choose to sign in with one of these, they confirm your identity and share your basic account info (like your email) with us</li>
           </ul>
         </section>
 
