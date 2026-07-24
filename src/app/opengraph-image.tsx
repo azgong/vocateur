@@ -33,7 +33,7 @@ export default async function OpengraphImage() {
             fontFamily: "Space Grotesk",
           }}
         >
-          Not another personality quiz
+          Built from what you do, not what you say
         </div>
         <div
           style={{
