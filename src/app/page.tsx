@@ -54,7 +54,7 @@ export default async function Home() {
         <HeroFloatCards />
 
         <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase">
-          You deserve better than a guess
+          You deserve better than a guess.
         </span>
         <h1 className="max-w-3xl font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl">
           Meet the career that fits how you think.
