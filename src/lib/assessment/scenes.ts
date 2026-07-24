@@ -85,7 +85,26 @@ export type AllocationSceneConfig = {
   description: string;
 };
 
-export type SceneConfig = ChoiceSceneConfig | TimedSelectSceneConfig | RankingSceneConfig | AllocationSceneConfig;
+export type DragRankSceneConfig = {
+  type: "dragRank";
+  id: string;
+  chapterId: ChapterId;
+  title: string;
+  prompt: string;
+  items: RankingItem[];
+  correctOrder: string[];
+  primaryQuadrant: keyof TraitVector;
+  secondaryQuadrant: keyof TraitVector;
+  confirmLabel: string;
+  description: string;
+};
+
+export type SceneConfig =
+  | ChoiceSceneConfig
+  | TimedSelectSceneConfig
+  | RankingSceneConfig
+  | AllocationSceneConfig
+  | DragRankSceneConfig;
 
 export type Chapter = {
   id: ChapterId;
@@ -213,6 +232,25 @@ export const CHAPTERS: Chapter[] = [
         confirmVerb: "Flag",
         description: "catching an erroneous line in a client memo before it goes out",
       },
+      {
+        type: "dragRank",
+        id: "weigh_the_evidence",
+        chapterId: "analyst",
+        title: "Weigh the evidence",
+        prompt:
+          "The partner wants one number for the client: last year's true revenue. Four sources disagree. Drag them into the order you'd trust, most reliable on top, then lock it in.",
+        items: [
+          { id: "deck", primaryLabel: "The founder's fundraising deck", secondaryLabel: "Prepared to impress investors" },
+          { id: "bank", primaryLabel: "Bank statements for the year", secondaryLabel: "Raw inflows, unreconciled" },
+          { id: "audited", primaryLabel: "Audited financial statements", secondaryLabel: "Signed off by a Big Four firm last quarter" },
+          { id: "crm", primaryLabel: "The internal CRM export", secondaryLabel: "Self-reported by the sales team" },
+        ],
+        correctOrder: ["audited", "bank", "crm", "deck"],
+        primaryQuadrant: "quadrant_a",
+        secondaryQuadrant: "quadrant_b",
+        confirmLabel: "Lock in the order",
+        description: "ranking four conflicting revenue sources by evidentiary reliability",
+      },
     ],
   },
   {
@@ -328,6 +366,25 @@ export const CHAPTERS: Chapter[] = [
         primaryQuadrant: "quadrant_b",
         secondaryQuadrant: "quadrant_a",
         description: "prioritizing prep tasks in the five minutes before a new patient wave arrives",
+      },
+      {
+        type: "dragRank",
+        id: "order_the_handoff",
+        chapterId: "physician",
+        title: "Order the handoff",
+        prompt:
+          "Shift change in three minutes. You're handing four patients to the night team. Drag them into the order you'd brief them, riskiest overnight first.",
+        items: [
+          { id: "discharge_am", primaryLabel: "Stable patient due for morning discharge", secondaryLabel: "Paperwork already done" },
+          { id: "sepsis_watch", primaryLabel: "Post-op patient trending febrile", secondaryLabel: "Could tip into sepsis overnight" },
+          { id: "insulin", primaryLabel: "Diabetic patient on an insulin drip", secondaryLabel: "Needs glucose checks every hour" },
+          { id: "chest_obs", primaryLabel: "Chest-pain patient under observation", secondaryLabel: "Second troponin test due at 2 AM" },
+        ],
+        correctOrder: ["sepsis_watch", "chest_obs", "insulin", "discharge_am"],
+        primaryQuadrant: "quadrant_b",
+        secondaryQuadrant: "quadrant_c",
+        confirmLabel: "Hand off",
+        description: "sequencing a shift-change handoff so the night team hears the riskiest patients first",
       },
     ],
   },
@@ -447,6 +504,25 @@ export const CHAPTERS: Chapter[] = [
         confirmVerb: "Flag",
         description: "spotting which teammate is underselling their own performance review before finalizing it",
       },
+      {
+        type: "dragRank",
+        id: "sequence_conversations",
+        chapterId: "executive",
+        title: "Sequence the conversations",
+        prompt:
+          "Your best engineer just resigned in the middle of the all-hands, then walked out. Four conversations need to happen before end of day. Drag them into the order you'd take them.",
+        items: [
+          { id: "hr", primaryLabel: "HR", secondaryLabel: "Process, paperwork, and what you're allowed to say" },
+          { id: "resigned_eng", primaryLabel: "The engineer who resigned", secondaryLabel: "Door closed, one on one" },
+          { id: "ceo", primaryLabel: "Your own manager", secondaryLabel: "Will hear about it within the hour" },
+          { id: "team", primaryLabel: "Their immediate team", secondaryLabel: "Six people who just watched it happen" },
+        ],
+        correctOrder: ["resigned_eng", "team", "ceo", "hr"],
+        primaryQuadrant: "quadrant_c",
+        secondaryQuadrant: "quadrant_b",
+        confirmLabel: "Commit to the order",
+        description: "choosing the human order of conversations after a public resignation",
+      },
     ],
   },
   {
@@ -557,6 +633,25 @@ export const CHAPTERS: Chapter[] = [
         balanceCategoryId: "traction",
         confirmLabel: "Lock in the pitch",
         description: "allocating a 3-minute demo day pitch across vision, traction, team, and the ask",
+      },
+      {
+        type: "dragRank",
+        id: "spend_the_runway",
+        chapterId: "founder",
+        title: "Spend the runway",
+        prompt:
+          "Ten weeks of cash left and four moves on the table. Drag them into the order that buys the most learning per week, fastest first.",
+        items: [
+          { id: "onboarding", primaryLabel: "Rebuild onboarding end to end", secondaryLabel: "Three weeks of engineering" },
+          { id: "churn_calls", primaryLabel: "Call the last five customers who quit", secondaryLabel: "A day of brutal but free feedback" },
+          { id: "deck", primaryLabel: "Polish the fundraising deck", secondaryLabel: "Only matters if the numbers improve" },
+          { id: "pricing_test", primaryLabel: "Run a pricing test on the site", secondaryLabel: "Two days to ship, a week to read" },
+        ],
+        correctOrder: ["churn_calls", "pricing_test", "onboarding", "deck"],
+        primaryQuadrant: "quadrant_d",
+        secondaryQuadrant: "quadrant_a",
+        confirmLabel: "Run it",
+        description: "sequencing scarce runway toward the fastest validated learning",
       },
     ],
   },

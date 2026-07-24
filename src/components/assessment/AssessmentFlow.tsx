@@ -188,7 +188,7 @@ export function AssessmentFlow() {
               Know your fate in ten minutes.
             </h1>
             <p className="text-foreground/60 lg:text-lg">
-              Twenty-four real job moments across four worlds: an analyst call, an ER shift, a workplace conflict,
+              Twenty-eight real job moments across four worlds: an analyst call, an ER shift, a workplace conflict,
               and a founder&rsquo;s budget. Then five quick skill games test your reflexes, memory, and precision.
               How you move through all of it is the signal. No quiz questions.
             </p>

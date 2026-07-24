@@ -6,7 +6,7 @@ import { ModuleLog, TraitVector } from "@/lib/assessment/types";
 import { RankingSceneConfig } from "@/lib/assessment/scenes";
 import { QUADRANT_META, CHAPTER_QUADRANT } from "@/lib/assessment/quadrantStyle";
 
-function correctnessScore(order: string[], correctOrder: string[]): number {
+export function correctnessScore(order: string[], correctOrder: string[]): number {
   let inversions = 0;
   for (let i = 0; i < order.length; i++) {
     for (let j = i + 1; j < order.length; j++) {

@@ -6,6 +6,7 @@ import { ChoiceScene } from "./ChoiceScene";
 import { TimedSelectScene } from "./TimedSelectScene";
 import { RankingScene } from "./RankingScene";
 import { AllocationScene } from "./AllocationScene";
+import { DragRankScene } from "./DragRankScene";
 
 export function SceneRenderer({ scene, onComplete }: { scene: SceneConfig; onComplete: (log: ModuleLog) => void }) {
   switch (scene.type) {
@@ -17,5 +18,7 @@ export function SceneRenderer({ scene, onComplete }: { scene: SceneConfig; onCom
       return <RankingScene scene={scene} onComplete={onComplete} />;
     case "allocation":
       return <AllocationScene scene={scene} onComplete={onComplete} />;
+    case "dragRank":
+      return <DragRankScene scene={scene} onComplete={onComplete} />;
   }
 }
