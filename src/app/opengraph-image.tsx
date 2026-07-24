@@ -33,7 +33,7 @@ export default async function OpengraphImage() {
             fontFamily: "Space Grotesk",
           }}
         >
-          Built from what you do, not what you say
+          You deserve better than a guess
         </div>
         <div
           style={{

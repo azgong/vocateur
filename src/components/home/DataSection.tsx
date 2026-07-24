@@ -1,6 +1,10 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-export function DataSection() {
+export async function DataSection() {
+  const admin = createAdminClient();
+  const { count } = await admin.from("occupations").select("id", { count: "exact", head: true });
+
   return (
     <ScrollReveal>
       <section className="flex flex-col gap-8 rounded-3xl border border-border-subtle bg-surface p-8 sm:p-10">
@@ -11,7 +15,7 @@ export function DataSection() {
           </h2>
         </div>
         <div className="grid gap-6 text-center sm:grid-cols-3">
-          <Stat value="146" label="careers mapped to real occupation codes" />
+          <Stat value={String(count ?? 178)} label="careers mapped to real occupation codes" />
           <Stat value="2024–2034" label="U.S. Bureau of Labor Statistics projection cycle" />
           <Stat value="3" label="real figures per career: growth, wage, openings" />
         </div>
