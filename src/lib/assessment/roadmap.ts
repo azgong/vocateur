@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { LifeStage, ResumeStatus, SelfReport, WeeklyTimeAvailable } from "./types";
 import { Occupation } from "./matching";
+import { SkillScores, describeSkillScores } from "./games";
 
 export type RoadmapMilestone = {
   timeframe: string;
@@ -264,8 +265,17 @@ function personalContextBlock(selfReport: SelfReport): string {
     selfReport.furtherSchooling === "no" ? "They do not want more formal schooling. Favor certifications, self-study, and on-the-job paths over degree programs." : null,
     selfReport.values.length ? `What matters most to them at work: ${selfReport.values.join(", ")}. Let this shape which milestones you emphasize.` : null,
     selfReport.additionalContext ? `Additional context they shared directly: ${selfReport.additionalContext}` : null,
+    skillLine(selfReport),
   ].filter(Boolean);
   return lines.join("\n");
+}
+
+function skillLine(selfReport: SelfReport): string | null {
+  const scores = (selfReport as SelfReport & { skillScores?: SkillScores }).skillScores;
+  const summary = describeSkillScores(scores);
+  return summary
+    ? `Measured Skill Lab results (objective quick-game measurements of reflexes, memory, typing, precision): ${summary}. Where a milestone leans on one of these, acknowledge a measured strength or coach the gap concretely instead of ignoring it.`
+    : null;
 }
 
 async function callClaude(occupation: Occupation, selfReport: SelfReport): Promise<RoadmapContent | null> {

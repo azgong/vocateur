@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { ModuleLog } from "./types";
 import { Occupation } from "./matching";
+import { SkillScores, describeSkillScores } from "./games";
 
 function descriptionFor(log: ModuleLog): string {
   return (log.extra?.description as string) ?? "one of the scenario decisions";
@@ -41,7 +42,7 @@ function templatedRationale(occupation: Occupation, logs: ModuleLog[]): string {
   return `${highlights} That combination maps closely onto ${occupation.title.toLowerCase()}, where ${skills.toLowerCase()} are exactly what get used day to day.`;
 }
 
-async function callClaude(occupation: Occupation, logs: ModuleLog[]): Promise<string | null> {
+async function callClaude(occupation: Occupation, logs: ModuleLog[], skillScores?: SkillScores | null): Promise<string | null> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
 
@@ -50,12 +51,15 @@ async function callClaude(occupation: Occupation, logs: ModuleLog[]): Promise<st
     .map((l) => `- ${descriptionFor(l)}: chose "${l.choiceSelected}", took ${(l.timeTakenMs / 1000).toFixed(1)}s, ${l.revisionsMade} revisions`)
     .join("\n");
 
-  const prompt = `A user just completed 12 short behavioral simulation scenarios across 4 job-world chapters (not a personality quiz) and matched to the occupation "${occupation.title}" (${occupation.description}).
+  const skillLine = describeSkillScores(skillScores);
+
+  const prompt = `A user just completed short behavioral simulation scenarios across 4 job-world chapters (not a personality quiz) and matched to the occupation "${occupation.title}" (${occupation.description}).
 
 Their behavior across the scenarios:
 ${choiceSummary}
+${skillLine ? `\nMeasured Skill Lab results (quick reflex/memory/typing/precision games, objectively measured): ${skillLine}` : ""}
 
-Write a 2-3 sentence rationale explaining why this behavior pattern points toward "${occupation.title}". Reference their specific choices concretely (not generic trait labels), picking 2-3 of the most telling moments rather than listing all of them. Write directly to the user ("you"). No preamble, just the rationale text. Never use an em dash; use a period, comma, or colon instead. Plain text only, no markdown. End every complete sentence with a period.`;
+Write a 2-3 sentence rationale explaining why this behavior pattern points toward "${occupation.title}". Reference their specific choices concretely (not generic trait labels), picking 2-3 of the most telling moments rather than listing all of them. If a measured skill result genuinely supports the match for this specific occupation, you may cite one. Write directly to the user ("you"). No preamble, just the rationale text. Never use an em dash; use a period, comma, or colon instead. Plain text only, no markdown. End every complete sentence with a period.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -73,7 +77,11 @@ Write a 2-3 sentence rationale explaining why this behavior pattern points towar
   return null;
 }
 
-export async function generateRationale(occupation: Occupation, logs: ModuleLog[]): Promise<string> {
-  const llmResult = await callClaude(occupation, logs);
+export async function generateRationale(
+  occupation: Occupation,
+  logs: ModuleLog[],
+  skillScores?: SkillScores | null,
+): Promise<string> {
+  const llmResult = await callClaude(occupation, logs, skillScores);
   return llmResult ?? templatedRationale(occupation, logs);
 }

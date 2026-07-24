@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { rankMatches, Occupation } from "@/lib/assessment/matching";
 import { generateRationale } from "@/lib/assessment/rationale";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
+import { SkillScores } from "@/lib/assessment/games";
 import { MatchCard } from "@/components/results/MatchCard";
 import { LockedMatchCard } from "@/components/results/LockedMatchCard";
 import { SaveResultsForm } from "@/components/results/SaveResultsForm";
@@ -53,13 +54,14 @@ export default async function ResultsPage({
 
   const traitVector = session.trait_vector as TraitVector;
   const moduleLogs = (session.self_report?.moduleLogs ?? []) as ModuleLog[];
-  const matches = rankMatches(traitVector, occupations as Occupation[]);
+  const skillScores = (session.self_report?.skillScores ?? null) as SkillScores | null;
+  const matches = rankMatches(traitVector, occupations as Occupation[], skillScores);
 
   const visibleMatches = isSubscribed ? matches : matches.slice(0, 3);
   const lockedMatches = isSubscribed ? [] : matches.slice(3, 10);
 
   const rationales = await Promise.all(
-    visibleMatches.map((m) => generateRationale(m.occupation, moduleLogs)),
+    visibleMatches.map((m) => generateRationale(m.occupation, moduleLogs, skillScores)),
   );
 
   return (

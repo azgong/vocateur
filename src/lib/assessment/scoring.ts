@@ -1,4 +1,5 @@
 import { ModuleLog, SelfReport, TraitVector } from "./types";
+import { SkillScores } from "./games";
 
 function clamp01(n: number) {
   return Math.min(1, Math.max(0, n));
@@ -8,9 +9,11 @@ function clamp01(n: number) {
  * Weighted-sum trait scoring, no ML. Each module contributes a partial
  * trait delta (set by the module itself based on the specific choice made,
  * see each module's CHOICE_TRAITS map) plus a behavioral adjustment derived
- * from time taken and revisions. Self-report nudges pace/risk slightly.
+ * from time taken and revisions. Self-report and Skill Lab results nudge
+ * pace/risk slightly; the games' main influence on matching happens through
+ * occupation skill_demands in matching.ts, not here.
  */
-export function scoreAssessment(logs: ModuleLog[], selfReport: SelfReport): TraitVector {
+export function scoreAssessment(logs: ModuleLog[], selfReport: SelfReport, skillScores?: SkillScores): TraitVector {
   const totals: TraitVector = {
     quadrant_a: 0,
     quadrant_b: 0,
@@ -47,6 +50,16 @@ export function scoreAssessment(logs: ModuleLog[], selfReport: SelfReport): Trai
   }
   if (selfReport.furtherSchooling === "no") {
     vector.pace_preference = clamp01(vector.pace_preference + 0.05);
+  }
+
+  // Skill Lab nudges: measured reflexes shift pace slightly in either
+  // direction. Deliberately small; skill fit is handled in matching.ts.
+  if (skillScores) {
+    if (skillScores.reaction !== null && skillScores.reaction >= 0.7) {
+      vector.pace_preference = clamp01(vector.pace_preference + 0.07);
+    } else if (skillScores.reaction !== null && skillScores.reaction <= 0.25) {
+      vector.pace_preference = clamp01(vector.pace_preference - 0.05);
+    }
   }
 
   return vector;

@@ -1,5 +1,9 @@
 import { TraitVector } from "./types";
 import { cosineSimilarity } from "./scoring";
+import { GameId, SkillScores } from "./games";
+
+/** Per-occupation demand (0-1) for each measured Skill Lab dimension; 0.5 is neutral. */
+export type SkillDemands = Partial<Record<GameId, number>>;
 
 export type Occupation = {
   id: string;
@@ -25,6 +29,7 @@ export type Occupation = {
   skills_to_build_first: string[] | null;
   common_misconceptions: string | null;
   interview_focus: string | null;
+  skill_demands: SkillDemands | null;
 };
 
 export type Match = {
@@ -46,11 +51,45 @@ const DISPLAY_MIN = 40;
 const DISPLAY_MAX = 99;
 const FLOOR_RANK_FRACTION = 0.35;
 
-export function rankMatches(userVector: TraitVector, occupations: Occupation[]): Match[] {
-  const scored = occupations.map((occupation) => ({
-    occupation,
-    rawSimilarity: cosineSimilarity(userVector, occupation.trait_profile),
-  }));
+// Skill Lab results influence ranking as a secondary term: the quadrant/trait
+// cosine stays dominant, measured skills act as a tiebreaker-strength signal.
+const SKILL_WEIGHT = 0.15;
+
+/**
+ * Agreement between what an occupation demands and what the games measured,
+ * weighted by how distinctive each demand is (a 0.5 "neutral" demand says
+ * nothing and is ignored). Null when there is nothing meaningful to compare,
+ * so users who skip games are matched purely on the simulation.
+ */
+function skillFit(demands: SkillDemands | null | undefined, scores: SkillScores | null | undefined): number | null {
+  if (!demands || !scores) return null;
+  let weighted = 0;
+  let weightSum = 0;
+  for (const id of Object.keys(demands) as GameId[]) {
+    const demand = demands[id];
+    const score = scores[id];
+    if (typeof demand !== "number" || score === null || score === undefined) continue;
+    const distinctiveness = Math.abs(demand - 0.5);
+    if (distinctiveness < 0.1) continue;
+    weighted += (1 - Math.abs(demand - score)) * distinctiveness;
+    weightSum += distinctiveness;
+  }
+  return weightSum > 0 ? weighted / weightSum : null;
+}
+
+export function rankMatches(
+  userVector: TraitVector,
+  occupations: Occupation[],
+  skillScores?: SkillScores | null,
+): Match[] {
+  const scored = occupations.map((occupation) => {
+    const cosine = cosineSimilarity(userVector, occupation.trait_profile);
+    const fit = skillFit(occupation.skill_demands, skillScores);
+    return {
+      occupation,
+      rawSimilarity: fit === null ? cosine : cosine * (1 - SKILL_WEIGHT) + fit * SKILL_WEIGHT,
+    };
+  });
 
   const sortedSimilarities = scored.map((s) => s.rawSimilarity).sort((a, b) => b - a);
   const max = sortedSimilarities[0] ?? 0;
