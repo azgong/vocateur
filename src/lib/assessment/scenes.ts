@@ -1,7 +1,7 @@
 import { TraitVector } from "./types";
 
 // A "chapter" is one of the four narrative worlds (Analyst/Physician/Executive/Founder).
-// Each chapter runs 6 scenes. No scene is a pure single-quadrant test: every scene's
+// Each chapter runs 7 scenes. No scene is a pure single-quadrant test: every scene's
 // trait contributions blend a primary quadrant with a meaningful secondary one, and the
 // UI never labels a scene by quadrant/trait name, so there's nothing for a user to
 // reverse-engineer and answer strategically toward.
@@ -125,7 +125,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "An analyst call.",
     quadrantLabel: "Quadrant A: Analytical",
     focus:
-      "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The six moments ahead reward rigor and evidence over gut instinct.",
+      "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The seven moments ahead reward rigor and evidence over gut instinct.",
     caseStudy:
       "You're three weeks into a research associate role at a mid-size investment fund. The senior partner is out sick, the client call starts in ten minutes, and the numbers on your screen need to make sense before it does.",
     scenes: [
@@ -259,7 +259,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "An ER shift.",
     quadrantLabel: "Quadrant B: Sequential",
     focus:
-      "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The six moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
+      "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The seven moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
     caseStudy:
       "It's hour nine of a twelve-hour ER shift at a busy urban hospital. The waiting room just got fuller, the charge nurse is stretched thin, and every decision you make in the next few minutes has a real person attached to it.",
     scenes: [
@@ -394,7 +394,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "A workplace conflict.",
     quadrantLabel: "Quadrant C: Interpersonal",
     focus:
-      "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The six moments ahead reward reading people and situations, not just the facts on the page.",
+      "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The seven moments ahead reward reading people and situations, not just the facts on the page.",
     caseStudy:
       "You were just promoted to team lead. Two people you used to sit next to are now people you manage, and they're not getting along. Everything you know about them so far is coming through a screen.",
     scenes: [
@@ -531,7 +531,7 @@ export const CHAPTERS: Chapter[] = [
     intro: "A founder's budget.",
     quadrantLabel: "Quadrant D: Imaginative",
     focus:
-      "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The six moments ahead reward vision and conviction over caution.",
+      "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The seven moments ahead reward vision and conviction over caution.",
     caseStudy:
       "Eight months after launch, the seed money is finite and the calendar keeps moving whether the product is ready or not. You're the one who has to decide where the next dollar and the next month go.",
     scenes: [

@@ -4,7 +4,7 @@ const STEPS = [
   {
     title: "Step into four real job simulations",
     description:
-      "An analyst call, an ER shift, a workplace conflict, a founder's budget: six unscripted moments in each, about 20 minutes total. No “rate yourself 1-5” questions.",
+      "An analyst call, an ER shift, a workplace conflict, a founder's budget: seven unscripted moments in each, then five quick skill games, about 10 minutes total. No “rate yourself 1-5” questions.",
   },
   {
     title: "Get scored on what you actually do",
