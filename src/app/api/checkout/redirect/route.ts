@@ -22,6 +22,15 @@ export async function GET(req: NextRequest) {
 
   const admin = createAdminClient();
 
+  // Claiming happens here, the moment someone treats a specific assessment
+  // session as theirs by trying to unlock it. Only claims a still-anonymous
+  // session (user_id null); never reassigns a session someone else already
+  // claimed, so a shared results link can't be hijacked by a different
+  // Pro account clicking "Get Pro" on it.
+  if (sessionId) {
+    await admin.from("assessment_sessions").update({ user_id: user.id }).eq("id", sessionId).is("user_id", null);
+  }
+
   const { data: profile } = await admin
     .from("profiles")
     .select("subscription_status")

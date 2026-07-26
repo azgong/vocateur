@@ -42,12 +42,15 @@ export async function POST(req: NextRequest) {
   }
 
   const [{ data: session }, { data: occupation }] = await Promise.all([
-    admin.from("assessment_sessions").select("life_stage, self_report").eq("id", sessionId).single(),
+    admin.from("assessment_sessions").select("life_stage, self_report, user_id").eq("id", sessionId).single(),
     admin.from("occupations").select("*").eq("id", occupationId).single(),
   ]);
 
   if (!session || !occupation) {
     return NextResponse.json({ error: "Session or occupation not found." }, { status: 404 });
+  }
+  if (session.user_id && session.user_id !== user.id) {
+    return NextResponse.json({ error: "This session belongs to a different account." }, { status: 403 });
   }
 
   // self_report is stored as { ...selfReport, moduleLogs }; pull out just the SelfReport shape.

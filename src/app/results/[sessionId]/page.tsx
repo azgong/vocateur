@@ -29,7 +29,7 @@ export default async function ResultsPage({
   const [{ data: session }, { data: occupations }] = await Promise.all([
     admin
       .from("assessment_sessions")
-      .select("id, trait_vector, life_stage, self_report")
+      .select("id, trait_vector, life_stage, self_report, user_id")
       .eq("id", sessionId)
       .single(),
     admin.from("occupations").select("*"),
@@ -42,14 +42,20 @@ export default async function ResultsPage({
     data: { user },
   } = await authClient.auth.getUser();
 
+  // A Pro subscription unlocks a session's full results only for the account
+  // that owns it (or an anonymous session no one has claimed yet). Without
+  // this, any Pro subscriber who opened someone else's results link, easy to
+  // end up with when testers share links in a group chat, would see that
+  // stranger's full unlocked matches and rationale.
   let isSubscribed = false;
   if (user) {
+    const ownsSession = session.user_id === null || session.user_id === user.id;
     const { data: profile } = await admin
       .from("profiles")
       .select("subscription_status")
       .eq("id", user.id)
       .single();
-    isSubscribed = profile?.subscription_status === "active";
+    isSubscribed = profile?.subscription_status === "active" && ownsSession;
   }
 
   const traitVector = session.trait_vector as TraitVector;
