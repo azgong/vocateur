@@ -95,7 +95,7 @@ export default async function RoadmapPage({
 
         <div className="flex flex-col gap-6 lg:sticky lg:top-8">
           {occupation && <MarketOutlook occupation={occupation} />}
-          <ChatPanel roadmapId={roadmapId} />
+          <ChatPanel roadmapId={roadmapId} lifeStage={roadmap.life_stage} />
         </div>
       </div>
     </main>

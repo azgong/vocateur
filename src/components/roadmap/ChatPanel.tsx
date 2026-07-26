@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { LifeStage } from "@/lib/assessment/types";
 
 type Message = { role: "user" | "assistant"; content: string };
 type ChatMode = "advisor" | "mock_interview";
@@ -21,14 +22,30 @@ const MODE_META: Record<ChatMode, { label: string; placeholder: string; starter:
   },
 };
 
-const SUGGESTED_PROMPTS = [
+type SuggestedPrompt = { label: string; fill: string };
+
+const JOB_SEARCH_PROMPTS: SuggestedPrompt[] = [
   { label: "Review my resume", fill: "Can you review my resume for this role? Here it is: " },
   { label: "Analyze a job posting", fill: "Am I a good fit for this posting, and what should I highlight? Here it is: " },
   { label: "Help me negotiate an offer", fill: "I have an offer and want help negotiating. Here are the details: " },
   { label: "Review my LinkedIn", fill: "Can you review my LinkedIn headline and About section? Here it is: " },
 ];
 
-export function ChatPanel({ roadmapId }: { roadmapId: string }) {
+const STILL_CHOOSING_PROMPTS: SuggestedPrompt[] = [
+  { label: "Which courses matter?", fill: "Which classes or subjects should I actually prioritize for this career? " },
+  { label: "Extracurriculars that help", fill: "What extracurriculars, clubs, or programs would genuinely help me here? " },
+  { label: "How do I get first exposure?", fill: "How can I get real exposure to this field now, shadowing, projects, competitions? " },
+  { label: "Convince my parents", fill: "How do I explain this path to parents who aren't sure about it? " },
+];
+
+const SUGGESTED_PROMPTS: Record<LifeStage, SuggestedPrompt[]> = {
+  high_school: STILL_CHOOSING_PROMPTS,
+  university: STILL_CHOOSING_PROMPTS,
+  early_career: JOB_SEARCH_PROMPTS,
+  career_changer: JOB_SEARCH_PROMPTS,
+};
+
+export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeStage: LifeStage }) {
   const [mode, setMode] = useState<ChatMode>("advisor");
   const [threads, setThreads] = useState<Record<ChatMode, Message[]>>({ advisor: [], mock_interview: [] });
   const [input, setInput] = useState("");
@@ -106,7 +123,7 @@ export function ChatPanel({ roadmapId }: { roadmapId: string }) {
             <p className="text-sm text-foreground/40">{MODE_META[mode].empty}</p>
             {mode === "advisor" && (
               <div className="flex flex-wrap gap-2">
-                {SUGGESTED_PROMPTS.map((p) => (
+                {SUGGESTED_PROMPTS[lifeStage].map((p) => (
                   <button
                     key={p.label}
                     type="button"
