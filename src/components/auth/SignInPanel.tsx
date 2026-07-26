@@ -49,7 +49,13 @@ export function SignInPanel({ next, note }: { next: string; note?: string }) {
   const [error, setError] = useState<string | null>(null);
 
   function callbackUrl() {
-    return `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+    // Some networks block the bare apex domain outright (router/ISP-level
+    // "newly registered domain" filtering, confirmed on at least one home
+    // network) but never www. Always send auth redirects through www in
+    // production so a magic link or OAuth return never lands on a domain
+    // the user's own network might be silently killing.
+    const base = window.location.hostname === "localhost" ? window.location.origin : "https://www.vocateur.app";
+    return `${base}/auth/callback?next=${encodeURIComponent(next)}`;
   }
 
   async function handleOAuth(provider: OAuthProvider) {
