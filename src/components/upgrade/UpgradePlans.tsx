@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { authSafeOrigin } from "@/lib/site";
 
 type Plan = "monthly" | "annual";
 
@@ -45,7 +46,7 @@ export function UpgradePlans({
     if (!isAuthenticated) {
       const next = `/api/checkout/redirect?plan=${plan}&session=${sessionId}`;
       const note = "Sign in once and you go straight to secure card payment.";
-      window.location.href = `/login?next=${encodeURIComponent(next)}&note=${encodeURIComponent(note)}`;
+      window.location.href = `${authSafeOrigin()}/login?next=${encodeURIComponent(next)}&note=${encodeURIComponent(note)}`;
       return;
     }
     setCheckoutLoading(plan);
