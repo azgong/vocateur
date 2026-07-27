@@ -32,19 +32,13 @@ export default async function AppleIcon() {
         >
           V
         </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 40,
-            right: 43,
-            width: 0,
-            height: 0,
-            borderLeft: "14px solid transparent",
-            borderRight: "14px solid transparent",
-            borderBottom: "23px solid #b7a9ff",
-            transform: "rotate(45deg)",
-          }}
-        />
+        <svg
+          style={{ position: "absolute", top: 29, right: 29, width: 54, height: 54 }}
+          viewBox="0 0 24 24"
+          fill="#b7a9ff"
+        >
+          <path d="M12 20.5s-8.5-5.13-8.5-11A5 5 0 0 1 12 6.36 5 5 0 0 1 20.5 9.5c0 5.87-8.5 11-8.5 11Z" />
+        </svg>
       </div>
     ),
     { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

@@ -19,19 +19,13 @@ export async function GET() {
         }}
       >
         <div style={{ fontSize: 102, fontWeight: 700, color: "#f3f1fa", fontFamily: "Space Grotesk", lineHeight: 1 }}>V</div>
-        <div
-          style={{
-            position: "absolute",
-            top: 42,
-            right: 45,
-            width: 0,
-            height: 0,
-            borderLeft: "15px solid transparent",
-            borderRight: "15px solid transparent",
-            borderBottom: "24px solid #b7a9ff",
-            transform: "rotate(45deg)",
-          }}
-        />
+        <svg
+          style={{ position: "absolute", top: 31, right: 31, width: 58, height: 58 }}
+          viewBox="0 0 24 24"
+          fill="#b7a9ff"
+        >
+          <path d="M12 20.5s-8.5-5.13-8.5-11A5 5 0 0 1 12 6.36 5 5 0 0 1 20.5 9.5c0 5.87-8.5 11-8.5 11Z" />
+        </svg>
       </div>
     ),
     { width: 192, height: 192, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

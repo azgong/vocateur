@@ -33,19 +33,13 @@ export default async function Icon() {
         >
           V
         </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 15,
-            width: 0,
-            height: 0,
-            borderLeft: "5px solid transparent",
-            borderRight: "5px solid transparent",
-            borderBottom: "8px solid #b7a9ff",
-            transform: "rotate(45deg)",
-          }}
-        />
+        <svg
+          style={{ position: "absolute", top: 10, right: 10, width: 19, height: 19 }}
+          viewBox="0 0 24 24"
+          fill="#b7a9ff"
+        >
+          <path d="M12 20.5s-8.5-5.13-8.5-11A5 5 0 0 1 12 6.36 5 5 0 0 1 20.5 9.5c0 5.87-8.5 11-8.5 11Z" />
+        </svg>
       </div>
     ),
     { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

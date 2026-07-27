@@ -1,3 +1,6 @@
+// The heart stands in for the "-ateur" in Vocateur: someone who loves their
+// vocation, not just works it. Kept small and monochrome so it reads as a
+// mark, not a cute sticker.
 export function Logo({ size = 56 }: { size?: number }) {
   return (
     <div
@@ -14,19 +17,14 @@ export function Logo({ size = 56 }: { size?: number }) {
       >
         V
       </span>
-      <span
+      <svg
         className="absolute"
-        style={{
-          top: size * 0.22,
-          right: size * 0.24,
-          width: 0,
-          height: 0,
-          borderLeft: `${size * 0.075}px solid transparent`,
-          borderRight: `${size * 0.075}px solid transparent`,
-          borderBottom: `${size * 0.13}px solid var(--accent-soft)`,
-          transform: "rotate(45deg)",
-        }}
-      />
+        style={{ top: size * 0.16, right: size * 0.16, width: size * 0.3, height: size * 0.3 }}
+        viewBox="0 0 24 24"
+        fill="var(--accent-soft)"
+      >
+        <path d="M12 20.5s-8.5-5.13-8.5-11A5 5 0 0 1 12 6.36 5 5 0 0 1 20.5 9.5c0 5.87-8.5 11-8.5 11Z" />
+      </svg>
     </div>
   );
 }
