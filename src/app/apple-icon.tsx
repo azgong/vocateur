@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { loadSpaceGrotesk } from "@/lib/ogFont";
-import { HeartMark } from "@/lib/heartMark";
+import { ArrowMark } from "@/lib/arrowMark";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
@@ -33,7 +33,7 @@ export default async function AppleIcon() {
         >
           V
         </div>
-        <HeartMark size={58} top={26} right={26} color="#b7a9ff" />
+        <ArrowMark size={32} top={32} right={50} rotate={22} color="#b7a9ff" />
       </div>
     ),
     { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

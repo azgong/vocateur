@@ -1,8 +1,7 @@
-import { HeartMark } from "@/lib/heartMark";
+import { ArrowMark } from "@/lib/arrowMark";
 
-// The heart stands in for the "-ateur" in Vocateur: someone who loves their
-// vocation, not just works it. Kept small and monochrome so it reads as a
-// mark, not a cute sticker.
+// The V's right stroke leads into an arrowhead: the vocation pointing
+// somewhere, a path forward rather than a static initial.
 export function Logo({ size = 56 }: { size?: number }) {
   return (
     <div
@@ -19,7 +18,7 @@ export function Logo({ size = 56 }: { size?: number }) {
       >
         V
       </span>
-      <HeartMark size={size * 0.32} top={size * 0.15} right={size * 0.14} color="var(--accent-soft)" />
+      <ArrowMark size={size * 0.18} top={size * 0.18} right={size * 0.28} rotate={22} color="var(--accent-soft)" />
     </div>
   );
 }

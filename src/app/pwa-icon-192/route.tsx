@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { loadSpaceGrotesk } from "@/lib/ogFont";
-import { HeartMark } from "@/lib/heartMark";
+import { ArrowMark } from "@/lib/arrowMark";
 
 export async function GET() {
   const spaceGrotesk = await loadSpaceGrotesk(700);
@@ -20,7 +20,7 @@ export async function GET() {
         }}
       >
         <div style={{ fontSize: 102, fontWeight: 700, color: "#f3f1fa", fontFamily: "Space Grotesk", lineHeight: 1 }}>V</div>
-        <HeartMark size={62} top={28} right={28} color="#b7a9ff" />
+        <ArrowMark size={35} top={35} right={54} rotate={22} color="#b7a9ff" />
       </div>
     ),
     { width: 192, height: 192, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
