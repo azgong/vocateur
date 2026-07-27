@@ -1,13 +1,10 @@
 import { ImageResponse } from "next/og";
-import { loadSpaceGrotesk } from "@/lib/ogFont";
-import { ArrowMark } from "@/lib/arrowMark";
+import { VArrowMark } from "@/lib/vArrowMark";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-export default async function Icon() {
-  const spaceGrotesk = await loadSpaceGrotesk(700);
-
+export default function Icon() {
   return new ImageResponse(
     (
       <div
@@ -23,20 +20,9 @@ export default async function Icon() {
           borderRadius: 14,
         }}
       >
-        <div
-          style={{
-            fontSize: 34,
-            fontWeight: 700,
-            color: "#f3f1fa",
-            fontFamily: "Space Grotesk",
-            lineHeight: 1,
-          }}
-        >
-          V
-        </div>
-        <ArrowMark size={9} top={18} right={22} rotate={22} color="#b7a9ff" />
+        <VArrowMark size={44} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
-    { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
+    size,
   );
 }

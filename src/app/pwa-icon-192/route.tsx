@@ -1,10 +1,7 @@
 import { ImageResponse } from "next/og";
-import { loadSpaceGrotesk } from "@/lib/ogFont";
-import { ArrowMark } from "@/lib/arrowMark";
+import { VArrowMark } from "@/lib/vArrowMark";
 
-export async function GET() {
-  const spaceGrotesk = await loadSpaceGrotesk(700);
-
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -19,10 +16,9 @@ export async function GET() {
           backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
         }}
       >
-        <div style={{ fontSize: 102, fontWeight: 700, color: "#f3f1fa", fontFamily: "Space Grotesk", lineHeight: 1 }}>V</div>
-        <ArrowMark size={27} top={54} right={67} rotate={22} color="#b7a9ff" />
+        <VArrowMark size={131} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
-    { width: 192, height: 192, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
+    { width: 192, height: 192 },
   );
 }

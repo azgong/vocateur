@@ -1,7 +1,8 @@
-import { ArrowMark } from "@/lib/arrowMark";
+import { VArrowMark } from "@/lib/vArrowMark";
 
-// The V's right stroke leads into an arrowhead: the vocation pointing
-// somewhere, a path forward rather than a static initial.
+// A single mark, not a letter plus a decoration: the V's right stroke is
+// the arrow, one continuous shape, pointing somewhere rather than sitting
+// still.
 export function Logo({ size = 56 }: { size?: number }) {
   return (
     <div
@@ -12,13 +13,7 @@ export function Logo({ size = 56 }: { size?: number }) {
         background: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%), #08070d",
       }}
     >
-      <span
-        className="font-[family-name:var(--font-brand)] font-bold text-[#f3f1fa]"
-        style={{ fontSize: size * 0.52, lineHeight: 1 }}
-      >
-        V
-      </span>
-      <ArrowMark size={size * 0.18} top={size * 0.18} right={size * 0.28} rotate={22} color="var(--accent-soft)" />
+      <VArrowMark size={size * 0.68} color="#f3f1fa" accentColor="var(--accent-soft)" />
     </div>
   );
 }
