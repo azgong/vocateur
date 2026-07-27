@@ -8,8 +8,7 @@ const PRO_FEATURES = [
   "Everything in Free",
   "All 10 matches with full reasoning",
   "A roadmap for any of your matches, with checkable progress tracking",
-  "Resume, cover letter, and LinkedIn review, whenever you have a new draft",
-  "Job posting fit checks and salary negotiation prep, grounded in real BLS data",
+  "A career advisor that adapts to your stage, from picking classes to negotiating an offer",
   "Real, role-specific mock interview practice, any time you want a rep",
   "PDF export and cancel anytime",
 ];
@@ -74,7 +73,7 @@ export function PricingSection({
             <p className="mt-1 text-3xl font-semibold">
               $9<span className="text-base font-normal text-foreground/50">/mo</span>
             </p>
-            <p className="text-xs text-foreground/40">or $89/yr, save about 18%, best for a full job search</p>
+            <p className="text-xs text-foreground/40">or $89/yr, save about 18%</p>
           </div>
           <ul className="flex flex-1 flex-col gap-2.5 text-sm text-foreground/70">
             {PRO_FEATURES.map((f) => (

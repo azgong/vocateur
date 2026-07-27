@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { rankMatches, Occupation } from "@/lib/assessment/matching";
-import { TraitVector } from "@/lib/assessment/types";
+import { LifeStage, TraitVector } from "@/lib/assessment/types";
 import { SkillScores } from "@/lib/assessment/games";
 import { QUADRANT_META, Quadrant } from "@/lib/assessment/quadrantStyle";
 import { UpgradePlans } from "@/components/upgrade/UpgradePlans";
@@ -22,7 +22,7 @@ export default async function UpgradePage({
   const admin = createAdminClient();
 
   const [{ data: session }, { data: occupations }] = await Promise.all([
-    admin.from("assessment_sessions").select("trait_vector, self_report").eq("id", sessionId).single(),
+    admin.from("assessment_sessions").select("trait_vector, self_report, life_stage").eq("id", sessionId).single(),
     admin.from("occupations").select("*"),
   ]);
 
@@ -56,6 +56,17 @@ export default async function UpgradePage({
         )[0]?.occupation.title
       : null;
 
+  const stillChoosing = (session?.life_stage as LifeStage | undefined) !== "early_career" && (session?.life_stage as LifeStage | undefined) !== "career_changer";
+  const advisorCard = stillChoosing
+    ? {
+        title: "A full-service advisor, not a chatbot",
+        description: "Course and major picks, extracurriculars that actually matter, how to get first exposure to the field, and how to make the case to parents or a counselor, all grounded in real BLS data for your field. Come back whenever a real question comes up.",
+      }
+    : {
+        title: "A full-service advisor, not a chatbot",
+        description: "Resume, cover letter, and LinkedIn review, job posting fit checks, and salary negotiation prep, all grounded in real BLS data for your field. Come back whenever something real comes up.",
+      };
+
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-12 px-6 py-16 lg:px-0">
       <div className="text-center">
@@ -76,11 +87,7 @@ export default async function UpgradePage({
           title="A roadmap for every match, that tracks progress"
           description="Step-by-step milestones for any of your 10 matches, not just the top one, with checkable progress you can come back to over months."
         />
-        <FeatureCard
-          quadrant="c"
-          title="A full-service advisor, not a chatbot"
-          description="Resume, cover letter, and LinkedIn review, job posting fit checks, and salary negotiation prep, all grounded in real BLS data for your field. Come back whenever something real comes up."
-        />
+        <FeatureCard quadrant="c" title={advisorCard.title} description={advisorCard.description} />
         <FeatureCard
           quadrant="d"
           title="Real mock interviews"
