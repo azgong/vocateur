@@ -38,6 +38,43 @@ function OptionRow<T extends string>({
 const inputClass =
   "w-full rounded-2xl border-2 border-border-subtle bg-surface px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent placeholder:text-foreground/30";
 
+function Section({
+  index,
+  label,
+  children,
+}: {
+  index: string;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-5 rounded-2xl border border-border-subtle bg-surface-2 p-6">
+      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        {index} &middot; {label}
+      </span>
+      {children}
+    </div>
+  );
+}
+
+function Question({
+  prompt,
+  description,
+  children,
+}: {
+  prompt: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="font-medium">{prompt}</p>
+      {description && <p className="text-xs text-foreground/50">{description}</p>}
+      {children}
+    </div>
+  );
+}
+
 export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport) => void }) {
   const [lifeStage, setLifeStage] = useState<LifeStage | null>(null);
   const [currentFocus, setCurrentFocus] = useState("");
@@ -57,8 +94,8 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   }
 
   const isStudent = lifeStage === "high_school" || lifeStage === "university";
-  const focusLabel = isStudent ? "What are you studying (or planning to)?" : "What do you currently do?";
-  const focusPlaceholder = isStudent ? "e.g. Undecided, Computer Science, Biology" : "e.g. Marketing coordinator, between jobs";
+  const focusLabel = isStudent ? "What are you studying, or planning to study?" : "What field or role are you in right now?";
+  const focusPlaceholder = isStudent ? "e.g. Mechanical Engineering, Undecided, Biology" : "e.g. Marketing coordinator, between jobs";
 
   const canSubmit =
     lifeStage &&
@@ -76,186 +113,193 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="flex w-full max-w-2xl flex-col gap-8 lg:max-w-3xl"
+      className="flex w-full max-w-2xl flex-col gap-6 lg:max-w-3xl"
     >
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium text-accent">Almost there</p>
         <h2 className="font-[family-name:var(--font-brand)] text-3xl font-medium tracking-tight">
-          A few quick questions
+          Your profile
         </h2>
         <p className="text-sm text-foreground/50">
-          The more you tell us here, the more specific your roadmap and advisor conversations will be.
-          This isn&rsquo;t graded, it&rsquo;s just context we hand directly to the AI building your plan.
+          A short, specific set of questions, not graded. Your career matches are ranked partly on what you
+          say here, so a real answer (not &ldquo;undecided&rdquo; if you have a direction) gets you a
+          noticeably more accurate top match.
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Where are you in your path right now?</p>
-        <OptionRow
-          options={[
-            { value: "high_school", label: "Middle / high school" },
-            { value: "university", label: "University" },
-            { value: "early_career", label: "Early career" },
-            { value: "career_changer", label: "Older / career changer" },
-          ]}
-          selected={lifeStage}
-          onSelect={setLifeStage}
-        />
-      </div>
+      <Section index="01" label="Where you're at">
+        <Question prompt="Where are you in your path right now?">
+          <OptionRow
+            options={[
+              { value: "high_school", label: "Middle / high school" },
+              { value: "university", label: "University" },
+              { value: "early_career", label: "Early career" },
+              { value: "career_changer", label: "Older / career changer" },
+            ]}
+            selected={lifeStage}
+            onSelect={setLifeStage}
+          />
+        </Question>
 
-      {lifeStage && (
-        <div className="flex flex-col gap-2">
-          <p className="font-medium">{focusLabel}</p>
+        {lifeStage && (
+          <Question
+            prompt={focusLabel}
+            description="This directly shapes your matches, e.g. if you say Engineering, we won't lead with a career in sales or law even if the simulation alone would have. Be as specific as you can."
+          >
+            <input
+              type="text"
+              value={currentFocus}
+              onChange={(e) => setCurrentFocus(e.target.value)}
+              placeholder={focusPlaceholder}
+              className={inputClass}
+            />
+          </Question>
+        )}
+
+        {isStudent && (
+          <Question prompt="Current GPA?" description="Optional. Helps set exact grade targets in your roadmap.">
+            <input
+              type="text"
+              value={currentGPA}
+              onChange={(e) => setCurrentGPA(e.target.value)}
+              placeholder="e.g. 3.6 unweighted, or not sure yet"
+              className={inputClass}
+            />
+          </Question>
+        )}
+
+        {lifeStage && (
+          <Question
+            prompt={isStudent ? "Clubs, activities, or projects you're already doing?" : "Relevant experience, projects, or activities so far?"}
+            description="Optional. We build your roadmap on top of what you already have instead of ignoring it."
+          >
+            <input
+              type="text"
+              value={currentActivities}
+              onChange={(e) => setCurrentActivities(e.target.value)}
+              placeholder={isStudent ? "e.g. robotics club, part-time retail job, student council" : "e.g. led a small team, freelance projects, volunteer work"}
+              className={inputClass}
+            />
+          </Question>
+        )}
+      </Section>
+
+      <Section index="02" label="Your direction">
+        <Question prompt="Open to more schooling if a match called for it?" description="e.g. a graduate degree, a certification, a bootcamp.">
+          <OptionRow
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "maybe", label: "Maybe" },
+              { value: "no", label: "No" },
+            ]}
+            selected={furtherSchooling}
+            onSelect={setFurtherSchooling}
+          />
+        </Question>
+
+        <Question prompt="How flexible are you on location for the right opportunity?">
+          <OptionRow
+            options={[
+              { value: "local", label: "Staying local" },
+              { value: "national", label: "Open nationally" },
+              { value: "global", label: "Open anywhere" },
+            ]}
+            selected={geographicFlexibility}
+            onSelect={setGeographicFlexibility}
+          />
+        </Question>
+
+        <Question prompt="Where are you located?" description="Optional.">
           <input
             type="text"
-            value={currentFocus}
-            onChange={(e) => setCurrentFocus(e.target.value)}
-            placeholder={focusPlaceholder}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="e.g. Toronto, ON or Austin, TX"
             className={inputClass}
           />
-        </div>
-      )}
+        </Question>
 
-      {isStudent && (
-        <div className="flex flex-col gap-2">
-          <p className="font-medium">
-            Current GPA? <span className="font-normal text-foreground/40">(optional, helps set exact grade targets)</span>
-          </p>
-          <input
-            type="text"
-            value={currentGPA}
-            onChange={(e) => setCurrentGPA(e.target.value)}
-            placeholder="e.g. 3.6 unweighted, or not sure yet"
-            className={inputClass}
+        <Question
+          prompt="Once you see your matches, how soon do you want to start actually working toward one?"
+          description="Sets whether your roadmap gives you an immediate next step or a longer-range plan to explore first."
+        >
+          <OptionRow
+            options={[
+              { value: "already_committed", label: "Already committed to a path" },
+              { value: "within_a_year", label: "Within a year" },
+              { value: "one_to_three_years", label: "1-3 years out" },
+              { value: "just_exploring", label: "Just exploring for now" },
+            ]}
+            selected={timeline}
+            onSelect={setTimeline}
           />
-        </div>
-      )}
+        </Question>
+      </Section>
 
-      {lifeStage && (
-        <div className="flex flex-col gap-2">
-          <p className="font-medium">
-            {isStudent ? "Clubs, activities, or projects you're already doing?" : "Relevant experience, projects, or activities so far?"}{" "}
-            <span className="font-normal text-foreground/40">(optional, so we build on what you have)</span>
-          </p>
-          <input
-            type="text"
-            value={currentActivities}
-            onChange={(e) => setCurrentActivities(e.target.value)}
-            placeholder={isStudent ? "e.g. robotics club, part-time retail job, student council" : "e.g. led a small team, freelance projects, volunteer work"}
-            className={inputClass}
+      <Section index="03" label="What matters most">
+        <Question
+          prompt="Pick up to 3 things that matter most in your work."
+          description="Used to break ties between similarly-fitting careers, e.g. picking Money nudges toward the higher-paying option among two close matches."
+        >
+          <div className="flex flex-wrap gap-2">
+            {VALUE_OPTIONS.map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => toggleValue(v)}
+                className={`rounded-full border-2 px-4 py-2 text-sm font-medium transition-colors ${
+                  values.includes(v)
+                    ? "border-accent bg-accent/10 text-accent"
+                    : "border-border-subtle bg-surface hover:border-border-strong"
+                }`}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </Question>
+      </Section>
+
+      <Section index="04" label="Practical reality">
+        <Question
+          prompt="How many hours a week can you realistically put toward building your career right now?"
+          description="Keeps your roadmap's pace honest, we won't hand you a plan built for 10 hours a week if you only have 2."
+        >
+          <OptionRow
+            options={[
+              { value: "1_3_hours", label: "1-3 hours" },
+              { value: "4_7_hours", label: "4-7 hours" },
+              { value: "8_plus_hours", label: "8+ hours" },
+            ]}
+            selected={weeklyTimeAvailable}
+            onSelect={setWeeklyTimeAvailable}
           />
-        </div>
-      )}
+        </Question>
 
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Open to more schooling if the path called for it?</p>
-        <OptionRow
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "maybe", label: "Maybe" },
-            { value: "no", label: "No" },
-          ]}
-          selected={furtherSchooling}
-          onSelect={setFurtherSchooling}
-        />
-      </div>
+        <Question prompt="Where's your resume or LinkedIn at right now?">
+          <OptionRow
+            options={[
+              { value: "solid", label: "Solid, just needs targeting" },
+              { value: "needs_work", label: "Exists, needs work" },
+              { value: "dont_have_one", label: "Don't have one yet" },
+            ]}
+            selected={resumeStatus}
+            onSelect={setResumeStatus}
+          />
+        </Question>
+      </Section>
 
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">How flexible are you on location?</p>
-        <OptionRow
-          options={[
-            { value: "local", label: "Staying local" },
-            { value: "national", label: "Open nationally" },
-            { value: "global", label: "Open anywhere" },
-          ]}
-          selected={geographicFlexibility}
-          onSelect={setGeographicFlexibility}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Where are you located? <span className="font-normal text-foreground/40">(optional)</span></p>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="e.g. Toronto, ON or Austin, TX"
-          className={inputClass}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">How soon do you want real progress toward this?</p>
-        <OptionRow
-          options={[
-            { value: "already_committed", label: "Already committed" },
-            { value: "within_a_year", label: "Within a year" },
-            { value: "one_to_three_years", label: "1-3 years" },
-            { value: "just_exploring", label: "Just exploring" },
-          ]}
-          selected={timeline}
-          onSelect={setTimeline}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Pick up to 3 things that matter most in your work.</p>
-        <div className="flex flex-wrap gap-2">
-          {VALUE_OPTIONS.map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => toggleValue(v)}
-              className={`rounded-full border-2 px-4 py-2 text-sm font-medium transition-colors ${
-                values.includes(v)
-                  ? "border-accent bg-accent/10 text-accent"
-                  : "border-border-subtle bg-surface hover:border-border-strong"
-              }`}
-            >
-              {v}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">How much time can you realistically put toward this per week?</p>
-        <OptionRow
-          options={[
-            { value: "1_3_hours", label: "1-3 hours" },
-            { value: "4_7_hours", label: "4-7 hours" },
-            { value: "8_plus_hours", label: "8+ hours" },
-          ]}
-          selected={weeklyTimeAvailable}
-          onSelect={setWeeklyTimeAvailable}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Where&rsquo;s your resume or LinkedIn at right now?</p>
-        <OptionRow
-          options={[
-            { value: "solid", label: "Solid, just needs targeting" },
-            { value: "needs_work", label: "Exists, needs work" },
-            { value: "dont_have_one", label: "Don't have one yet" },
-          ]}
-          selected={resumeStatus}
-          onSelect={setResumeStatus}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">
-          Anything else your advisor should know? <span className="font-normal text-foreground/40">(optional)</span>
-        </p>
-        <textarea
-          value={additionalContext}
-          onChange={(e) => setAdditionalContext(e.target.value)}
-          placeholder="e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation"
-          rows={3}
-          className={`${inputClass} resize-none`}
-        />
-      </div>
+      <Section index="05" label="Anything else">
+        <Question prompt="Anything else your advisor should know?" description="Optional. e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation.">
+          <textarea
+            value={additionalContext}
+            onChange={(e) => setAdditionalContext(e.target.value)}
+            placeholder="e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation"
+            rows={3}
+            className={`${inputClass} resize-none`}
+          />
+        </Question>
+      </Section>
 
       <motion.button
         type="button"

@@ -1,6 +1,7 @@
 import { TraitVector } from "./types";
 import { cosineSimilarity } from "./scoring";
 import { GameId, SkillScores } from "./games";
+import { classifyFieldTags } from "./fieldTags";
 
 /** Per-occupation demand (0-1) for each measured Skill Lab dimension; 0.5 is neutral. */
 export type SkillDemands = Partial<Record<GameId, number>>;
@@ -30,6 +31,7 @@ export type Occupation = {
   common_misconceptions: string | null;
   interview_focus: string | null;
   skill_demands: SkillDemands | null;
+  field_tags: string[] | null;
 };
 
 export type Match = {
@@ -62,6 +64,13 @@ const SKILL_WEIGHT = 0.15;
 // that's a real signal they're optimizing for something else.
 const PAY_WEIGHT_BASE = 0.08;
 
+// A stated field of study/work ("I'm studying Mechanical Engineering") is a
+// stronger, more legible signal of fit than a mini-game score, so it gets a
+// heavier weight than SKILL_WEIGHT. Only applied when the user's free-text
+// answer actually classifies into 1+ tags; "Undecided" or unclassifiable
+// text leaves matching exactly as it was, purely behavioral.
+const FIELD_FIT_WEIGHT = 0.35;
+
 /**
  * Agreement between what an occupation demands and what the games measured,
  * weighted by how distinctive each demand is (a 0.5 "neutral" demand says
@@ -84,6 +93,21 @@ function skillFit(demands: SkillDemands | null | undefined, scores: SkillScores 
   return weightSum > 0 ? weighted / weightSum : null;
 }
 
+/**
+ * How well an occupation's field tags line up with the user's stated field
+ * of study/work. Null when the user's answer didn't classify into anything
+ * (leaves matching untouched). Otherwise: 1 for a shared tag, a soft 0.15
+ * for a clear mismatch (both sides tagged, no overlap), and a lenient 0.6
+ * when the occupation itself has no tags, so gaps in the (title-only,
+ * deliberately conservative) occupation tagging don't get punished as if
+ * they were a real mismatch.
+ */
+function fieldFit(userTags: string[], occupationTags: string[] | null | undefined): number | null {
+  if (userTags.length === 0) return null;
+  if (!occupationTags || occupationTags.length === 0) return 0.6;
+  return occupationTags.some((t) => userTags.includes(t)) ? 1 : 0.15;
+}
+
 function paySkewWeight(values: string[] | undefined | null): number {
   if (!values || values.length === 0) return PAY_WEIGHT_BASE;
   if (values.includes("Money")) return PAY_WEIGHT_BASE * 1.5;
@@ -95,8 +119,10 @@ export function rankMatches(
   occupations: Occupation[],
   skillScores?: SkillScores | null,
   values?: string[] | null,
+  currentFocus?: string | null,
 ): Match[] {
   const payWeight = paySkewWeight(values);
+  const userFieldTags = classifyFieldTags(currentFocus);
   const salaries = occupations.map((o) => o.median_salary);
   const minSalary = Math.min(...salaries);
   const maxSalary = Math.max(...salaries);
@@ -104,8 +130,10 @@ export function rankMatches(
 
   const scored = occupations.map((occupation) => {
     const cosine = cosineSimilarity(userVector, occupation.trait_profile);
-    const fit = skillFit(occupation.skill_demands, skillScores);
-    const traitScore = fit === null ? cosine : cosine * (1 - SKILL_WEIGHT) + fit * SKILL_WEIGHT;
+    const skill = skillFit(occupation.skill_demands, skillScores);
+    let traitScore = skill === null ? cosine : cosine * (1 - SKILL_WEIGHT) + skill * SKILL_WEIGHT;
+    const field = fieldFit(userFieldTags, occupation.field_tags);
+    if (field !== null) traitScore = traitScore * (1 - FIELD_FIT_WEIGHT) + field * FIELD_FIT_WEIGHT;
     const salaryNorm = (occupation.median_salary - minSalary) / salaryRange;
     return {
       occupation,

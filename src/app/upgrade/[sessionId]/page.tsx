@@ -42,10 +42,10 @@ export default async function UpgradePage({
     }
   }
 
-  // Must rank identically to the results page (same skillScores + values
-  // inputs), or this page can tease a different "top match" than the one
-  // actually shown on /results for the same session, a jarring inconsistency
-  // for anyone bouncing between the two.
+  // Must rank identically to the results page (same skillScores + values +
+  // currentFocus inputs), or this page can tease a different "top match"
+  // than the one actually shown on /results for the same session, a jarring
+  // inconsistency for anyone bouncing between the two.
   const topMatchTitle =
     session && occupations
       ? rankMatches(
@@ -53,6 +53,7 @@ export default async function UpgradePage({
           occupations as Occupation[],
           (session.self_report?.skillScores ?? null) as SkillScores | null,
           (session.self_report?.values ?? null) as string[] | null,
+          (session.self_report?.currentFocus ?? null) as string | null,
         )[0]?.occupation.title
       : null;
 

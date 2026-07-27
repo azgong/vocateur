@@ -29,7 +29,7 @@ export function HowItWorks() {
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">How it works</p>
         <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
-          Four steps, about ten minutes
+          Four steps, about ten minutes.
         </h2>
       </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
