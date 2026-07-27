@@ -2,22 +2,22 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 const STEPS = [
   {
-    title: "Step into five real job simulations",
+    title: "Step into five real job simulations.",
     description:
       "An analyst call, an ER shift, a workplace conflict, a founder's budget, a prototype deadline: seven unscripted moments in each, then five quick skill games, about 10 minutes total. No “rate yourself 1-5” questions.",
   },
   {
-    title: "Get scored on what you actually do",
+    title: "Get scored on what you actually do.",
     description:
       "Not which box you checked, but how you actually move under time pressure and ambiguity. That behavior is the signal.",
   },
   {
-    title: "See your top matches, free",
+    title: "See your top matches, free.",
     description:
       "Your top 3 career matches with real reasoning for each, no account required to see them.",
   },
   {
-    title: "Unlock your roadmap and advisor",
+    title: "Unlock your roadmap and advisor.",
     description:
       "A personalized step-by-step plan, all 10 matches, and an AI career advisor grounded in real labor-market data for your exact field.",
   },
