@@ -20,7 +20,7 @@ export async function GET() {
         }}
       >
         <div style={{ fontSize: 272, fontWeight: 700, color: "#f3f1fa", fontFamily: "Space Grotesk", lineHeight: 1 }}>V</div>
-        <ArrowMark size={92} top={92} right={143} rotate={22} color="#b7a9ff" />
+        <ArrowMark size={72} top={143} right={179} rotate={22} color="#b7a9ff" />
       </div>
     ),
     { width: 512, height: 512, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

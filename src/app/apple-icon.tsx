@@ -33,7 +33,7 @@ export default async function AppleIcon() {
         >
           V
         </div>
-        <ArrowMark size={32} top={32} right={50} rotate={22} color="#b7a9ff" />
+        <ArrowMark size={25} top={50} right={63} rotate={22} color="#b7a9ff" />
       </div>
     ),
     { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },

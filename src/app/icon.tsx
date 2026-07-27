@@ -34,7 +34,7 @@ export default async function Icon() {
         >
           V
         </div>
-        <ArrowMark size={12} top={12} right={18} rotate={22} color="#b7a9ff" />
+        <ArrowMark size={9} top={18} right={22} rotate={22} color="#b7a9ff" />
       </div>
     ),
     { ...size, fonts: [{ name: "Space Grotesk", data: spaceGrotesk, weight: 700, style: "normal" }] },
