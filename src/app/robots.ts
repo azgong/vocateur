@@ -4,7 +4,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: ["/", "/assessment", "/pricing", "/contact", "/privacy", "/terms"],
+      allow: ["/", "/assessment", "/pricing", "/science", "/contact", "/privacy", "/terms"],
       disallow: ["/api/", "/auth/", "/results/", "/roadmap/", "/upgrade/"],
     },
     sitemap: "https://vocateur.app/sitemap.xml",

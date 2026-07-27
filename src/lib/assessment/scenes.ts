@@ -1,11 +1,11 @@
 import { TraitVector } from "./types";
 
-// A "chapter" is one of the four narrative worlds (Analyst/Physician/Executive/Founder).
-// Each chapter runs 7 scenes. No scene is a pure single-quadrant test: every scene's
-// trait contributions blend a primary quadrant with a meaningful secondary one, and the
-// UI never labels a scene by quadrant/trait name, so there's nothing for a user to
+// A "chapter" is one of five narrative worlds (Analyst/Physician/Executive/Founder/Builder).
+// Each chapter runs 7 scenes. No scene is a pure single-instinct test: every scene's
+// trait contributions blend a primary instinct with a meaningful secondary one, and the
+// UI never labels a scene by trait name, so there's nothing for a user to
 // reverse-engineer and answer strategically toward.
-export type ChapterId = "analyst" | "physician" | "executive" | "founder";
+export type ChapterId = "analyst" | "physician" | "executive" | "founder" | "builder";
 
 export type ChoiceOption = {
   id: string;
@@ -123,7 +123,7 @@ export const CHAPTERS: Chapter[] = [
     id: "analyst",
     name: "Analyst",
     intro: "An analyst call.",
-    quadrantLabel: "Quadrant A: Analytical",
+    quadrantLabel: "The analytical instinct",
     focus:
       "This chapter is built around analytical thinking: the logical, fact-based, data-first way some people naturally approach problems. The seven moments ahead reward rigor and evidence over gut instinct.",
     caseStudy:
@@ -257,7 +257,7 @@ export const CHAPTERS: Chapter[] = [
     id: "physician",
     name: "Physician",
     intro: "An ER shift.",
-    quadrantLabel: "Quadrant B: Sequential",
+    quadrantLabel: "The sequential instinct",
     focus:
       "This chapter is built around sequential thinking: the structured, detail-oriented, process-driven way some people operate under pressure. The seven moments ahead reward order, precision, and following (or knowingly breaking) protocol.",
     caseStudy:
@@ -392,7 +392,7 @@ export const CHAPTERS: Chapter[] = [
     id: "executive",
     name: "Executive",
     intro: "A workplace conflict.",
-    quadrantLabel: "Quadrant C: Interpersonal",
+    quadrantLabel: "The interpersonal instinct",
     focus:
       "This chapter is built around interpersonal thinking: the relational, emotionally attuned, people-first way some people lead. The seven moments ahead reward reading people and situations, not just the facts on the page.",
     caseStudy:
@@ -529,7 +529,7 @@ export const CHAPTERS: Chapter[] = [
     id: "founder",
     name: "Founder",
     intro: "A founder's budget.",
-    quadrantLabel: "Quadrant D: Imaginative",
+    quadrantLabel: "The imaginative instinct",
     focus:
       "This chapter is built around imaginative thinking: the big-picture, intuitive, risk-embracing way some people build under uncertainty. The seven moments ahead reward vision and conviction over caution.",
     caseStudy:
@@ -652,6 +652,136 @@ export const CHAPTERS: Chapter[] = [
         secondaryQuadrant: "quadrant_a",
         confirmLabel: "Run it",
         description: "sequencing scarce runway toward the fastest validated learning",
+      },
+    ],
+  },
+  {
+    id: "builder",
+    name: "Builder",
+    intro: "A prototype deadline.",
+    quadrantLabel: "The hands-on instinct",
+    focus:
+      "This chapter is built around hands-on thinking: the tactile, iterative, build-to-learn way some people solve problems with their hands as much as their head. The seven moments ahead reward tinkering, prototyping, and learning by doing over theorizing from a distance.",
+    caseStudy:
+      "You're the only one on a four-person team who can actually open the prototype up and find out why it's not working. The investor demo is in four days, the enclosure barely closes, and the only way through is one hands-on test at a time.",
+    scenes: [
+      {
+        type: "choice",
+        id: "chase_intermittent_fault",
+        chapterId: "builder",
+        title: "Chase the intermittent fault",
+        prompt: "The prototype cuts out randomly, maybe once every ten minutes, no pattern you can see yet. Demo is in four days. What's your first move?",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "wiggle_test", label: "Open it up and wiggle every connector while it's powered, watching for the cutout.", traitContribution: { builder_instinct: 0.95, quadrant_d: 0.4, quadrant_a: 0.2, quadrant_b: 0.15 } },
+          { id: "log_everything", label: "Write a script to log every sensor reading so the failure shows up in data, not guesswork.", traitContribution: { quadrant_a: 0.85, builder_instinct: 0.45, quadrant_b: 0.4 } },
+          { id: "reread_datasheets", label: "Re-read the component datasheets for anything wired wrong.", traitContribution: { quadrant_b: 0.7, quadrant_a: 0.5, builder_instinct: 0.3 } },
+          { id: "call_vendor", label: "Message the vendor support line and ask if this is a known issue with the board.", traitContribution: { quadrant_c: 0.55, quadrant_a: 0.3, builder_instinct: 0.15 } },
+        ],
+        description: "deciding how to start chasing an intermittent hardware fault four days before a demo",
+      },
+      {
+        type: "timedSelect",
+        id: "find_open_joint",
+        chapterId: "builder",
+        title: "Find the open joint",
+        prompt: "You're testing continuity across every joint on the board with a multimeter before the enclosure closes for good. One reads open when it shouldn't. Find it before the battery on the meter gives out.",
+        items: [
+          { id: "power_rail", primaryLabel: "Joint 1, power rail", secondaryLabel: "0.2Ω, continuous", correct: false },
+          { id: "ground", primaryLabel: "Joint 2, ground", secondaryLabel: "0.1Ω, continuous", correct: false },
+          { id: "sensor_bus", primaryLabel: "Joint 3, sensor bus", secondaryLabel: "0.3Ω, continuous", correct: false },
+          { id: "motor_driver", primaryLabel: "Joint 4, motor driver", secondaryLabel: "open circuit, no continuity", correct: true },
+          { id: "status_led", primaryLabel: "Joint 5, status LED", secondaryLabel: "0.4Ω, continuous", correct: false },
+          { id: "battery_lead", primaryLabel: "Joint 6, battery lead", secondaryLabel: "0.15Ω, continuous", correct: false },
+        ],
+        timeLimitMs: 18000,
+        correctContribution: { builder_instinct: 0.95, quadrant_a: 0.5, quadrant_b: 0.3, quadrant_d: 0.1 },
+        incorrectContribution: { builder_instinct: 0.5, quadrant_a: 0.3, quadrant_b: 0.2, quadrant_d: 0.1 },
+        confirmVerb: "Mark it",
+        description: "spotting the open joint in a continuity test under a countdown",
+      },
+      {
+        type: "choice",
+        id: "bracket_doesnt_fit",
+        chapterId: "builder",
+        title: "The part doesn't fit",
+        prompt: "The 3D-printed bracket you designed doesn't fit the motor mount, off by about 2mm. The print farm is booked solid for two days. What do you do?",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "file_by_hand", label: "File and sand the bracket down by hand until it fits, right now.", traitContribution: { builder_instinct: 0.95, quadrant_d: 0.3, quadrant_b: 0.2 } },
+          { id: "redo_cad", label: "Redo the CAD model precisely, requeue the print, and wait the two days.", traitContribution: { quadrant_b: 0.75, quadrant_a: 0.5, builder_instinct: 0.4 } },
+          { id: "design_shim", label: "Design a thin shim to make up the 2mm instead of remaking the whole part.", traitContribution: { builder_instinct: 0.8, quadrant_a: 0.5, quadrant_d: 0.35 } },
+          { id: "ask_around", label: "Ask around if anyone has a spare part close enough to swap in.", traitContribution: { quadrant_c: 0.6, builder_instinct: 0.25 } },
+        ],
+        description: "deciding how to handle a physical part that doesn't fit two days before a print slot opens up",
+      },
+      {
+        type: "ranking",
+        id: "order_the_build",
+        chapterId: "builder",
+        title: "Order the build",
+        prompt: "Four subsystems still need final assembly before the enclosure closes for good. Order them by which should go in last, so you're never tearing something apart to fix what's underneath it.",
+        displayOrder: [
+          { id: "battery", primaryLabel: "Battery pack", secondaryLabel: "Sits at the very bottom of the stack" },
+          { id: "mainboard", primaryLabel: "Main control board", secondaryLabel: "Mounts directly over the battery" },
+          { id: "wiring", primaryLabel: "Sensor wiring harness", secondaryLabel: "Routes around and connects everything" },
+          { id: "enclosure_lid", primaryLabel: "Enclosure lid and latches", secondaryLabel: "Closes the whole thing up" },
+        ],
+        correctOrder: ["battery", "mainboard", "wiring", "enclosure_lid"],
+        primaryQuadrant: "builder_instinct",
+        secondaryQuadrant: "quadrant_b",
+        description: "sequencing final assembly so nothing has to be undone to fix what's underneath",
+      },
+      {
+        type: "allocation",
+        id: "allocate_final_hours",
+        chapterId: "builder",
+        title: "Allocate the last 48 hours",
+        prompt: "48 hours before the demo. 100 points of effort left to spend. Split it across what actually needs it.",
+        categories: [
+          { id: "reliability", label: "Fixing the intermittent cutout", hint: "The thing that could embarrass you on stage" },
+          { id: "polish", label: "Cosmetic fit and finish", hint: "How it looks and feels in someone's hands" },
+          { id: "backup_plan", label: "Preparing a backup demo path", hint: "In case the hardware just doesn't cooperate" },
+          { id: "rehearsal", label: "Rehearsing the pitch itself", hint: "How you'll talk through what it does" },
+        ],
+        concentrationQuadrant: "builder_instinct",
+        balanceQuadrant: "quadrant_b",
+        balanceCategoryId: "rehearsal",
+        confirmLabel: "Lock in the split",
+        description: "allocating the final 48 hours before a demo across reliability, polish, backup plan, and rehearsal",
+      },
+      {
+        type: "choice",
+        id: "sensor_disagreement",
+        chapterId: "builder",
+        title: "Two engineers disagree",
+        prompt: "Your co-founder wants to scrap the current sensor for a different model, worried it won't hold up on stage. You think it just needs a firmware fix. Two days left. What do you do?",
+        confirmLabel: "Go with this",
+        options: [
+          { id: "prove_the_fix", label: "Spend a few hours proving the firmware fix actually works before agreeing to anything.", traitContribution: { builder_instinct: 0.9, quadrant_a: 0.5, quadrant_d: 0.15 } },
+          { id: "trust_cofounder", label: "Trust their instinct and start integrating the new sensor today.", traitContribution: { quadrant_c: 0.55, quadrant_d: 0.4, builder_instinct: 0.3 } },
+          { id: "run_both", label: "Run both in parallel today and decide tonight based on what's actually working.", traitContribution: { builder_instinct: 0.85, quadrant_d: 0.55, quadrant_a: 0.3 } },
+          { id: "escalate_vote", label: "Bring it to the rest of the team and let a vote decide.", traitContribution: { quadrant_c: 0.7, quadrant_b: 0.3, builder_instinct: 0.1 } },
+        ],
+        description: "resolving a technical disagreement with a co-founder two days before a demo",
+      },
+      {
+        type: "dragRank",
+        id: "rank_likely_culprits",
+        chapterId: "builder",
+        title: "Rank the likely culprits",
+        prompt: "The cutout is still happening. Four things could be causing it. Drag them into the order you'd actually test first, most likely culprit on top.",
+        items: [
+          { id: "battery_connector", primaryLabel: "Loose battery connector", secondaryLabel: "Most common cause of intermittent power loss" },
+          { id: "solder_joint", primaryLabel: "A cold solder joint from assembly", secondaryLabel: "You did the soldering yourself, late at night" },
+          { id: "interference", primaryLabel: "Electromagnetic interference from the motor", secondaryLabel: "Only shows up under specific conditions" },
+          { id: "firmware_bug", primaryLabel: "A firmware bug in the power management code", secondaryLabel: "Possible, but you tested this path last week" },
+        ],
+        correctOrder: ["battery_connector", "solder_joint", "interference", "firmware_bug"],
+        primaryQuadrant: "builder_instinct",
+        secondaryQuadrant: "quadrant_a",
+        confirmLabel: "Start testing",
+        description: "ranking four possible causes of an intermittent hardware fault by how likely and how testable each is",
       },
     ],
   },

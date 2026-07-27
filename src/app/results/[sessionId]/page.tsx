@@ -61,7 +61,8 @@ export default async function ResultsPage({
   const traitVector = session.trait_vector as TraitVector;
   const moduleLogs = (session.self_report?.moduleLogs ?? []) as ModuleLog[];
   const skillScores = (session.self_report?.skillScores ?? null) as SkillScores | null;
-  const matches = rankMatches(traitVector, occupations as Occupation[], skillScores);
+  const values = (session.self_report?.values ?? null) as string[] | null;
+  const matches = rankMatches(traitVector, occupations as Occupation[], skillScores, values);
 
   const visibleMatches = isSubscribed ? matches : matches.slice(0, 3);
   const lockedMatches = isSubscribed ? [] : matches.slice(3, 10);

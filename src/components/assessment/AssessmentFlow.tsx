@@ -185,12 +185,12 @@ export function AssessmentFlow() {
             className="flex max-w-xl flex-col items-center gap-6 text-center lg:max-w-2xl xl:max-w-3xl"
           >
             <h1 className="font-[family-name:var(--font-brand)] text-4xl font-medium tracking-tight lg:text-5xl">
-              Know your fate in ten minutes.
+              Ten minutes. No more guessing.
             </h1>
             <p className="text-foreground/60 lg:text-lg">
-              Twenty-eight real job moments across four worlds: an analyst call, an ER shift, a workplace conflict,
-              and a founder&rsquo;s budget. Then five quick skill games test your reflexes, memory, and precision.
-              How you move through all of it is the signal. No quiz questions.
+              Thirty-five real job moments across five worlds: an analyst call, an ER shift, a workplace conflict,
+              a founder&rsquo;s budget, and a prototype deadline. Then five quick skill games test your reflexes,
+              memory, and precision. How you move through all of it is the signal. No quiz questions.
             </p>
             {resumeData ? (
               <div className="flex flex-col items-center gap-3">

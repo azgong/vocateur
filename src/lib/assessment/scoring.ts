@@ -19,15 +19,27 @@ export function scoreAssessment(logs: ModuleLog[], selfReport: SelfReport, skill
     quadrant_b: 0,
     quadrant_c: 0,
     quadrant_d: 0,
+    builder_instinct: 0,
     pace_preference: 0,
     risk_tolerance: 0,
   };
+
+  // builder_instinct is only ever contributed by the Builder chapter's own
+  // scenes (the other four chapters predate it and don't touch it), unlike
+  // quadrant_a-d, which every scene across every chapter contributes to at
+  // least as a secondary. Averaging it over all 35 scenes like the quadrants
+  // would silently dilute even a maximal Builder-chapter performance down to
+  // roughly 0.18, structurally disadvantaging the new dimension in matching
+  // regardless of how someone actually answered. It's averaged over only the
+  // scenes that actually contributed to it instead.
+  let builderInstinctContributors = 0;
 
   for (const log of logs) {
     const contribution = (log.extra?.traitContribution as Partial<TraitVector>) ?? {};
     for (const key of Object.keys(totals) as (keyof TraitVector)[]) {
       totals[key] += contribution[key] ?? 0;
     }
+    if (contribution.builder_instinct !== undefined) builderInstinctContributors += 1;
 
     // Fewer revisions + faster completion nudges pace_preference up;
     // more revisions nudges risk_tolerance down (double-checking reads as caution).
@@ -41,6 +53,7 @@ export function scoreAssessment(logs: ModuleLog[], selfReport: SelfReport, skill
     quadrant_b: clamp01(totals.quadrant_b / moduleCount),
     quadrant_c: clamp01(totals.quadrant_c / moduleCount),
     quadrant_d: clamp01(totals.quadrant_d / moduleCount),
+    builder_instinct: clamp01(totals.builder_instinct / (builderInstinctContributors || 1)),
     pace_preference: clamp01(totals.pace_preference / moduleCount),
     risk_tolerance: clamp01(totals.risk_tolerance / moduleCount),
   };

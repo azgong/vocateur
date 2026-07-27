@@ -53,7 +53,7 @@ async function callClaude(occupation: Occupation, logs: ModuleLog[], skillScores
 
   const skillLine = describeSkillScores(skillScores);
 
-  const prompt = `A user just completed short behavioral simulation scenarios across 4 job-world chapters (not a personality quiz) and matched to the occupation "${occupation.title}" (${occupation.description}).
+  const prompt = `A user just completed short behavioral simulation scenarios across 5 job-world chapters (not a personality quiz) and matched to the occupation "${occupation.title}" (${occupation.description}).
 
 Their behavior across the scenarios:
 ${choiceSummary}

@@ -55,6 +55,13 @@ const FLOOR_RANK_FRACTION = 0.35;
 // cosine stays dominant, measured skills act as a tiebreaker-strength signal.
 const SKILL_WEIGHT = 0.15;
 
+// Most users are looking for a higher-paying outcome among their well-fitting
+// matches, so pay nudges the ranking by default. Users who explicitly picked
+// "Money" among their top values get a stronger nudge; users who filled their
+// 3 picks with other values and left Money out get a much weaker one, since
+// that's a real signal they're optimizing for something else.
+const PAY_WEIGHT_BASE = 0.08;
+
 /**
  * Agreement between what an occupation demands and what the games measured,
  * weighted by how distinctive each demand is (a 0.5 "neutral" demand says
@@ -77,17 +84,32 @@ function skillFit(demands: SkillDemands | null | undefined, scores: SkillScores 
   return weightSum > 0 ? weighted / weightSum : null;
 }
 
+function paySkewWeight(values: string[] | undefined | null): number {
+  if (!values || values.length === 0) return PAY_WEIGHT_BASE;
+  if (values.includes("Money")) return PAY_WEIGHT_BASE * 1.5;
+  return PAY_WEIGHT_BASE * 0.3;
+}
+
 export function rankMatches(
   userVector: TraitVector,
   occupations: Occupation[],
   skillScores?: SkillScores | null,
+  values?: string[] | null,
 ): Match[] {
+  const payWeight = paySkewWeight(values);
+  const salaries = occupations.map((o) => o.median_salary);
+  const minSalary = Math.min(...salaries);
+  const maxSalary = Math.max(...salaries);
+  const salaryRange = maxSalary - minSalary || 1;
+
   const scored = occupations.map((occupation) => {
     const cosine = cosineSimilarity(userVector, occupation.trait_profile);
     const fit = skillFit(occupation.skill_demands, skillScores);
+    const traitScore = fit === null ? cosine : cosine * (1 - SKILL_WEIGHT) + fit * SKILL_WEIGHT;
+    const salaryNorm = (occupation.median_salary - minSalary) / salaryRange;
     return {
       occupation,
-      rawSimilarity: fit === null ? cosine : cosine * (1 - SKILL_WEIGHT) + fit * SKILL_WEIGHT,
+      rawSimilarity: traitScore * (1 - payWeight) + salaryNorm * payWeight,
     };
   });
 

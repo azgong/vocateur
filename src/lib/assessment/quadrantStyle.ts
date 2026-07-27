@@ -1,6 +1,6 @@
 import { ChapterId } from "./scenes";
 
-export type Quadrant = "a" | "b" | "c" | "d";
+export type Quadrant = "a" | "b" | "c" | "d" | "e";
 
 export const QUADRANT_META: Record<
   Quadrant,
@@ -46,6 +46,16 @@ export const QUADRANT_META: Record<
     buttonText: "text-quadrant-d-ink",
     ring: "shadow-[0_0_28px_-8px_var(--quadrant-d)]",
   },
+  e: {
+    name: "Builder",
+    bg: "bg-quadrant-e",
+    bgSoft: "bg-quadrant-e/10",
+    border: "border-quadrant-e",
+    borderSoft: "border-quadrant-e/30",
+    text: "text-quadrant-e",
+    buttonText: "text-quadrant-e-ink",
+    ring: "shadow-[0_0_28px_-8px_var(--quadrant-e)]",
+  },
 };
 
 export const CHAPTER_QUADRANT: Record<ChapterId, Quadrant> = {
@@ -53,4 +63,5 @@ export const CHAPTER_QUADRANT: Record<ChapterId, Quadrant> = {
   physician: "b",
   executive: "c",
   founder: "d",
+  builder: "e",
 };

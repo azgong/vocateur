@@ -5,6 +5,7 @@ export type TraitVector = {
   quadrant_b: number; // sequential / structured
   quadrant_c: number; // relational / interpersonal
   quadrant_d: number; // experimental / big-picture
+  builder_instinct: number; // hands-on / iterative / makes-to-think, not just plans-then-builds
   pace_preference: number; // 0 = slow/deliberate, 1 = fast/urgent
   risk_tolerance: number; // 0 = risk-averse, 1 = risk-seeking
 };
@@ -12,7 +13,7 @@ export type TraitVector = {
 export type LifeStage = "high_school" | "university" | "early_career" | "career_changer";
 
 export type ModuleLog = {
-  chapterId: "analyst" | "physician" | "executive" | "founder";
+  chapterId: "analyst" | "physician" | "executive" | "founder" | "builder";
   sceneId: string;
   timeTakenMs: number;
   choiceSelected: string;

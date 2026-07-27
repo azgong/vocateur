@@ -21,6 +21,8 @@
   --quadrant-c-ink: #400515;
   --quadrant-d: #ffc24b; /* Experimental */
   --quadrant-d-ink: #402a02;
+  --quadrant-e: #ff7a45; /* Hands-on / builder */
+  --quadrant-e-ink: #3a1502;
 }
 
 @theme inline {
@@ -36,10 +38,12 @@
   --color-quadrant-b: var(--quadrant-b);
   --color-quadrant-c: var(--quadrant-c);
   --color-quadrant-d: var(--quadrant-d);
+  --color-quadrant-e: var(--quadrant-e);
   --color-quadrant-a-ink: var(--quadrant-a-ink);
   --color-quadrant-b-ink: var(--quadrant-b-ink);
   --color-quadrant-c-ink: var(--quadrant-c-ink);
   --color-quadrant-d-ink: var(--quadrant-d-ink);
+  --color-quadrant-e-ink: var(--quadrant-e-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-brand: var(--font-brand);
