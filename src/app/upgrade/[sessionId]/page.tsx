@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { rankMatches, Occupation } from "@/lib/assessment/matching";
 import { TraitVector } from "@/lib/assessment/types";
+import { SkillScores } from "@/lib/assessment/games";
 import { QUADRANT_META, Quadrant } from "@/lib/assessment/quadrantStyle";
 import { UpgradePlans } from "@/components/upgrade/UpgradePlans";
 
@@ -21,7 +22,7 @@ export default async function UpgradePage({
   const admin = createAdminClient();
 
   const [{ data: session }, { data: occupations }] = await Promise.all([
-    admin.from("assessment_sessions").select("trait_vector").eq("id", sessionId).single(),
+    admin.from("assessment_sessions").select("trait_vector, self_report").eq("id", sessionId).single(),
     admin.from("occupations").select("*"),
   ]);
 
@@ -41,9 +42,18 @@ export default async function UpgradePage({
     }
   }
 
+  // Must rank identically to the results page (same skillScores + values
+  // inputs), or this page can tease a different "top match" than the one
+  // actually shown on /results for the same session, a jarring inconsistency
+  // for anyone bouncing between the two.
   const topMatchTitle =
     session && occupations
-      ? rankMatches(session.trait_vector as TraitVector, occupations as Occupation[])[0]?.occupation.title
+      ? rankMatches(
+          session.trait_vector as TraitVector,
+          occupations as Occupation[],
+          (session.self_report?.skillScores ?? null) as SkillScores | null,
+          (session.self_report?.values ?? null) as string[] | null,
+        )[0]?.occupation.title
       : null;
 
   return (
