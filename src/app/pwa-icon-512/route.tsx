@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { VArrowMark } from "@/lib/vArrowMark";
+import { VCrystalMark } from "@/lib/vCrystalMark";
 
 export function GET() {
   return new ImageResponse(
@@ -16,7 +16,7 @@ export function GET() {
           backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
         }}
       >
-        <VArrowMark size={348} color="#f3f1fa" accentColor="#b7a9ff" />
+        <VCrystalMark size={348} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
     { width: 512, height: 512 },

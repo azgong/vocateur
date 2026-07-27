@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { VArrowMark } from "@/lib/vArrowMark";
+import { VCrystalMark } from "@/lib/vCrystalMark";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
@@ -19,7 +19,7 @@ export default function AppleIcon() {
           backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
         }}
       >
-        <VArrowMark size={122} color="#f3f1fa" accentColor="#b7a9ff" />
+        <VCrystalMark size={122} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
     size,

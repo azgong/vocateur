@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { VArrowMark } from "@/lib/vArrowMark";
+import { VCrystalMark } from "@/lib/vCrystalMark";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
@@ -20,7 +20,7 @@ export default function Icon() {
           borderRadius: 14,
         }}
       >
-        <VArrowMark size={44} color="#f3f1fa" accentColor="#b7a9ff" />
+        <VCrystalMark size={44} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
     size,

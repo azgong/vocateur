@@ -1,8 +1,5 @@
-import { VArrowMark } from "@/lib/vArrowMark";
+import { VCrystalMark } from "@/lib/vCrystalMark";
 
-// A single mark, not a letter plus a decoration: the V's right stroke is
-// the arrow, one continuous shape, pointing somewhere rather than sitting
-// still.
 export function Logo({ size = 56 }: { size?: number }) {
   return (
     <div
@@ -13,7 +10,7 @@ export function Logo({ size = 56 }: { size?: number }) {
         background: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%), #08070d",
       }}
     >
-      <VArrowMark size={size * 0.68} color="#f3f1fa" accentColor="var(--accent-soft)" />
+      <VCrystalMark size={size * 0.68} color="#f3f1fa" accentColor="var(--accent-soft)" />
     </div>
   );
 }
