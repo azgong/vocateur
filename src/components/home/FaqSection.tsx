@@ -6,8 +6,8 @@ export const FAQS = [
     a: "No. Personality tests ask you to self-report (“rate yourself 1-5”). Vocateur puts you into unscripted job scenarios and scores what you actually do under time pressure and ambiguity. That behavior is the signal, not a checkbox.",
   },
   {
-    q: "How is this different from things like 16Personalities or CliftonStrengths?",
-    a: "Those score self-reported preferences and hand back a personality label. Vocateur scores real simulated behavior and maps it to real government labor-market data for specific careers, not a type name.",
+    q: "How is this different from other personality or career-aptitude tests?",
+    a: "Most ask you to self-report and hand back a personality label or a broad interest category, then leave the career part to you. Vocateur scores real simulated behavior under time pressure and ambiguity, then maps that directly to specific careers, real job titles with real government wage and growth data, not a type name you have to go research on your own.",
   },
   {
     q: "Where does the career data actually come from?",
