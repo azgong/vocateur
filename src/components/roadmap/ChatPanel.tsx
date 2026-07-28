@@ -1,49 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { LifeStage } from "@/lib/assessment/types";
-
-type Message = { role: "user" | "assistant"; content: string };
-type ChatMode = "advisor" | "mock_interview";
-
-const MODE_META: Record<ChatMode, { label: string; placeholder: string; starter: string; empty: string }> = {
-  advisor: {
-    label: "Ask your advisor",
-    placeholder: "Why didn't nursing rank higher for me?",
-    starter: "",
-    empty: "Ask anything about your results, this career, or how to actually reach your roadmap milestones.",
-  },
-  mock_interview: {
-    label: "Mock interview",
-    placeholder: "Type your answer…",
-    starter: "I'm ready to start the mock interview.",
-    empty: "Start a realistic mock interview for your matched role: one question at a time, with real feedback.",
-  },
-};
-
-type SuggestedPrompt = { label: string; fill: string };
-
-const JOB_SEARCH_PROMPTS: SuggestedPrompt[] = [
-  { label: "Review my resume", fill: "Can you review my resume for this role? Here it is: " },
-  { label: "Analyze a job posting", fill: "Am I a good fit for this posting, and what should I highlight? Here it is: " },
-  { label: "Help me negotiate an offer", fill: "I have an offer and want help negotiating. Here are the details: " },
-  { label: "Review my LinkedIn", fill: "Can you review my LinkedIn headline and About section? Here it is: " },
-];
-
-const STILL_CHOOSING_PROMPTS: SuggestedPrompt[] = [
-  { label: "Which courses matter?", fill: "Which classes or subjects should I actually prioritize for this career? " },
-  { label: "Extracurriculars that help", fill: "What extracurriculars, clubs, or programs would genuinely help me here? " },
-  { label: "How do I get first exposure?", fill: "How can I get real exposure to this field now, shadowing, projects, competitions? " },
-  { label: "Convince my parents", fill: "How do I explain this path to parents who aren't sure about it? " },
-];
-
-const SUGGESTED_PROMPTS: Record<LifeStage, SuggestedPrompt[]> = {
-  high_school: STILL_CHOOSING_PROMPTS,
-  university: STILL_CHOOSING_PROMPTS,
-  early_career: JOB_SEARCH_PROMPTS,
-  career_changer: JOB_SEARCH_PROMPTS,
-};
+import { Message, ChatMode, MODE_META, SUGGESTED_PROMPTS } from "./chatShared";
 
 export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeStage: LifeStage }) {
   const [mode, setMode] = useState<ChatMode>("advisor");
@@ -91,13 +52,21 @@ export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeSta
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6 print:hidden">
-      <div>
-        <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">
-          Your career advisor
-        </h3>
-        <p className="text-sm text-foreground/50">
-          Conversations aren&rsquo;t saved after you leave the page.
-        </p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">
+            Your career advisor
+          </h3>
+          <p className="text-sm text-foreground/50">
+            Conversations aren&rsquo;t saved after you leave the page.
+          </p>
+        </div>
+        <Link
+          href={`/roadmap/${roadmapId}/advisor`}
+          className="shrink-0 text-sm font-medium text-accent underline underline-offset-2"
+        >
+          Open full conversation
+        </Link>
       </div>
 
       <div className="flex gap-2">
