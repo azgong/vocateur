@@ -16,6 +16,13 @@ export default function AuthCallbackPage() {
     ran.current = true;
 
     async function run() {
+      const n = 1 + Number(sessionStorage.getItem("__cb_dbg_n") || "0");
+      sessionStorage.setItem("__cb_dbg_n", String(n));
+      sessionStorage.setItem(
+        `__cb_dbg_${n}_start`,
+        JSON.stringify({ href: window.location.href, t: Date.now() }),
+      );
+
       const supabase = createClient();
       const params = new URLSearchParams(window.location.search);
       const next = params.get("next") ?? "/";
@@ -27,6 +34,7 @@ export default function AuthCallbackPage() {
       const refreshToken = hashParams.get("refresh_token");
       if (accessToken && refreshToken) {
         const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        sessionStorage.setItem(`__cb_dbg_${n}_setSession`, JSON.stringify({ error: error?.message ?? null }));
         if (!error) {
           window.location.replace(next);
           return;
@@ -37,12 +45,17 @@ export default function AuthCallbackPage() {
       const code = params.get("code");
       if (code) {
         const { error } = await supabase.auth.exchangeCodeForSession(code);
+        sessionStorage.setItem(
+          `__cb_dbg_${n}_exchange`,
+          JSON.stringify({ code, error: error?.message ?? null }),
+        );
         if (!error) {
           window.location.replace(next);
           return;
         }
       }
 
+      sessionStorage.setItem(`__cb_dbg_${n}_failed`, "true");
       setFailed(true);
     }
     run();
