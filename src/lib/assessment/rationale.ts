@@ -48,7 +48,10 @@ async function callClaude(occupation: Occupation, logs: ModuleLog[], skillScores
 
   const client = new Anthropic({ apiKey });
   const choiceSummary = logs
-    .map((l) => `- ${descriptionFor(l)}: chose "${l.choiceSelected}", took ${(l.timeTakenMs / 1000).toFixed(1)}s, ${l.revisionsMade} revisions`)
+    .map(
+      (l) =>
+        `- ${descriptionFor(l)}: chose "${l.choiceSelected.replace(/_/g, " ")}", took ${(l.timeTakenMs / 1000).toFixed(1)}s, ${l.revisionsMade} revisions`,
+    )
     .join("\n");
 
   const skillLine = describeSkillScores(skillScores);

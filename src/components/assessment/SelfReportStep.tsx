@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LifeStage, ResumeStatus, SelfReport, Timeline, WeeklyTimeAvailable } from "@/lib/assessment/types";
+import { LifeStage, ResumeStatus, SelfReport } from "@/lib/assessment/types";
 
 const VALUE_OPTIONS = ["Stability", "Impact", "Creativity", "Autonomy", "Money", "Prestige"];
 
@@ -81,11 +81,9 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   const [furtherSchooling, setFurtherSchooling] = useState<SelfReport["furtherSchooling"] | null>(null);
   const [geographicFlexibility, setGeographicFlexibility] = useState<SelfReport["geographicFlexibility"] | null>(null);
   const [location, setLocation] = useState("");
-  const [timeline, setTimeline] = useState<Timeline | null>(null);
   const [values, setValues] = useState<string[]>([]);
   const [currentGPA, setCurrentGPA] = useState("");
   const [currentActivities, setCurrentActivities] = useState("");
-  const [weeklyTimeAvailable, setWeeklyTimeAvailable] = useState<WeeklyTimeAvailable | null>(null);
   const [resumeStatus, setResumeStatus] = useState<ResumeStatus | null>(null);
   const [additionalContext, setAdditionalContext] = useState("");
 
@@ -101,10 +99,8 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
     lifeStage &&
     furtherSchooling &&
     geographicFlexibility &&
-    timeline &&
     values.length > 0 &&
     currentFocus.trim().length > 0 &&
-    weeklyTimeAvailable &&
     resumeStatus;
 
   return (
@@ -218,22 +214,6 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             className={inputClass}
           />
         </Question>
-
-        <Question
-          prompt="Once you see your matches, how soon do you want to start actually working toward one?"
-          description="Sets whether your roadmap gives you an immediate next step or a longer-range plan to explore first."
-        >
-          <OptionRow
-            options={[
-              { value: "already_committed", label: "Already committed to a path" },
-              { value: "within_a_year", label: "Within a year" },
-              { value: "one_to_three_years", label: "1-3 years out" },
-              { value: "just_exploring", label: "Just exploring for now" },
-            ]}
-            selected={timeline}
-            onSelect={setTimeline}
-          />
-        </Question>
       </Section>
 
       <Section index="03" label="What matters most">
@@ -261,21 +241,6 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       </Section>
 
       <Section index="04" label="Practical reality">
-        <Question
-          prompt="How many hours a week can you realistically put toward building your career right now?"
-          description="Keeps your roadmap's pace honest, we won't hand you a plan built for 10 hours a week if you only have 2."
-        >
-          <OptionRow
-            options={[
-              { value: "1_3_hours", label: "1-3 hours" },
-              { value: "4_7_hours", label: "4-7 hours" },
-              { value: "8_plus_hours", label: "8+ hours" },
-            ]}
-            selected={weeklyTimeAvailable}
-            onSelect={setWeeklyTimeAvailable}
-          />
-        </Question>
-
         <Question prompt="Where's your resume or LinkedIn at right now?">
           <OptionRow
             options={[
@@ -314,11 +279,9 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             furtherSchooling,
             geographicFlexibility,
             location: location.trim(),
-            timeline,
             values,
             currentGPA: currentGPA.trim(),
             currentActivities: currentActivities.trim(),
-            weeklyTimeAvailable,
             resumeStatus,
             additionalContext: additionalContext.trim(),
           })

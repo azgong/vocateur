@@ -8,12 +8,14 @@ export function MatchCard({
   title,
   fitScore,
   rationale,
+  highlights,
   roadmapLink,
 }: {
   rank: number;
   title: string;
   fitScore: number;
   rationale: string;
+  highlights?: string[];
   roadmapLink?: { sessionId: string; occupationId: string };
 }) {
   const isTop = rank === 1;
@@ -46,6 +48,21 @@ export function MatchCard({
         </div>
       </div>
       <p className="text-sm leading-relaxed text-foreground/60">{rationale}</p>
+      {highlights && highlights.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium uppercase tracking-wide text-foreground/40">Where you did well</span>
+          {highlights.map((h) => (
+            <span
+              key={h}
+              className={`rounded-full px-3 py-1 text-xs font-medium ${
+                isTop ? "bg-accent/10 text-accent" : "bg-surface-2 text-foreground/70"
+              }`}
+            >
+              {h}
+            </span>
+          ))}
+        </div>
+      )}
       {roadmapLink && !isTop && (
         <ViewRoadmapButton sessionId={roadmapLink.sessionId} occupationId={roadmapLink.occupationId} variant="compact" />
       )}

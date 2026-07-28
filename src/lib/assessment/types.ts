@@ -21,10 +21,6 @@ export type ModuleLog = {
   extra?: Record<string, unknown>;
 };
 
-export type Timeline = "already_committed" | "within_a_year" | "one_to_three_years" | "just_exploring";
-
-export type WeeklyTimeAvailable = "1_3_hours" | "4_7_hours" | "8_plus_hours";
-
 export type ResumeStatus = "solid" | "needs_work" | "dont_have_one";
 
 export type SelfReport = {
@@ -34,13 +30,11 @@ export type SelfReport = {
   furtherSchooling: "yes" | "no" | "maybe";
   geographicFlexibility: "local" | "national" | "global";
   location: string;
-  timeline: Timeline;
   values: string[];
   /** Current GPA, only meaningful for high_school/university, shown conditionally. */
   currentGPA: string;
   /** Clubs, extracurriculars, projects, or jobs they're already doing. */
   currentActivities: string;
-  weeklyTimeAvailable: WeeklyTimeAvailable;
   resumeStatus: ResumeStatus;
   additionalContext: string;
 };

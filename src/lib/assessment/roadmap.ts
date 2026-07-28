@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { LifeStage, ResumeStatus, SelfReport, WeeklyTimeAvailable } from "./types";
+import { LifeStage, ResumeStatus, SelfReport } from "./types";
 import { Occupation } from "./matching";
 import { SkillScores, describeSkillScores } from "./games";
 
@@ -231,19 +231,6 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
   return content;
 }
 
-const TIMELINE_BRIEF: Record<SelfReport["timeline"], string> = {
-  already_committed: "They're already committed to making this move. Treat the first milestone as something to act on immediately, not someday.",
-  within_a_year: "They want real progress within the next year. Keep milestones concrete and near-term.",
-  one_to_three_years: "They're working on a 1-3 year horizon. It's fine to include milestones that build over that longer window.",
-  just_exploring: "They're still just exploring this path. Keep early milestones low-commitment (research, conversations, small projects) before anything that requires a big leap.",
-};
-
-const TIME_BRIEF: Record<WeeklyTimeAvailable, string> = {
-  "1_3_hours": "They only have 1-3 hours a week for this. Keep action items small and specific enough to fit in short sessions, not open-ended projects.",
-  "4_7_hours": "They have 4-7 hours a week. Milestones can include a real ongoing commitment (a club, a part-time project) alongside smaller tasks.",
-  "8_plus_hours": "They have 8+ hours a week. You can include more ambitious action items: real internships, substantial side projects, structured coursework.",
-};
-
 const RESUME_BRIEF: Record<ResumeStatus, string> = {
   solid: "Their resume/LinkedIn is already solid. Focus outreach and application advice on targeting it to this specific field rather than rebuilding it.",
   needs_work: "Their resume/LinkedIn exists but needs work. Include at least one action item about reworking it toward this specific field's expectations.",
@@ -258,8 +245,6 @@ function personalContextBlock(selfReport: SelfReport): string {
       ? `Already doing: ${selfReport.currentActivities}. Build on this directly instead of suggesting they start from zero.`
       : null,
     selfReport.location ? `Location: ${selfReport.location}. Tailor examples (programs, employers, cost of living) to this where it genuinely helps.` : null,
-    `Timeline: ${TIMELINE_BRIEF[selfReport.timeline]}`,
-    `Time available: ${TIME_BRIEF[selfReport.weeklyTimeAvailable]}`,
     `Resume/LinkedIn status: ${RESUME_BRIEF[selfReport.resumeStatus]}`,
     selfReport.geographicFlexibility === "local" ? "They want to stay local. Don't suggest relocating." : null,
     selfReport.furtherSchooling === "no" ? "They do not want more formal schooling. Favor certifications, self-study, and on-the-job paths over degree programs." : null,
@@ -299,6 +284,8 @@ They are ${LIFE_STAGE_BRIEF[selfReport.lifeStage]}
 
 PERSONAL CONTEXT, use this to make milestones genuinely specific to this person, not generic:
 ${personalContextBlock(selfReport)}
+
+Give the single most direct, complete path into this exact field, don't hedge or soften it into a slower plan. Assume they'll make time for whatever it actually takes to get in; a simpler, dumbed-down version isn't needed here since they'll have an AI career advisor to explain or simplify any part of this roadmap afterward, and it can also be exported as a PDF.
 
 BE AS SPECIFIC AND CONCRETE AS POSSIBLE. This is the whole point of the product: no generic advice.
 - Use exact numbers where they'd realistically apply: specific GPA targets, specific test score ranges, specific timeframes.

@@ -50,6 +50,11 @@ export function ViewRoadmapButton({
         >
           {loading ? "Building your roadmap…" : "See the roadmap for this path"}
         </button>
+        {loading && (
+          <p className="text-xs text-foreground/40">
+            Writing something specific to you, this can take up to a minute.
+          </p>
+        )}
         {error && <p className="text-xs text-quadrant-c">Something went wrong. Try again.</p>}
       </div>
     );
@@ -60,12 +65,17 @@ export function ViewRoadmapButton({
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
+        animate={loading ? { opacity: [1, 0.6, 1] } : {}}
+        transition={loading ? { repeat: Infinity, duration: 1.6 } : {}}
         onClick={handleClick}
         disabled={loading}
-        className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60 disabled:shadow-none"
+        className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:shadow-none"
       >
         {loading ? "Building your roadmap…" : "View your personalized roadmap"}
       </motion.button>
+      {loading && (
+        <p className="text-xs text-foreground/40">Writing something specific to you, this can take up to a minute.</p>
+      )}
       {error && <p className="text-sm text-quadrant-c">Something went wrong. Try again.</p>}
     </div>
   );

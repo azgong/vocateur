@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { rankMatches, Occupation } from "@/lib/assessment/matching";
 import { generateRationale } from "@/lib/assessment/rationale";
+import { matchHighlights } from "@/lib/assessment/highlights";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
 import { SkillScores } from "@/lib/assessment/games";
 import { MatchCard } from "@/components/results/MatchCard";
@@ -89,6 +90,7 @@ export default async function ResultsPage({
             title={m.occupation.title}
             fitScore={m.fitScore}
             rationale={rationales[i]}
+            highlights={matchHighlights(traitVector, skillScores, m.occupation)}
             roadmapLink={isSubscribed ? { sessionId, occupationId: m.occupation.id } : undefined}
           />
         ))}
