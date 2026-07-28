@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { createClient } from "@/lib/supabase/server";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 
 const NAV_LINKS = [
   { label: "How it works", href: "/#how-it-works" },
@@ -9,7 +11,12 @@ const NAV_LINKS = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export function SiteNav() {
+export async function SiteNav() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <header className="sticky top-0 z-40 border-b border-border-subtle bg-background/70 backdrop-blur-md print:hidden">
       <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-6 lg:px-8">
@@ -32,12 +39,21 @@ export function SiteNav() {
           ))}
         </div>
 
-        <Link
-          href="/assessment"
-          className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_28px_-4px_var(--accent)]"
-        >
-          Start free
-        </Link>
+        {user ? (
+          <div className="flex items-center gap-3">
+            <span className="hidden max-w-[14rem] truncate text-sm text-foreground/50 sm:inline">
+              {user.email}
+            </span>
+            <SignOutButton />
+          </div>
+        ) : (
+          <Link
+            href="/assessment"
+            className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_28px_-4px_var(--accent)]"
+          >
+            Start free
+          </Link>
+        )}
       </nav>
     </header>
   );
