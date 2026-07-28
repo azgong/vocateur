@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LifeStage } from "@/lib/assessment/types";
 import { Message, ChatMode, MODE_META, SUGGESTED_PROMPTS } from "./chatShared";
+import { AssistantMarkdown, TypingDots } from "./ChatMessageBubble";
 
 export function AdvisorFullChat({
   roadmapId,
@@ -113,24 +114,27 @@ export function AdvisorFullChat({
         {messages
           .filter((m) => !(mode === "mock_interview" && m.role === "user" && m.content === MODE_META.mock_interview.starter))
           .map((m, i) => (
-            <div
+            <motion.div
               key={i}
-              className={`max-w-[80%] rounded-2xl px-5 py-3 text-[15px] leading-relaxed ${
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className={`max-w-[80%] rounded-2xl px-5 py-3 leading-relaxed ${
                 m.role === "user"
-                  ? "self-end bg-accent text-white"
+                  ? "self-end bg-accent text-[15px] text-white"
                   : "self-start bg-surface-2 text-foreground"
               }`}
             >
-              {m.content}
-            </div>
+              {m.role === "assistant" ? <AssistantMarkdown content={m.content} /> : m.content}
+            </motion.div>
           ))}
         {status === "loading" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="self-start rounded-2xl bg-surface-2 px-5 py-3 text-[15px] text-foreground/40"
+            className="self-start rounded-2xl bg-surface-2 px-5 py-3 text-foreground/40"
           >
-            {mode === "mock_interview" ? "Interviewer is thinking…" : "Thinking…"}
+            <TypingDots />
           </motion.div>
         )}
         {status === "error" && (
@@ -165,13 +169,14 @@ export function AdvisorFullChat({
               autoFocus
               className="flex-1 rounded-full border border-border-subtle bg-surface px-5 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
             />
-            <button
+            <motion.button
               type="submit"
+              whileTap={{ scale: 0.94 }}
               disabled={status === "loading"}
               className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-white shadow-[0_0_20px_-6px_var(--accent)] disabled:opacity-50 disabled:shadow-none"
             >
               Send
-            </button>
+            </motion.button>
           </form>
         )}
       </div>

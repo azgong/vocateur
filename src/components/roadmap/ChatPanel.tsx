@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LifeStage } from "@/lib/assessment/types";
 import { Message, ChatMode, MODE_META, SUGGESTED_PROMPTS } from "./chatShared";
+import { AssistantMarkdown, TypingDots } from "./ChatMessageBubble";
 
 export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeStage: LifeStage }) {
   const [mode, setMode] = useState<ChatMode>("advisor");
@@ -109,16 +110,19 @@ export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeSta
         {messages
           .filter((m) => !(mode === "mock_interview" && m.role === "user" && m.content === MODE_META.mock_interview.starter))
           .map((m, i) => (
-            <div
+            <motion.div
               key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
               className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
                 m.role === "user"
                   ? "self-end bg-accent text-white"
                   : "self-start bg-surface-2 text-foreground"
               }`}
             >
-              {m.content}
-            </div>
+              {m.role === "assistant" ? <AssistantMarkdown content={m.content} /> : m.content}
+            </motion.div>
           ))}
         {status === "loading" && (
           <motion.div
@@ -126,7 +130,7 @@ export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeSta
             animate={{ opacity: 1 }}
             className="self-start rounded-2xl bg-surface-2 px-4 py-2 text-sm text-foreground/40"
           >
-            {mode === "mock_interview" ? "Interviewer is thinking…" : "Thinking…"}
+            <TypingDots />
           </motion.div>
         )}
         {status === "error" && (
@@ -159,13 +163,14 @@ export function ChatPanel({ roadmapId, lifeStage }: { roadmapId: string; lifeSta
             placeholder={MODE_META[mode].placeholder}
             className="flex-1 rounded-full border border-border-subtle bg-surface px-4 py-2 text-sm text-foreground outline-none transition-colors focus:border-accent"
           />
-          <button
+          <motion.button
             type="submit"
+            whileTap={{ scale: 0.94 }}
             disabled={status === "loading"}
             className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-white shadow-[0_0_20px_-6px_var(--accent)] disabled:opacity-50 disabled:shadow-none"
           >
             Send
-          </button>
+          </motion.button>
         </form>
       )}
     </div>

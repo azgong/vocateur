@@ -47,12 +47,20 @@ export async function SiteNav() {
             <SignOutButton />
           </div>
         ) : (
-          <Link
-            href="/assessment"
-            className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_28px_-4px_var(--accent)]"
-          >
-            Start free
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/login"
+              className="hidden text-sm text-foreground/60 transition-colors hover:text-foreground sm:inline"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/assessment"
+              className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_-6px_var(--accent)] transition-shadow hover:shadow-[0_0_28px_-4px_var(--accent)]"
+            >
+              Start free
+            </Link>
+          </div>
         )}
       </nav>
     </header>
