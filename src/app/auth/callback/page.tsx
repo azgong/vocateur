@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AuthCallbackPage() {
   const [failed, setFailed] = useState(false);
+  const ran = useRef(false);
 
   useEffect(() => {
+    // The code/tokens here are single-use: a second exchange attempt fails even
+    // though the first already succeeded. Effects can fire more than once for a
+    // given mount, so guard against re-running this and clobbering a real session
+    // with a bogus "already used" failure.
+    if (ran.current) return;
+    ran.current = true;
+
     async function run() {
       const supabase = createClient();
       const params = new URLSearchParams(window.location.search);
