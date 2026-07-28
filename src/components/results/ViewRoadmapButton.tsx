@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { RoadmapBuildingOverlay } from "./RoadmapBuildingOverlay";
 
 export function ViewRoadmapButton({
   sessionId,
@@ -50,12 +51,8 @@ export function ViewRoadmapButton({
         >
           {loading ? "Building your roadmap…" : "See the roadmap for this path"}
         </button>
-        {loading && (
-          <p className="text-xs text-foreground/40">
-            Writing something specific to you, this can take up to a minute.
-          </p>
-        )}
         {error && <p className="text-xs text-quadrant-c">Something went wrong. Try again.</p>}
+        <RoadmapBuildingOverlay show={loading} />
       </div>
     );
   }
@@ -73,10 +70,8 @@ export function ViewRoadmapButton({
       >
         {loading ? "Building your roadmap…" : "View your personalized roadmap"}
       </motion.button>
-      {loading && (
-        <p className="text-xs text-foreground/40">Writing something specific to you, this can take up to a minute.</p>
-      )}
       {error && <p className="text-sm text-quadrant-c">Something went wrong. Try again.</p>}
+      <RoadmapBuildingOverlay show={loading} />
     </div>
   );
 }
