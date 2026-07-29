@@ -2,6 +2,7 @@ import Link from "next/link";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { DemoVideos } from "@/components/home/DemoVideos";
 import { ScienceSection } from "@/components/home/ScienceSection";
 import { DataSection } from "@/components/home/DataSection";
 import { ProShowcase } from "@/components/home/ProShowcase";
@@ -102,6 +103,7 @@ export default async function Home() {
 
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pb-24 lg:px-12">
         <HowItWorks />
+        <DemoVideos />
         <ScienceSection />
         <DataSection />
         <ProShowcase />
