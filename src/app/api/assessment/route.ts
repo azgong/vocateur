@@ -4,6 +4,7 @@ import { scoreAssessment } from "@/lib/assessment/scoring";
 import { ModuleLog, SelfReport } from "@/lib/assessment/types";
 import { TOTAL_SCENES } from "@/lib/assessment/scenes";
 import { GAMES, GameResult, TOTAL_GAMES, toSkillScores } from "@/lib/assessment/games";
+import { rateLimit } from "@/lib/rateLimit";
 
 const VALID_GAME_IDS = new Set(GAMES.map((g) => g.id));
 
@@ -23,6 +24,10 @@ function sanitizeGameResults(raw: unknown): GameResult[] {
 }
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(req, "assessment", 15, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "Too many attempts. Try again in a few minutes." }, { status: 429 });
+  }
+
   const body = await req.json();
   const logs: ModuleLog[] = body.logs;
   const selfReport: SelfReport = body.selfReport;

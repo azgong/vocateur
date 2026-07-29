@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(req, "contact", 10, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "Too many attempts. Try again in a few minutes." }, { status: 429 });
+  }
+
   const body = (await req.json().catch(() => null)) as {
     name?: string;
     email?: string;
