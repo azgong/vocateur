@@ -24,7 +24,7 @@ export type Occupation = {
   bls_annual_openings_thousands: number | null;
   bls_match_confidence: "exact" | "close" | "approximate" | "no_match" | null;
   bls_match_note: string | null;
-  // Structured career-advisory content, grounds the AI advisor chat and mock interviews.
+  // Structured career-advisory content, grounds roadmap generation.
   how_to_break_in: string | null;
   typical_progression: string | null;
   skills_to_build_first: string[] | null;

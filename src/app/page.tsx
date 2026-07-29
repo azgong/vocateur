@@ -23,12 +23,11 @@ const jsonLd = [
     name: "Vocateur",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description: "A simulation-based career-matching assessment that maps your behavior to real careers backed by U.S. Bureau of Labor Statistics data, then unlocks a personalized roadmap and AI career advisor.",
+    description: "A simulation-based career-matching assessment that maps your behavior to real careers backed by U.S. Bureau of Labor Statistics data, then unlocks a personalized roadmap and mock interview practice.",
     url: "https://vocateur.app",
     offers: [
       { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
-      { "@type": "Offer", name: "Pro Monthly", price: "9", priceCurrency: "USD" },
-      { "@type": "Offer", name: "Pro Annual", price: "89", priceCurrency: "USD" },
+      { "@type": "Offer", name: "Pro", price: "29", priceCurrency: "USD" },
     ],
   },
   {
@@ -137,12 +136,12 @@ function HeroFloatCards() {
           className="hero-float-late rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
           style={{ "--float-tilt": "2deg", "--float-tilt-end": "4deg" } as React.CSSProperties}
         >
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Your advisor</p>
-          <div className="mt-2 self-end rounded-xl rounded-br-sm bg-surface-2 px-3 py-2 text-[11px] text-foreground/70">
-            I have an interview at SpaceX on Friday.
-          </div>
-          <div className="mt-1.5 rounded-xl rounded-bl-sm border border-accent/20 bg-accent/[0.08] px-3 py-2 text-[11px] text-foreground/70">
-            Let&rsquo;s run a mock round for it right now.
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Mock interview</p>
+          <p className="mt-2 text-[11px] font-medium text-foreground/80">
+            Walk me through a time you made a call without complete information.
+          </p>
+          <div className="mt-1.5 rounded-xl border border-accent/20 bg-accent/[0.08] px-3 py-2 text-[11px] text-foreground/70">
+            What a strong answer covers: the constraint, the call you made, and the outcome.
           </div>
         </div>
       </ScrollReveal>

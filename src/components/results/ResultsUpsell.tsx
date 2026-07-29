@@ -6,12 +6,12 @@ const LOCKED_ACTIONS = [
     description: "A step-by-step plan built around your matched career and your own timeline.",
   },
   {
-    title: "Chat with your AI career advisor",
-    description: "Grounded in real BLS data for your field. Ask anything, or run a mock interview.",
-  },
-  {
     title: "See all 10 of your matches",
     description: "Not just your top 3, with full reasoning behind every one.",
+  },
+  {
+    title: "Export your Career Passport as a PDF",
+    description: "Your full results and roadmap, ready to save or share.",
   },
 ];
 
@@ -35,7 +35,7 @@ export function ResultsUpsell({ sessionId }: { sessionId: string }) {
           Upgrade to Pro to keep going
         </h3>
         <p className="mx-auto mt-2 max-w-md text-sm text-white/70">
-          Everything below unlocks the moment you upgrade. $9/mo or $89/yr, cancel anytime.
+          Everything below unlocks the moment you upgrade. $29 once, no subscription.
         </p>
       </div>
 

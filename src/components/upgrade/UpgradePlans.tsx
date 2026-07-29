@@ -4,8 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { authSafeOrigin } from "@/lib/site";
 
-type Plan = "monthly" | "annual";
-
 const FREE_FEATURES = [
   "Full simulation assessment",
   "Your top 3 career matches",
@@ -13,13 +11,12 @@ const FREE_FEATURES = [
 ];
 
 const PRO_FEATURES = [
-  "All 10 matches with full reasoning",
-  "A step-by-step roadmap for any match, with progress tracking",
-  "Personal career advisor: resume, cover letter, LinkedIn review",
-  "Role-specific mock interviews with honest feedback",
-  "Job posting fit checks and salary negotiation prep",
+  "Unlimited assessment retakes, forever",
+  "All 10 matches with full reasoning, detailed job projections, and market analysis",
+  "A highly detailed, visual roadmap for any match, with checkable progress tracking and PDF export",
+  "A mock interview ready any time, with real role-specific questions and what a strong answer covers",
   "Real market outlook from U.S. Bureau of Labor Statistics data",
-  "Unlimited assessment retakes and PDF export",
+  "One payment, unlocked forever, no subscription",
 ];
 
 function CheckIcon({ className }: { className?: string }) {
@@ -40,32 +37,32 @@ export function UpgradePlans({
   userEmail: string | null;
 }) {
   const [stage, setStage] = useState<"cta" | "error">("cta");
-  const [checkoutLoading, setCheckoutLoading] = useState<Plan | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
-  async function startCheckout(plan: Plan) {
+  async function startCheckout() {
     if (!isAuthenticated) {
-      const next = `/api/checkout/redirect?plan=${plan}&session=${sessionId}`;
+      const next = `/api/checkout/redirect?session=${sessionId}`;
       const note = "Sign in once and you go straight to secure card payment.";
       window.location.href = `${authSafeOrigin()}/login?next=${encodeURIComponent(next)}&note=${encodeURIComponent(note)}`;
       return;
     }
-    setCheckoutLoading(plan);
+    setCheckoutLoading(true);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, plan }),
+        body: JSON.stringify({ sessionId }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) {
         setStage("error");
-        setCheckoutLoading(null);
+        setCheckoutLoading(false);
         return;
       }
       window.location.href = data.url;
     } catch {
       setStage("error");
-      setCheckoutLoading(null);
+      setCheckoutLoading(false);
     }
   }
 
@@ -94,11 +91,9 @@ export function UpgradePlans({
         <div>
           <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight text-accent">Pro</h3>
           <p className="mt-1 text-3xl font-semibold">
-            $9<span className="text-base font-normal text-foreground/50">/mo</span>
-            <span className="mx-3 text-lg font-normal text-foreground/30">or</span>
-            $89<span className="text-base font-normal text-foreground/50">/yr</span>
+            $29<span className="text-base font-normal text-foreground/50"> once</span>
           </p>
-          <p className="mt-1 text-xs text-foreground/40">Annual saves about 18%. Cancel anytime.</p>
+          <p className="mt-1 text-xs text-foreground/40">One payment. No subscription, nothing to cancel.</p>
         </div>
         <ul className="flex flex-1 flex-col gap-2.5 text-sm text-foreground/70">
           {PRO_FEATURES.map((f) => (
@@ -109,26 +104,15 @@ export function UpgradePlans({
           ))}
         </ul>
 
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => startCheckout("monthly")}
-            disabled={checkoutLoading !== null}
-            className="flex-1 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60"
-          >
-            {checkoutLoading === "monthly" ? "Opening payment…" : "Get Pro: $9/mo"}
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => startCheckout("annual")}
-            disabled={checkoutLoading !== null}
-            className="flex-1 rounded-full border-2 border-accent/40 px-6 py-3 text-sm font-semibold text-accent disabled:opacity-60"
-          >
-            {checkoutLoading === "annual" ? "Opening payment…" : "Get Pro: $89/yr"}
-          </motion.button>
-        </div>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={startCheckout}
+          disabled={checkoutLoading}
+          className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60"
+        >
+          {checkoutLoading ? "Opening payment…" : "Get Pro: $29 once"}
+        </motion.button>
 
         {stage === "error" && <p className="text-center text-sm text-quadrant-c">Something went wrong. Try again.</p>}
         {isAuthenticated && userEmail && (

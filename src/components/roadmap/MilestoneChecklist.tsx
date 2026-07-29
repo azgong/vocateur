@@ -49,7 +49,7 @@ export function MilestoneChecklist({
 
       <ol className="relative flex flex-col gap-8 border-l-2 border-border-subtle pl-6">
         {milestones.map((m, i) => (
-          <li key={i} className="relative">
+          <li key={i} className="relative print:break-inside-avoid">
             <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-accent shadow-[0_0_12px_-2px_var(--accent)]" />
             <span className="text-xs font-semibold uppercase tracking-wide text-accent/70">{m.timeframe}</span>
             <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">{m.title}</h3>

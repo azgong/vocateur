@@ -35,43 +35,22 @@ function RoadmapDemo() {
   );
 }
 
-function AdvisorDemo() {
-  return (
-    <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
-      <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A full-service advisor, not a one-time unlock</h3>
-      <p className="text-sm leading-relaxed text-foreground/60">
-        Resume review, cover letter feedback, LinkedIn review, a real job posting fit check, salary negotiation
-        prep. Come back whenever something real comes up, not just once to see your roadmap.
-      </p>
-      <div className="flex flex-col gap-2">
-        <div className="self-end rounded-2xl rounded-br-sm bg-surface-2 px-4 py-2.5 text-sm text-foreground/80">
-          I have an offer and want help negotiating.
-        </div>
-        <div className="self-start rounded-2xl rounded-bl-sm border border-accent/20 bg-accent/[0.06] px-4 py-2.5 text-sm text-foreground/80">
-          Send me the numbers. I&rsquo;ll use the real BLS wage data for this field to help you figure out a
-          reasonable range and how to make the case.
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function MockInterviewDemo() {
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Real mock interviews</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A mock interview, ready any time</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
-        Role-specific interview questions, one at a time, with honest feedback after each answer, the same way a
-        real interviewer for that job would run the conversation.
+        Real, role-specific interview questions for your matched field, one at a time. Answer at your own pace,
+        then see what a strong answer covers to check yourself against it.
       </p>
       <div className="flex flex-col gap-2">
         <div className="self-start rounded-2xl rounded-bl-sm border border-accent/20 bg-accent/[0.06] px-4 py-2.5 text-sm text-foreground/80">
           Walk me through a time you made a call without complete information.
         </div>
         <div className="self-start rounded-2xl rounded-bl-sm bg-surface-2 px-4 py-2.5 text-sm text-foreground/70">
-          Good structure. A real interviewer would want the outcome sooner, and one concrete number.
+          What a strong answer covers: a specific example, the constraint you were under, and a measurable
+          outcome.
         </div>
       </div>
     </div>
@@ -112,18 +91,17 @@ export function ProShowcase() {
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
         <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
-          Built to keep helping, not just to unlock once
+          One payment, unlocked forever
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/60">
           Real examples of what Pro actually looks like, not a feature list. Every number and message below is
           illustrative, not a real user&rsquo;s data.
         </p>
       </ScrollReveal>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
         <ScrollReveal delay={0}><RoadmapDemo /></ScrollReveal>
-        <ScrollReveal delay={0.08}><AdvisorDemo /></ScrollReveal>
-        <ScrollReveal delay={0.16}><MockInterviewDemo /></ScrollReveal>
-        <ScrollReveal delay={0.24}><MarketDataDemo /></ScrollReveal>
+        <ScrollReveal delay={0.08}><MockInterviewDemo /></ScrollReveal>
+        <ScrollReveal delay={0.16}><MarketDataDemo /></ScrollReveal>
       </div>
     </section>
   );

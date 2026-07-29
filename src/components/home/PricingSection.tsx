@@ -6,11 +6,11 @@ const FREE_FEATURES = ["Full simulation assessment", "Your top 3 career matches"
 
 const PRO_FEATURES = [
   "Everything in Free",
-  "All 10 matches with full reasoning",
-  "A roadmap for any of your matches, with checkable progress tracking",
-  "A career advisor that adapts to your stage, from picking classes to negotiating an offer",
-  "Real, role-specific mock interview practice, any time you want a rep",
-  "PDF export and cancel anytime",
+  "Unlimited assessment retakes",
+  "All 10 matches with full reasoning, detailed job projections, and market analysis",
+  "A highly detailed, visual roadmap for any match, with progress tracking and PDF export",
+  "A mock interview ready any time, for your matched role",
+  "One payment, unlocked forever",
 ];
 
 function CheckIcon({ className }: { className?: string }) {
@@ -36,8 +36,7 @@ export function PricingSection({
           Free to start, simple to unlock
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-foreground/50">
-          Take the free assessment first, or skip the line and unlock Pro right now. Either way, you cancel
-          anytime.
+          Take the free assessment first, or skip the line and unlock Pro right now. One payment, yours forever.
         </p>
       </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2">
@@ -71,9 +70,9 @@ export function PricingSection({
           <div>
             <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight text-accent">Pro</h3>
             <p className="mt-1 text-3xl font-semibold">
-              $9<span className="text-base font-normal text-foreground/50">/mo</span>
+              $29<span className="text-base font-normal text-foreground/50"> once</span>
             </p>
-            <p className="text-xs text-foreground/40">or $89/yr, save about 18%</p>
+            <p className="text-xs text-foreground/40">No subscription, nothing to cancel</p>
           </div>
           <ul className="flex flex-1 flex-col gap-2.5 text-sm text-foreground/70">
             {PRO_FEATURES.map((f) => (

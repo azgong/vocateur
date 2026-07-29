@@ -255,7 +255,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
       </Section>
 
       <Section index="05" label="Anything else">
-        <Question prompt="Anything else your advisor should know?" description="Optional. e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation.">
+        <Question prompt="Anything else your roadmap should account for?" description="Optional. e.g. visa status, family obligations, must stay remote, specific constraints on schooling or relocation.">
           <textarea
             value={additionalContext}
             onChange={(e) => setAdditionalContext(e.target.value)}

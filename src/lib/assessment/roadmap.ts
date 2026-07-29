@@ -22,8 +22,17 @@ export type RoadmapResource = {
   url?: string;
 };
 
+export type MajorStatus = "recommended" | "alternative" | "avoid";
+
+export type MajorMatch = {
+  name: string;
+  status: MajorStatus;
+  note: string;
+};
+
 export type RoadmapContent = {
   headline: string;
+  majors: MajorMatch[];
   milestones: RoadmapMilestone[];
   networking: {
     whoToContact: string;
@@ -103,6 +112,7 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
           },
         ],
       },
+      majors: [],
       resources: [],
     },
     university: {
@@ -153,6 +163,7 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
           },
         ],
       },
+      majors: [],
       resources: [],
     },
     early_career: {
@@ -187,6 +198,7 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
           },
         ],
       },
+      majors: [],
       resources: [],
     },
     career_changer: {
@@ -221,6 +233,7 @@ function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): Roadmap
           },
         ],
       },
+      majors: [],
       resources: [],
     },
   };
@@ -285,7 +298,7 @@ They are ${LIFE_STAGE_BRIEF[selfReport.lifeStage]}
 PERSONAL CONTEXT, use this to make milestones genuinely specific to this person, not generic:
 ${personalContextBlock(selfReport)}
 
-Give the single most direct, complete path into this exact field, don't hedge or soften it into a slower plan. Assume they'll make time for whatever it actually takes to get in; a simpler, dumbed-down version isn't needed here since they'll have an AI career advisor to explain or simplify any part of this roadmap afterward, and it can also be exported as a PDF.
+Give the single most direct, complete path into this exact field, don't hedge or soften it into a slower plan. Assume they'll make time for whatever it actually takes to get in; a simpler, dumbed-down version isn't needed here, be as clear and self-contained as possible since this is the only guidance they'll get, and it can also be exported as a PDF.
 
 BE AS SPECIFIC AND CONCRETE AS POSSIBLE. This is the whole point of the product: no generic advice.
 - Use exact numbers where they'd realistically apply: specific GPA targets, specific test score ranges, specific timeframes.
@@ -295,16 +308,18 @@ BE AS SPECIFIC AND CONCRETE AS POSSIBLE. This is the whole point of the product:
 - For each milestone, write a short 1-2 sentence description AND a list of specific, concrete actionItems (3-5 bullet-style items each). Mix short paragraphs with bullet points, don't make everything one style.
 - Include a dedicated networking section: who specifically to reach out to (roles, seniority, where to find them), how to actually reach out (which channel/platform works best for this field and life stage), and 2-3 real outreach message templates they could send with minimal editing (use [Name] as a placeholder for the recipient's name).
 - Include a resources list of 3-6 real, named programs, communities, or tools relevant to this specific field and life stage (internships, fellowships, certifications, communities, notable newsletters or publications). Only include a URL when you're confident it's correct.
+- Include a major-matching section: 4-7 real, specific college/university majors relevant to this field, each tagged "recommended" (the most direct, common path in), "alternative" (works but is a less direct path, or a hybrid/adjacent field), or "avoid" (a major people mistakenly assume helps but doesn't actually prepare someone for this role, or is a common wrong turn). Include at least one "avoid" entry if a genuine common misconception exists for this field; omit it only if none does. Each entry needs a one-sentence "note" explaining why, specific to this field, not generic.
 
 Respond with ONLY valid JSON matching this exact shape, no markdown fences, no preamble:
 {
   "headline": string,
+  "majors": [{"name": string, "status": "recommended" | "alternative" | "avoid", "note": string}],
   "milestones": [{"timeframe": string, "title": string, "description": string, "actionItems": string[]}],
   "networking": {"whoToContact": string, "howToOutreach": string, "templates": [{"label": string, "message": string}]},
   "resources": [{"name": string, "description": string, "url": string (optional, omit if not confident)}]
 }
 
-Include 4-6 milestones ordered chronologically, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers). End every complete sentence with a period.`;
+Include 4-6 milestones ordered chronologically, 4-7 majors, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers). End every complete sentence with a period.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -324,7 +339,7 @@ Include 4-6 milestones ordered chronologically, 2-3 networking templates, and 3-
         parsed.networking &&
         Array.isArray(parsed.resources)
       ) {
-        return parsed as RoadmapContent;
+        return { ...parsed, majors: Array.isArray(parsed.majors) ? parsed.majors : [] } as RoadmapContent;
       }
       console.error("Roadmap generation: response missing expected fields", parsed);
     } catch (err) {

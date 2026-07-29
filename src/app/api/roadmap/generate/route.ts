@@ -4,8 +4,13 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { generateRoadmap } from "@/lib/assessment/roadmap";
 import { SelfReport } from "@/lib/assessment/types";
 import { Occupation } from "@/lib/assessment/matching";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(req, "roadmap-generate", 20, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "Too many attempts. Try again in a few minutes." }, { status: 429 });
+  }
+
   const { sessionId, occupationId } = await req.json();
   if (typeof sessionId !== "string" || typeof occupationId !== "string") {
     return NextResponse.json({ error: "Missing sessionId or occupationId." }, { status: 400 });
@@ -28,7 +33,7 @@ export async function POST(req: NextRequest) {
     .eq("id", user.id)
     .single();
   if (profile?.subscription_status !== "active") {
-    return NextResponse.json({ error: "Paid subscription required." }, { status: 403 });
+    return NextResponse.json({ error: "Pro required." }, { status: 403 });
   }
 
   const { data: existing } = await admin

@@ -14,8 +14,8 @@ export const FAQS = [
     a: "The U.S. Bureau of Labor Statistics Employment Projections program (2024–2034 cycle). Every roadmap cites the exact figures and source, and we're upfront when a career only has an approximate occupation-code match.",
   },
   {
-    q: "Can I cancel anytime?",
-    a: "Yes. Subscriptions are self-serve and cancel anytime from your account, no email required.",
+    q: "Is Pro a subscription?",
+    a: "No. It's a single one-time payment of $29. There's no recurring charge and nothing to cancel, you keep access forever.",
   },
   {
     q: "What happens to my data?",

@@ -1,28 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getStripe, PRICE_IDS } from "@/lib/stripe";
-
-function planFromPriceId(priceId: string | undefined): "monthly" | "annual" | null {
-  if (priceId === PRICE_IDS.monthly) return "monthly";
-  if (priceId === PRICE_IDS.annual) return "annual";
-  return null;
-}
-
-async function syncSubscription(admin: ReturnType<typeof createAdminClient>, subscription: Stripe.Subscription) {
-  const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
-  const priceId = subscription.items.data[0]?.price.id;
-  const status = subscription.status === "active" || subscription.status === "trialing" ? "active" : subscription.status === "past_due" ? "past_due" : "canceled";
-
-  await admin
-    .from("profiles")
-    .update({
-      stripe_subscription_id: subscription.id,
-      subscription_status: status,
-      subscription_plan: planFromPriceId(priceId),
-    })
-    .eq("stripe_customer_id", customerId);
-}
+import { getStripe } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -43,24 +22,17 @@ export async function POST(req: NextRequest) {
 
   const admin = createAdminClient();
 
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object as Stripe.Checkout.Session;
-      if (session.subscription) {
-        const subscriptionId = typeof session.subscription === "string" ? session.subscription : session.subscription.id;
-        const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-        await syncSubscription(admin, subscription);
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object as Stripe.Checkout.Session;
+    if (session.payment_status === "paid") {
+      const customerId = typeof session.customer === "string" ? session.customer : session.customer?.id;
+      if (customerId) {
+        await admin
+          .from("profiles")
+          .update({ subscription_status: "active", subscription_plan: "lifetime" })
+          .eq("stripe_customer_id", customerId);
       }
-      break;
     }
-    case "customer.subscription.updated":
-    case "customer.subscription.deleted": {
-      const subscription = event.data.object as Stripe.Subscription;
-      await syncSubscription(admin, subscription);
-      break;
-    }
-    default:
-      break;
   }
 
   return NextResponse.json({ received: true });

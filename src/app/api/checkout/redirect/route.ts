@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getStripe, getOrCreateStripeCustomer, PRICE_IDS } from "@/lib/stripe";
+import { getStripe, getOrCreateStripeCustomer, ONE_TIME_PRICE_ID } from "@/lib/stripe";
 
 export async function GET(req: NextRequest) {
   const origin = req.nextUrl.origin;
-  const plan = req.nextUrl.searchParams.get("plan");
   const sessionId = req.nextUrl.searchParams.get("session");
-
-  if (plan !== "monthly" && plan !== "annual") {
-    return NextResponse.redirect(`${origin}/`);
-  }
 
   const authClient = await createClient();
   const {
@@ -49,9 +44,9 @@ export async function GET(req: NextRequest) {
   const cancelUrl = sessionId ? `${origin}/upgrade/${sessionId}?checkout=cancelled` : `${origin}/?checkout=cancelled`;
 
   const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "subscription",
+    mode: "payment",
     customer: customerId,
-    line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
+    line_items: [{ price: ONE_TIME_PRICE_ID, quantity: 1 }],
     success_url: successUrl,
     cancel_url: cancelUrl,
     client_reference_id: user.id,

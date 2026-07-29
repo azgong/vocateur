@@ -4,9 +4,10 @@ import { createClient } from "@/lib/supabase/server";
 import { RoadmapContent } from "@/lib/assessment/roadmap";
 import { Occupation } from "@/lib/assessment/matching";
 import { PrintButton } from "@/components/roadmap/PrintButton";
-import { ChatPanel } from "@/components/roadmap/ChatPanel";
 import { MarketOutlook } from "@/components/roadmap/MarketOutlook";
 import { MilestoneChecklist } from "@/components/roadmap/MilestoneChecklist";
+import { MajorMatcher } from "@/components/roadmap/MajorMatcher";
+import { NetworkingTemplateCard } from "@/components/roadmap/NetworkingTemplateCard";
 
 export const metadata: Metadata = {
   title: "Your Roadmap · Vocateur",
@@ -50,10 +51,12 @@ export default async function RoadmapPage({
         <div className="flex min-w-0 flex-col gap-10">
           <p className="text-lg leading-relaxed text-foreground/70">{content.headline}</p>
 
+          {content.majors?.length > 0 && <MajorMatcher majors={content.majors} />}
+
           <MilestoneChecklist roadmapId={roadmapId} milestones={content.milestones} initialCompleted={completedItems} />
 
           {content.networking && (
-            <div className="flex flex-col gap-5 rounded-2xl border border-border-subtle bg-surface-2 p-6">
+            <div className="flex flex-col gap-5 rounded-2xl border border-border-subtle bg-surface-2 p-6 print:break-inside-avoid">
               <div>
                 <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">Networking &amp; outreach</h3>
                 <p className="mt-2 text-sm leading-relaxed text-foreground/70">{content.networking.whoToContact}</p>
@@ -62,10 +65,7 @@ export default async function RoadmapPage({
               {content.networking.templates?.length > 0 && (
                 <div className="flex flex-col gap-3">
                   {content.networking.templates.map((t, i) => (
-                    <div key={i} className="rounded-xl border border-border-subtle bg-surface p-4">
-                      <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-foreground/50">{t.label}</p>
-                      <p className="text-sm italic leading-relaxed text-foreground/70">{t.message}</p>
-                    </div>
+                    <NetworkingTemplateCard key={i} template={t} />
                   ))}
                 </div>
               )}
@@ -77,7 +77,7 @@ export default async function RoadmapPage({
               <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">Resources to look into</h3>
               <div className="flex flex-col gap-2">
                 {content.resources.map((r, i) => (
-                  <div key={i} className="rounded-xl border border-border-subtle bg-surface p-4">
+                  <div key={i} className="rounded-xl border border-border-subtle bg-surface p-4 print:break-inside-avoid">
                     {r.url ? (
                       <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-accent underline underline-offset-2">
                         {r.name}
@@ -93,10 +93,7 @@ export default async function RoadmapPage({
           )}
         </div>
 
-        <div className="flex flex-col gap-6 lg:sticky lg:top-8">
-          {occupation && <MarketOutlook occupation={occupation} />}
-          <ChatPanel roadmapId={roadmapId} lifeStage={roadmap.life_stage} />
-        </div>
+        <div className="flex flex-col gap-6 lg:sticky lg:top-8">{occupation && <MarketOutlook occupation={occupation} />}</div>
       </div>
     </main>
   );

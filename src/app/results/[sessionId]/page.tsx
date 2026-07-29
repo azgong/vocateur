@@ -11,7 +11,6 @@ import { MatchCard } from "@/components/results/MatchCard";
 import { LockedMatchCard } from "@/components/results/LockedMatchCard";
 import { SaveResultsForm } from "@/components/results/SaveResultsForm";
 import { ViewRoadmapButton } from "@/components/results/ViewRoadmapButton";
-import { ManageSubscriptionLink } from "@/components/results/ManageSubscriptionLink";
 import { ResultsUpsell } from "@/components/results/ResultsUpsell";
 
 export const metadata: Metadata = {
@@ -43,11 +42,11 @@ export default async function ResultsPage({
     data: { user },
   } = await authClient.auth.getUser();
 
-  // A Pro subscription unlocks a session's full results only for the account
-  // that owns it (or an anonymous session no one has claimed yet). Without
-  // this, any Pro subscriber who opened someone else's results link, easy to
-  // end up with when testers share links in a group chat, would see that
-  // stranger's full unlocked matches and rationale.
+  // Pro unlocks a session's full results only for the account that owns it
+  // (or an anonymous session no one has claimed yet). Without this, any Pro
+  // user who opened someone else's results link, easy to end up with when
+  // testers share links in a group chat, would see that stranger's full
+  // unlocked matches and rationale.
   let isSubscribed = false;
   if (user) {
     const ownsSession = session.user_id === null || session.user_id === user.id;
@@ -99,7 +98,6 @@ export default async function ResultsPage({
       {isSubscribed ? (
         <div className="flex flex-col items-center gap-3">
           <ViewRoadmapButton sessionId={sessionId} occupationId={matches[0].occupation.id} />
-          <ManageSubscriptionLink />
         </div>
       ) : (
         <>

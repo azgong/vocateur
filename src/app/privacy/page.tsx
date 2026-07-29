@@ -48,9 +48,8 @@ export default function PrivacyPage() {
               assessment, used to compute your results and generate your roadmap.
             </li>
             <li className="list-disc">
-              <span className="font-medium text-foreground/90">Subscription and payment status</span>: whether you
-              have an active subscription and your plan type. We never see or store your full card number; payments
-              are handled directly by Stripe.
+              <span className="font-medium text-foreground/90">Payment status</span>: whether you&rsquo;ve unlocked
+              Pro. We never see or store your full card number; payments are handled directly by Stripe.
             </li>
             <li className="list-disc">
               <span className="font-medium text-foreground/90">Support communications</span>: anything you send us
@@ -64,8 +63,7 @@ export default function PrivacyPage() {
           <p>We use your information to:</p>
           <ul className="flex flex-col gap-1.5 pl-4">
             <li className="list-disc">Match you to careers and generate your personalized rationale and roadmap</li>
-            <li className="list-disc">Power the AI conversation feature, where relevant context from your results is sent to our AI provider to answer your questions</li>
-            <li className="list-disc">Create and maintain your account, and process subscription payments</li>
+            <li className="list-disc">Create and maintain your account, and process your one-time Pro payment</li>
             <li className="list-disc">Send sign-in links and essential product communications</li>
             <li className="list-disc">Improve the product and understand how it&rsquo;s used</li>
           </ul>
@@ -79,8 +77,8 @@ export default function PrivacyPage() {
           </p>
           <ul className="flex flex-col gap-1.5 pl-4">
             <li className="list-disc"><span className="font-medium text-foreground/90">Supabase</span>: database, authentication, and secure storage of your account and assessment data</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Stripe</span>: payment processing and subscription management</li>
-            <li className="list-disc"><span className="font-medium text-foreground/90">Anthropic</span>: generates your rationale, roadmap, and AI conversation responses from your assessment results</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Stripe</span>: payment processing for the one-time Pro purchase</li>
+            <li className="list-disc"><span className="font-medium text-foreground/90">Anthropic</span>: generates your rationale and roadmap from your assessment results</li>
             <li className="list-disc"><span className="font-medium text-foreground/90">Resend</span>: delivers sign-in and account emails</li>
             <li className="list-disc"><span className="font-medium text-foreground/90">Vercel</span>: hosts the application</li>
             <li className="list-disc"><span className="font-medium text-foreground/90">Google and GitHub</span>: if you choose to sign in with one of these, they confirm your identity and share your basic account info (like your email) with us</li>
@@ -103,8 +101,7 @@ export default function PrivacyPage() {
             <a href="mailto:vocateurteam@gmail.com" className="underline underline-offset-2 hover:text-foreground">
               vocateurteam@gmail.com
             </a>
-            . If you have an active subscription, you can also manage or cancel it directly from your account&rsquo;s
-            billing portal.
+            . Pro is a one-time payment, not a subscription, so there is nothing to cancel.
           </p>
         </section>
 

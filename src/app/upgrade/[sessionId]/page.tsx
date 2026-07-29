@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { rankMatches, Occupation } from "@/lib/assessment/matching";
-import { LifeStage, TraitVector } from "@/lib/assessment/types";
+import { TraitVector } from "@/lib/assessment/types";
 import { SkillScores } from "@/lib/assessment/games";
 import { QUADRANT_META, Quadrant } from "@/lib/assessment/quadrantStyle";
 import { UpgradePlans } from "@/components/upgrade/UpgradePlans";
@@ -57,42 +57,30 @@ export default async function UpgradePage({
         )[0]?.occupation.title
       : null;
 
-  const stillChoosing = (session?.life_stage as LifeStage | undefined) !== "early_career" && (session?.life_stage as LifeStage | undefined) !== "career_changer";
-  const advisorCard = stillChoosing
-    ? {
-        title: "A full-service advisor, not a chatbot",
-        description: "Course and major picks, extracurriculars that actually matter, how to get first exposure to the field, and how to make the case to parents or a counselor, all grounded in real BLS data for your field. Come back whenever a real question comes up.",
-      }
-    : {
-        title: "A full-service advisor, not a chatbot",
-        description: "Resume, cover letter, and LinkedIn review, job posting fit checks, and salary negotiation prep, all grounded in real BLS data for your field. Come back whenever something real comes up.",
-      };
-
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-12 px-6 py-16 lg:px-0">
       <div className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Vocateur Pro</p>
         <h1 className="font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl">
-          Upgrade to Pro to keep this working for you
+          Unlock Pro once, keep it forever
         </h1>
         <p className="mx-auto mt-4 max-w-md text-foreground/60">
           {topMatchTitle
-            ? `You matched with ${topMatchTitle}. Pro isn't a one-time unlock, it's a career advisor and roadmap for all 10 of your matches, there whenever something real comes up.`
-            : "Pro isn't a one-time unlock, it's a career advisor and roadmap for all 10 of your matches, there whenever something real comes up."}
+            ? `You matched with ${topMatchTitle}. One payment unlocks all 10 matches, a detailed roadmap, and mock interview practice, no subscription.`
+            : "One payment unlocks all 10 matches, a detailed roadmap, and mock interview practice, no subscription."}
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-3">
         <FeatureCard
           quadrant="a"
           title="A roadmap for every match, that tracks progress"
           description="Step-by-step milestones for any of your 10 matches, not just the top one, with checkable progress you can come back to over months."
         />
-        <FeatureCard quadrant="c" title={advisorCard.title} description={advisorCard.description} />
         <FeatureCard
           quadrant="d"
-          title="Real mock interviews"
-          description="Role-specific interview questions, one at a time, with honest feedback after each answer, any time you want a rep before a real one."
+          title="A mock interview, ready any time"
+          description="Real, role-specific interview questions for your matched field, plus what a strong answer covers, so you can prep whenever you want a rep."
         />
         <FeatureCard
           quadrant="b"
@@ -104,7 +92,7 @@ export default async function UpgradePage({
       <UpgradePlans sessionId={sessionId} isAuthenticated={!!user} userEmail={user?.email ?? null} />
 
       <p className="text-center text-xs text-foreground/40">
-        Cancel anytime from your account. By subscribing you agree to our{" "}
+        One payment, no recurring charge. By purchasing you agree to our{" "}
         <a href="/terms" className="underline underline-offset-2 hover:text-foreground/60">
           Terms
         </a>{" "}

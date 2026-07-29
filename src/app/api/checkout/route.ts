@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getStripe, getOrCreateStripeCustomer, PRICE_IDS } from "@/lib/stripe";
+import { getStripe, getOrCreateStripeCustomer, ONE_TIME_PRICE_ID } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
-  const { sessionId, plan } = (await req.json()) as { sessionId?: string; plan: "monthly" | "annual" };
-
-  if (plan !== "monthly" && plan !== "annual") {
-    return NextResponse.json({ error: "Invalid plan." }, { status: 400 });
-  }
+  const { sessionId } = (await req.json()) as { sessionId?: string };
 
   const authClient = await createClient();
   const {
@@ -26,7 +22,7 @@ export async function POST(req: NextRequest) {
     .eq("id", user.id)
     .single();
   if (profile?.subscription_status === "active") {
-    return NextResponse.json({ error: "Already subscribed." }, { status: 409 });
+    return NextResponse.json({ error: "Already unlocked." }, { status: 409 });
   }
 
   const stripe = getStripe();
@@ -37,9 +33,9 @@ export async function POST(req: NextRequest) {
   const cancelUrl = sessionId ? `${origin}/results/${sessionId}?checkout=cancelled` : `${origin}/?checkout=cancelled`;
 
   const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "subscription",
+    mode: "payment",
     customer: customerId,
-    line_items: [{ price: PRICE_IDS[plan], quantity: 1 }],
+    line_items: [{ price: ONE_TIME_PRICE_ID, quantity: 1 }],
     success_url: successUrl,
     cancel_url: cancelUrl,
     client_reference_id: user.id,
