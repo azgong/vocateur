@@ -17,9 +17,9 @@ const STEPS = [
       "Your top 3 career matches with real reasoning for each, no account required to see them.",
   },
   {
-    title: "Unlock your roadmap and interview prep.",
+    title: "Unlock your roadmap and major matcher.",
     description:
-      "A personalized, detailed step-by-step plan, all 10 matches with full projections, and a mock interview ready any time for your exact field.",
+      "A personalized, detailed step-by-step plan, all 10 matches with full projections, and which majors actually get you there.",
   },
 ];
 

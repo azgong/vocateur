@@ -28,8 +28,8 @@ export default function TermsPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-base font-semibold text-foreground">What Vocateur is</h2>
           <p>
-            Vocateur is a career-matching assessment. It generates career matches, a personalized roadmap, and
-            access to mock interview practice based on your responses. Vocateur is intended for users age 13 and
+            Vocateur is a career-matching assessment. It generates career matches and a personalized roadmap,
+            including major-matching guidance, based on your responses. Vocateur is intended for users age 13 and
             older. See our Privacy Policy for details.
           </p>
         </section>
@@ -49,8 +49,8 @@ export default function TermsPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-base font-semibold text-foreground">Payment and billing</h2>
           <p>
-            The initial assessment and top match are free. Full results, your roadmap, and mock interview practice
-            require a single one-time payment ($29, as shown at checkout). This is not a subscription: there is no
+            The initial assessment and top match are free. Full results and your roadmap require a single one-time
+            payment ($29, as shown at checkout). This is not a subscription: there is no
             recurring charge, nothing to cancel, and access does not expire. Payments are processed by Stripe. We
             don&rsquo;t store your card details. We don&rsquo;t provide refunds except where required by law or at
             our discretion.

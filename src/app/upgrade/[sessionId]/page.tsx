@@ -66,8 +66,8 @@ export default async function UpgradePage({
         </h1>
         <p className="mx-auto mt-4 max-w-md text-foreground/60">
           {topMatchTitle
-            ? `You matched with ${topMatchTitle}. One payment unlocks all 10 matches, a detailed roadmap, and mock interview practice, no subscription.`
-            : "One payment unlocks all 10 matches, a detailed roadmap, and mock interview practice, no subscription."}
+            ? `You matched with ${topMatchTitle}. One payment unlocks all 10 matches, a detailed roadmap, and major-matching guidance, no subscription.`
+            : "One payment unlocks all 10 matches, a detailed roadmap, and major-matching guidance, no subscription."}
         </p>
       </div>
 
@@ -79,8 +79,8 @@ export default async function UpgradePage({
         />
         <FeatureCard
           quadrant="d"
-          title="A mock interview, ready any time"
-          description="Real, role-specific interview questions for your matched field, plus what a strong answer covers, so you can prep whenever you want a rep."
+          title="Know which majors actually get you there"
+          description="Recommended, alternative, and avoid majors for your matched field, each with a real reason, not a guess."
         />
         <FeatureCard
           quadrant="b"

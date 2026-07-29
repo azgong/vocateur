@@ -23,7 +23,7 @@ const jsonLd = [
     name: "Vocateur",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description: "A simulation-based career-matching assessment that maps your behavior to real careers backed by U.S. Bureau of Labor Statistics data, then unlocks a personalized roadmap and mock interview practice.",
+    description: "A simulation-based career-matching assessment that maps your behavior to real careers backed by U.S. Bureau of Labor Statistics data, then unlocks a personalized roadmap with major-matching guidance.",
     url: "https://vocateur.app",
     offers: [
       { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
@@ -136,12 +136,20 @@ function HeroFloatCards() {
           className="hero-float-late rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
           style={{ "--float-tilt": "2deg", "--float-tilt-end": "4deg" } as React.CSSProperties}
         >
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Mock interview</p>
-          <p className="mt-2 text-[11px] font-medium text-foreground/80">
-            Walk me through a time you made a call without complete information.
-          </p>
-          <div className="mt-1.5 rounded-xl border border-accent/20 bg-accent/[0.08] px-3 py-2 text-[11px] text-foreground/70">
-            What a strong answer covers: the constraint, the call you made, and the outcome.
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground/40">Major matcher</p>
+          <div className="mt-2 flex flex-col gap-1.5">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-emerald-400">
+                Recommended
+              </span>
+              <span className="text-[11px] font-medium text-foreground/80">Aerospace Engineering</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="rounded-full border border-neutral-500/30 bg-neutral-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-neutral-400">
+                Avoid
+              </span>
+              <span className="text-[11px] font-medium text-foreground/60">General Studies</span>
+            </div>
           </div>
         </div>
       </ScrollReveal>

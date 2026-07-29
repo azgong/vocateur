@@ -35,23 +35,28 @@ function RoadmapDemo() {
   );
 }
 
-function MockInterviewDemo() {
+function MajorMatcherDemo() {
+  const majors = [
+    { name: "Aerospace Engineering", status: "Recommended", badgeClass: "border-emerald-500/30 bg-emerald-500/15 text-emerald-400" },
+    { name: "Applied Physics", status: "Alternative", badgeClass: "border-amber-500/30 bg-amber-500/15 text-amber-400" },
+    { name: "General Studies", status: "Avoid", badgeClass: "border-neutral-500/30 bg-neutral-500/15 text-neutral-400" },
+  ];
   return (
     <div className="relative flex flex-col gap-4 rounded-2xl border border-border-subtle bg-surface p-6">
       <ExampleBadge />
-      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">A mock interview, ready any time</h3>
+      <h3 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Know which majors actually get you there</h3>
       <p className="text-sm leading-relaxed text-foreground/60">
-        Real, role-specific interview questions for your matched field, one at a time. Answer at your own pace,
-        then see what a strong answer covers to check yourself against it.
+        Recommended, alternative, and avoid majors for your matched field, each with a real reason, not a guess.
       </p>
       <div className="flex flex-col gap-2">
-        <div className="self-start rounded-2xl rounded-bl-sm border border-accent/20 bg-accent/[0.06] px-4 py-2.5 text-sm text-foreground/80">
-          Walk me through a time you made a call without complete information.
-        </div>
-        <div className="self-start rounded-2xl rounded-bl-sm bg-surface-2 px-4 py-2.5 text-sm text-foreground/70">
-          What a strong answer covers: a specific example, the constraint you were under, and a measurable
-          outcome.
-        </div>
+        {majors.map((m) => (
+          <div key={m.name} className="flex items-center gap-2.5 rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5">
+            <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${m.badgeClass}`}>
+              {m.status}
+            </span>
+            <span className="text-sm text-foreground/80">{m.name}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -100,7 +105,7 @@ export function ProShowcase() {
       </ScrollReveal>
       <div className="grid gap-4 sm:grid-cols-3">
         <ScrollReveal delay={0}><RoadmapDemo /></ScrollReveal>
-        <ScrollReveal delay={0.08}><MockInterviewDemo /></ScrollReveal>
+        <ScrollReveal delay={0.08}><MajorMatcherDemo /></ScrollReveal>
         <ScrollReveal delay={0.16}><MarketDataDemo /></ScrollReveal>
       </div>
     </section>

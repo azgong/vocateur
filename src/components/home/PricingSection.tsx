@@ -9,7 +9,7 @@ const PRO_FEATURES = [
   "Unlimited assessment retakes",
   "All 10 matches with full reasoning, detailed job projections, and market analysis",
   "A highly detailed, visual roadmap for any match, with progress tracking and PDF export",
-  "A mock interview ready any time, for your matched role",
+  "Major matcher: recommended, alternative, and avoid majors with real reasons",
   "One payment, unlocked forever",
 ];
 

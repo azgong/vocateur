@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Pricing · Vocateur",
-  description: "Free to start, simple to unlock. $29 once for unlimited assessments, the full roadmap, and mock interview practice.",
+  description: "Free to start, simple to unlock. $29 once for unlimited assessments, the full roadmap, and major-matching guidance.",
 };
 
 export default async function PricingPage() {
