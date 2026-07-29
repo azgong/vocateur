@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { GeometricAccent } from "@/components/GeometricAccent";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ScienceSection } from "@/components/home/ScienceSection";
 import { DataSection } from "@/components/home/DataSection";
@@ -102,6 +103,8 @@ export default async function Home() {
 function HeroFloatCards() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 hidden xl:block">
+      <GeometricAccent className="absolute -left-16 top-4 w-64 opacity-70" />
+
       <div
         className="hero-float absolute left-[4%] top-24 w-56 rounded-2xl border border-border-subtle bg-surface/80 p-4 text-left shadow-[0_16px_48px_-24px_rgba(0,0,0,0.8)] backdrop-blur-sm"
         style={{ "--float-tilt": "-3deg", "--float-tilt-end": "-1deg" } as React.CSSProperties}
