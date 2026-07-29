@@ -1,13 +1,48 @@
-// Renders children directly, no scroll-triggered animation. Content that's
-// there the instant it's on screen reads as more deliberate than every
-// section fading up as you scroll past it.
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+/* Reveals children with a slow blur-and-scale pop once they enter the
+   viewport (or immediately for above-the-fold content, since it's already
+   in view on mount). Deliberately not a translate/slide: a one-shot
+   IntersectionObserver toggling a CSS animation class, rather than a
+   library, so it doesn't fight automated/scripted scrolling. */
 export function ScrollReveal({
   children,
+  delay = 0,
   className,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
 }) {
-  return <div className={className}>{children}</div>;
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`${className ?? ""} ${visible ? "pop-in" : "opacity-0"}`}
+      style={visible ? { animationDelay: `${delay}s` } : undefined}
+    >
+      {children}
+    </div>
+  );
 }

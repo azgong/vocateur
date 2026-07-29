@@ -7,10 +7,10 @@ export function Logo({ size = 56 }: { size?: number }) {
       style={{
         width: size,
         height: size,
-        background: "radial-gradient(circle at 30% 20%, rgba(124,58,237,0.4), transparent 60%), #141118",
+        background: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%), #08070d",
       }}
     >
-      <VCrystalMark size={size * 0.68} color="#ffffff" accentColor="#a78bfa" />
+      <VCrystalMark size={size * 0.68} color="#f3f1fa" accentColor="var(--accent-soft)" />
     </div>
   );
 }

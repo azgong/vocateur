@@ -15,12 +15,12 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#141118",
-          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(124,58,237,0.4), transparent 60%)",
+          backgroundColor: "#08070d",
+          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(139,123,255,0.4), transparent 60%)",
           borderRadius: 14,
         }}
       >
-        <VCrystalMark size={44} color="#ffffff" accentColor="#a78bfa" />
+        <VCrystalMark size={44} color="#f3f1fa" accentColor="#b7a9ff" />
       </div>
     ),
     size,
