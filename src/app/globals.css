@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0a08;
-  --foreground: #f3efe6;
-  --surface: #17140f;
-  --surface-2: #221e17;
-  --border-subtle: rgba(212, 175, 55, 0.12);
-  --border-strong: rgba(212, 175, 55, 0.24);
+  --background: #2a2a2e;
+  --foreground: #f2f2f2;
+  --surface: #131315;
+  --surface-2: #1c1c1f;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
 
   --accent: #9c7a1a;
   --accent-soft: #d4af37;
@@ -56,7 +56,7 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Signature ambient backdrop: soft drifting color blooms behind key screens. */
+/* Signature ambient backdrop: static color blooms behind key screens. */
 .aurora-backdrop {
   position: fixed;
   inset: 0;
@@ -74,7 +74,6 @@ body {
   border-radius: 50%;
   filter: blur(90px);
   opacity: 0.35;
-  animation: aurora-drift 22s ease-in-out infinite alternate;
 }
 
 .aurora-backdrop::before {
@@ -87,48 +86,12 @@ body {
   bottom: -25%;
   right: -15%;
   background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-  animation-delay: -11s;
 }
 
-@keyframes aurora-drift {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(6vw, 8vh) scale(1.15);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .aurora-backdrop::before,
-  .aurora-backdrop::after {
-    animation: none;
-  }
-}
-
-/* Floating decorative product cards around the hero. */
-.hero-float {
-  animation: hero-float 7s ease-in-out infinite alternate;
-}
-
+/* Floating decorative product cards around the hero: static tilt, no motion. */
+.hero-float,
 .hero-float-late {
-  animation: hero-float 8s ease-in-out -4s infinite alternate;
-}
-
-@keyframes hero-float {
-  0% {
-    transform: translateY(0) rotate(var(--float-tilt, -2deg));
-  }
-  100% {
-    transform: translateY(-14px) rotate(var(--float-tilt-end, 2deg));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-float,
-  .hero-float-late {
-    animation: none;
-  }
+  transform: rotate(var(--float-tilt, -2deg));
 }
 
 /* Force light, ink-on-paper colors for print (PDF export) regardless of the

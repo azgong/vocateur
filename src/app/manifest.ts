@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Find the career that actually fits how you think.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b0a08",
-    theme_color: "#0b0a08",
+    background_color: "#2a2a2e",
+    theme_color: "#2a2a2e",
     icons: [
       { src: "/pwa-icon-192", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/pwa-icon-192", sizes: "192x192", type: "image/png", purpose: "maskable" },
