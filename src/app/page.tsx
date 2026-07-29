@@ -50,7 +50,7 @@ export default async function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="relative flex flex-col items-center gap-7 overflow-hidden px-6 pt-24 pb-20 text-center">
+      <section className="relative flex flex-col items-center overflow-hidden px-6 pt-24 pb-20 text-center">
         <HeroFloatCards />
 
         <ScrollReveal delay={0}>
@@ -59,13 +59,13 @@ export default async function Home() {
           </span>
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
-          <h1 className="max-w-3xl font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 max-w-3xl font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl">
             Meet the career that fits how you think.
             <span className="text-accent-soft"> In ten minutes.</span>
           </h1>
         </ScrollReveal>
         <ScrollReveal delay={0.2}>
-          <p className="max-w-xl text-lg text-foreground/60">
+          <p className="mt-5 max-w-xl text-lg text-foreground/60">
             Play through real job moments and quick skill games. Vocateur reads how you actually decide, then
             matches you to high-paying careers with real salary data and a step-by-step way in.
           </p>
@@ -74,14 +74,14 @@ export default async function Home() {
         <ScrollReveal delay={0.3}>
           <Link
             href="/assessment"
-            className="rounded-full bg-accent px-14 py-6 text-xl font-semibold text-white shadow-[0_0_50px_-10px_var(--accent)] transition-shadow hover:shadow-[0_0_64px_-6px_var(--accent)]"
+            className="mt-11 inline-block rounded-full bg-accent px-14 py-6 text-xl font-semibold text-white shadow-[0_0_50px_-10px_var(--accent)] transition-shadow hover:shadow-[0_0_64px_-6px_var(--accent)]"
           >
             Start the simulation
           </Link>
         </ScrollReveal>
 
         <ScrollReveal delay={0.4}>
-          <div className="flex flex-wrap items-center justify-center text-xs font-medium tracking-wide text-foreground/50 uppercase">
+          <div className="mt-9 flex flex-wrap items-center justify-center text-xs font-medium tracking-wide text-foreground/50 uppercase">
             <span className="px-4">About 10 minutes</span>
             <span className="border-l border-border-strong px-4">Backed by real BLS wage data</span>
             <span className="border-l border-border-strong px-4">Free to see your top matches</span>
@@ -89,7 +89,10 @@ export default async function Home() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.48}>
-          <Link href="#pricing" className="text-sm text-foreground/50 underline underline-offset-4 hover:text-accent">
+          <Link
+            href="#pricing"
+            className="mt-3 text-sm text-foreground/50 underline underline-offset-4 hover:text-accent"
+          >
             Already know you want Pro? Unlock everything now
           </Link>
         </ScrollReveal>
