@@ -72,16 +72,10 @@ export default async function Home() {
           Start the simulation
         </Link>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-foreground/50">
-          <span className="flex items-center gap-1.5">
-            <BenefitDot /> About 10 minutes, scenarios plus skill games
-          </span>
-          <span className="flex items-center gap-1.5">
-            <BenefitDot /> Backed by real BLS wage data
-          </span>
-          <span className="flex items-center gap-1.5">
-            <BenefitDot /> Free to see your top matches
-          </span>
+        <div className="flex flex-wrap items-center justify-center text-xs font-medium tracking-wide text-foreground/50 uppercase">
+          <span className="px-4">About 10 minutes</span>
+          <span className="border-l border-border-strong px-4">Backed by real BLS wage data</span>
+          <span className="border-l border-border-strong px-4">Free to see your top matches</span>
         </div>
 
         <Link href="#pricing" className="text-sm text-foreground/50 underline underline-offset-4 hover:text-accent">
@@ -102,10 +96,6 @@ export default async function Home() {
 
     </main>
   );
-}
-
-function BenefitDot() {
-  return <span className="h-1.5 w-1.5 rounded-full bg-accent" />;
 }
 
 /* Decorative floating product cards flanking the hero, desktop only. */

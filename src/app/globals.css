@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #08070d;
-  --foreground: #f3f1fa;
-  --surface: #121120;
-  --surface-2: #191830;
-  --border-subtle: rgba(243, 241, 250, 0.1);
-  --border-strong: rgba(243, 241, 250, 0.2);
+  --background: #1e1d21;
+  --foreground: #f1f0ee;
+  --surface: #2a292e;
+  --surface-2: #38373c;
+  --border-subtle: rgba(214, 214, 214, 0.1);
+  --border-strong: rgba(214, 214, 214, 0.2);
 
-  --accent: #8b7bff;
-  --accent-soft: #b7a9ff;
-  --accent-ink: #1c1240;
+  --accent: #d9573d;
+  --accent-soft: #f58f7c;
+  --accent-ink: #341209;
 
   /* HBDI quadrant identity colors, used consistently across modules/results */
   --quadrant-a: #4f9dff; /* Analytical */
@@ -47,7 +47,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-brand: var(--font-brand);
-  --font-title: var(--font-title);
+  --font-title: var(--font-brand);
 }
 
 body {
@@ -140,11 +140,11 @@ body {
 
   :root {
     --background: #ffffff;
-    --foreground: #16121f;
+    --foreground: #1c1917;
     --surface: #ffffff;
-    --surface-2: #f3f0ea;
-    --border-subtle: rgba(22, 18, 31, 0.15);
-    --border-strong: rgba(22, 18, 31, 0.3);
-    --accent: #6a56e8;
+    --surface-2: #f2ede9;
+    --border-subtle: rgba(28, 25, 23, 0.15);
+    --border-strong: rgba(28, 25, 23, 0.3);
+    --accent: #b8442c;
   }
 }

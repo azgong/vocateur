@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Space_Grotesk, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { AuroraBackdrop } from "@/components/AuroraBackdrop";
 import { AgeGate } from "@/components/AgeGate";
 import { Footer } from "@/components/Footer";
@@ -20,13 +20,6 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-brand",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-title",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -53,7 +46,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08070d",
+  themeColor: "#1e1d21",
 };
 
 export default function RootLayout({
@@ -64,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <AuroraBackdrop />
