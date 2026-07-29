@@ -92,7 +92,7 @@ export default async function Home() {
         <ScrollReveal delay={0.48}>
           <Link
             href="#pricing"
-            className="mt-3 text-sm text-foreground/50 underline underline-offset-4 hover:text-accent"
+            className="mt-4 text-sm text-foreground/50 underline underline-offset-4 hover:text-accent"
           >
             Already know you want Pro? Unlock everything now
           </Link>
