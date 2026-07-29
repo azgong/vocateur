@@ -1,5 +1,5 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { GeometricAccent } from "@/components/GeometricAccent";
+import { LandscapeAccent } from "@/components/LandscapeAccent";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function DataSection() {
@@ -9,7 +9,7 @@ export async function DataSection() {
   return (
     <ScrollReveal>
       <section className="relative flex flex-col gap-8 overflow-hidden rounded-3xl border border-border-subtle bg-surface p-8 sm:p-10">
-        <GeometricAccent className="pointer-events-none absolute -top-10 -right-14 hidden w-48 opacity-25 sm:block" />
+        <LandscapeAccent className="pointer-events-none absolute -top-10 -right-14 hidden w-48 opacity-25 sm:block" />
         <div className="relative text-center">
           <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Real data, not vibes</p>
           <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">

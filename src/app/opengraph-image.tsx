@@ -17,9 +17,9 @@ export default async function OpengraphImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#1e1d21",
+          backgroundColor: "#0b0a08",
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(217,87,61,0.35), transparent 55%), radial-gradient(circle at 80% 75%, rgba(245,143,124,0.22), transparent 50%)",
+            "radial-gradient(circle at 20% 30%, rgba(156,122,26,0.35), transparent 55%), radial-gradient(circle at 80% 75%, rgba(212,175,55,0.22), transparent 50%)",
         }}
       >
         <div
@@ -28,7 +28,7 @@ export default async function OpengraphImage() {
             fontWeight: 500,
             letterSpacing: 8,
             textTransform: "uppercase",
-            color: "#d9573d",
+            color: "#d4af37",
             marginBottom: 28,
             fontFamily: "Space Grotesk",
           }}
@@ -39,7 +39,7 @@ export default async function OpengraphImage() {
           style={{
             fontSize: 128,
             fontWeight: 700,
-            color: "#f1f0ee",
+            color: "#f3efe6",
             fontFamily: "Space Grotesk",
             textTransform: "uppercase",
             lineHeight: 1,
@@ -51,7 +51,7 @@ export default async function OpengraphImage() {
           style={{
             fontSize: 30,
             fontWeight: 500,
-            color: "#f58f7c",
+            color: "#d4af37",
             fontFamily: "Space Grotesk",
             marginTop: 26,
           }}

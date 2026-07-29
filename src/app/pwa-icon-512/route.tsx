@@ -12,11 +12,11 @@ export function GET() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#1e1d21",
-          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(217,87,61,0.4), transparent 60%)",
+          backgroundColor: "#0b0a08",
+          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(156,122,26,0.4), transparent 60%)",
         }}
       >
-        <VCrystalMark size={348} color="#f1f0ee" accentColor="#f58f7c" />
+        <VCrystalMark size={348} color="#f3efe6" accentColor="#d4af37" />
       </div>
     ),
     { width: 512, height: 512 },
