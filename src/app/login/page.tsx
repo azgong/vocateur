@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { safeNextPath } from "@/lib/site";
 import { SignInPanel } from "@/components/auth/SignInPanel";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default async function LoginPage({
   searchParams: Promise<{ next?: string; note?: string }>;
 }) {
   const { next, note } = await searchParams;
-  const safeNext = next && next.startsWith("/") ? next : "/";
+  const safeNext = safeNextPath(next);
 
   const authClient = await createClient();
   const {

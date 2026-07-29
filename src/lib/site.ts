@@ -11,3 +11,13 @@ export function authSafeOrigin(): string {
   if (typeof window === "undefined") return "https://www.vocateur.app";
   return window.location.hostname === "localhost" ? window.location.origin : "https://www.vocateur.app";
 }
+
+/**
+ * Guards the post-auth `next` redirect target against open-redirect payloads.
+ * A leading "/" alone isn't enough: "//evil.com" and "/\evil.com" both start
+ * with "/" but browsers resolve them as protocol-relative URLs to another
+ * host. Only a single-slash, same-origin relative path is allowed.
+ */
+export function safeNextPath(next: string | null | undefined): string {
+  return next && /^\/(?!\/|\\)/.test(next) ? next : "/";
+}

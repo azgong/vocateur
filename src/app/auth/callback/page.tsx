@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { safeNextPath } from "@/lib/site";
 
 export default function AuthCallbackPage() {
   const [failed, setFailed] = useState(false);
@@ -18,7 +19,7 @@ export default function AuthCallbackPage() {
     async function run() {
       const supabase = createClient();
       const params = new URLSearchParams(window.location.search);
-      const next = params.get("next") ?? "/";
+      const next = safeNextPath(params.get("next"));
 
       // Implicit flow: Supabase can return the session directly in the URL fragment,
       // which never reaches the server; only client-side JS can see it.
