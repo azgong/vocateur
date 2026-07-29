@@ -35,12 +35,12 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: "Vocateur",
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2a2a2e",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

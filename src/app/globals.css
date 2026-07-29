@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #2a2a2e;
-  --foreground: #f2f2f2;
-  --surface: #131315;
-  --surface-2: #1c1c1f;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  --background: #ffffff;
+  --foreground: #131015;
+  --surface: #f5f2fa;
+  --surface-2: #ece5f6;
+  --border-subtle: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.24);
 
-  --accent: #9c7a1a;
-  --accent-soft: #d4af37;
-  --accent-ink: #2b2008;
+  --accent: #4c1d95;
+  --accent-soft: #7c3aed;
+  --accent-ink: #1b0f2e;
 
   /* HBDI quadrant identity colors, used consistently across modules/results */
   --quadrant-a: #4f9dff; /* Analytical */
@@ -108,6 +108,6 @@ body {
     --surface-2: #f2ede9;
     --border-subtle: rgba(28, 25, 23, 0.15);
     --border-strong: rgba(28, 25, 23, 0.3);
-    --accent: #7a5c14;
+    --accent: #4c1d95;
   }
 }

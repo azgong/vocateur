@@ -15,11 +15,11 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#131315",
-          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(156,122,26,0.4), transparent 60%)",
+          backgroundColor: "#141118",
+          backgroundImage: "radial-gradient(circle at 30% 20%, rgba(124,58,237,0.4), transparent 60%)",
         }}
       >
-        <VCrystalMark size={122} color="#f3efe6" accentColor="#d4af37" />
+        <VCrystalMark size={122} color="#ffffff" accentColor="#a78bfa" />
       </div>
     ),
     size,
