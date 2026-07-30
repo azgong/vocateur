@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { authSafeOrigin } from "@/lib/site";
 
 const FREE_FEATURES = [
@@ -36,7 +37,7 @@ export function UpgradePlans({
   isAuthenticated: boolean;
   userEmail: string | null;
 }) {
-  const [stage, setStage] = useState<"cta" | "error">("cta");
+  const [stage, setStage] = useState<"cta" | "error" | "already-pro">("cta");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   async function startCheckout() {
@@ -54,7 +55,8 @@ export function UpgradePlans({
         body: JSON.stringify({ sessionId }),
       });
       if (res.status === 409) {
-        window.location.href = sessionId ? `/results/${sessionId}` : "/assessment";
+        setStage("already-pro");
+        setCheckoutLoading(false);
         return;
       }
       const data = await res.json();
@@ -108,15 +110,27 @@ export function UpgradePlans({
           ))}
         </ul>
 
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={startCheckout}
-          disabled={checkoutLoading}
-          className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60"
-        >
-          {checkoutLoading ? "Opening payment…" : "Get Pro: $29 once"}
-        </motion.button>
+        {stage === "already-pro" ? (
+          <div className="flex flex-col items-center gap-2 rounded-2xl border border-accent/30 bg-accent/[0.06] px-6 py-4 text-center">
+            <p className="text-sm font-medium text-accent">You already have Pro, everything&rsquo;s unlocked.</p>
+            <Link
+              href={sessionId ? `/results/${sessionId}` : "/assessment"}
+              className="text-sm font-semibold text-accent underline underline-offset-2"
+            >
+              Go to your results
+            </Link>
+          </div>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={startCheckout}
+            disabled={checkoutLoading}
+            className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-8px_var(--accent)] disabled:opacity-60"
+          >
+            {checkoutLoading ? "Opening payment…" : "Get Pro: $29 once"}
+          </motion.button>
+        )}
 
         {stage === "error" && <p className="text-center text-sm text-quadrant-c">Something went wrong. Try again.</p>}
         {isAuthenticated && userEmail && (

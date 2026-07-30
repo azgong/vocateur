@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { authSafeOrigin } from "@/lib/site";
 
 export function HomeProCheckout({
@@ -11,7 +12,7 @@ export function HomeProCheckout({
   isAuthenticated: boolean;
   userEmail: string | null;
 }) {
-  const [stage, setStage] = useState<"cta" | "error">("cta");
+  const [stage, setStage] = useState<"cta" | "error" | "already-pro">("cta");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   async function startCheckout() {
@@ -29,7 +30,8 @@ export function HomeProCheckout({
         body: JSON.stringify({}),
       });
       if (res.status === 409) {
-        window.location.href = "/assessment";
+        setStage("already-pro");
+        setCheckoutLoading(false);
         return;
       }
       const data = await res.json();
@@ -43,6 +45,17 @@ export function HomeProCheckout({
       setStage("error");
       setCheckoutLoading(false);
     }
+  }
+
+  if (stage === "already-pro") {
+    return (
+      <div className="flex flex-col items-center gap-2 rounded-2xl border border-accent/30 bg-accent/[0.06] px-6 py-4 text-center">
+        <p className="text-sm font-medium text-accent">You already have Pro, everything&rsquo;s unlocked.</p>
+        <Link href="/assessment" className="text-sm font-semibold text-accent underline underline-offset-2">
+          Go to your results
+        </Link>
+      </div>
+    );
   }
 
   return (
