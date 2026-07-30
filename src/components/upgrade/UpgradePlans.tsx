@@ -53,6 +53,10 @@ export function UpgradePlans({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId }),
       });
+      if (res.status === 409) {
+        window.location.href = sessionId ? `/results/${sessionId}` : "/assessment";
+        return;
+      }
       const data = await res.json();
       if (!res.ok || !data.url) {
         setStage("error");
