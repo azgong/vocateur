@@ -1,6 +1,7 @@
 import { existsSync } from "fs";
 import path from "path";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { AutoplayVideo } from "@/components/home/AutoplayVideo";
 
 const CLIPS = [
   {
@@ -20,24 +21,18 @@ export function DemoVideos() {
   if (available.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-10 scroll-mt-24">
+    <section className="flex flex-col gap-10 scroll-mt-24 lg:-mx-16">
       <ScrollReveal className="text-center">
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">See it in action</p>
         <h2 className="font-[family-name:var(--font-title)] text-4xl font-normal tracking-tight sm:text-5xl">
           Not a quiz. An actual moment.
         </h2>
       </ScrollReveal>
-      <div className={`grid gap-6 ${available.length > 1 ? "sm:grid-cols-2" : "mx-auto w-full max-w-xl"}`}>
+      <div className={`grid gap-8 ${available.length > 1 ? "sm:grid-cols-2" : "mx-auto w-full max-w-2xl"}`}>
         {available.map((clip, i) => (
           <ScrollReveal key={clip.file} delay={i * 0.1} className="flex flex-col gap-3">
             <div className="overflow-hidden rounded-2xl border border-border-subtle bg-surface">
-              <video
-                src={`/videos/${clip.file}`}
-                controls
-                preload="metadata"
-                playsInline
-                className="aspect-video w-full bg-black object-contain"
-              />
+              <AutoplayVideo src={`/videos/${clip.file}`} />
             </div>
             <div>
               <h3 className="font-[family-name:var(--font-brand)] text-lg font-medium tracking-tight">{clip.title}</h3>
