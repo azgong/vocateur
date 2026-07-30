@@ -36,7 +36,7 @@ export function DemoVideos() {
                 controls
                 preload="metadata"
                 playsInline
-                className="aspect-video w-full bg-black"
+                className="aspect-video w-full bg-black object-contain"
               />
             </div>
             <div>
