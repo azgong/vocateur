@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default async function AssessmentPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout?: string }>;
+  searchParams: Promise<{ checkout?: string; beta?: string }>;
 }) {
-  const { checkout } = await searchParams;
+  const { checkout, beta } = await searchParams;
 
   return (
     <>
@@ -22,6 +22,14 @@ export default async function AssessmentPage({
           <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-3 text-center text-sm text-accent">
             You&rsquo;re on Pro. Finish the assessment below and your full results and roadmap will already be
             unlocked.
+          </div>
+        </div>
+      )}
+      {beta === "granted" && (
+        <div className="mx-auto mt-6 w-full max-w-2xl px-6">
+          <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-3 text-center text-sm text-accent">
+            You&rsquo;re in the beta, full Pro access is unlocked for free. Finish the assessment below to see
+            everything.
           </div>
         </div>
       )}
