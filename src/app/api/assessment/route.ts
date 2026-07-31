@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import { scoreAssessment } from "@/lib/assessment/scoring";
 import { ModuleLog, SelfReport } from "@/lib/assessment/types";
 import { TOTAL_SCENES } from "@/lib/assessment/scenes";
@@ -40,10 +41,20 @@ export async function POST(req: NextRequest) {
   const skillScores = toSkillScores(gameResults);
   const traitVector = scoreAssessment(logs, selfReport, skillScores);
 
+  // Retakes while already signed in (Pro's "unlimited retakes") must link
+  // immediately, since the only other linking path is the checkout claim
+  // flow, which a user who already has Pro will never hit again, orphaning
+  // every subsequent retake from their account.
+  const authClient = await createClient();
+  const {
+    data: { user },
+  } = await authClient.auth.getUser();
+
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("assessment_sessions")
     .insert({
+      user_id: user?.id ?? null,
       trait_vector: traitVector,
       self_report: { ...selfReport, moduleLogs: logs, gameResults, skillScores },
       life_stage: selfReport.lifeStage,

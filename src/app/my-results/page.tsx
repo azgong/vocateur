@@ -3,15 +3,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { RoadmapList } from "@/components/my-results/RoadmapList";
+import { SessionList } from "@/components/my-results/SessionList";
 
 export const metadata: Metadata = {
   title: "Your Results & Roadmaps · Vocateur",
   robots: { index: false, follow: false },
 };
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
 
 export default async function MyResultsPage() {
   const authClient = await createClient();
@@ -49,57 +47,22 @@ export default async function MyResultsPage() {
 
       <div className="flex flex-col gap-4">
         <h2 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">Your roadmaps</h2>
-        {roadmaps && roadmaps.length > 0 ? (
-          <div className="flex flex-col gap-3">
-            {roadmaps.map((r) => {
-              const occupation = r.occupations as unknown as { title: string } | null;
-              return (
-                <Link
-                  key={r.id}
-                  href={`/roadmap/${r.id}`}
-                  className="flex items-center justify-between gap-4 rounded-2xl border border-border-subtle bg-surface p-5 transition-colors hover:border-accent"
-                >
-                  <div>
-                    <p className="font-medium">{occupation?.title ?? "Untitled match"}</p>
-                    <p className="text-sm text-foreground/50">Generated {formatDate(r.generated_at)}</p>
-                  </div>
-                  <span className="shrink-0 text-sm font-medium text-accent">View roadmap &rarr;</span>
-                </Link>
-              );
-            })}
-          </div>
-        ) : (
-          <p className="rounded-2xl border border-border-subtle bg-surface p-5 text-sm text-foreground/50">
-            No roadmaps yet. View a set of results below and generate one for any match.
-          </p>
-        )}
+        <RoadmapList
+          initial={(roadmaps ?? []).map((r) => ({
+            id: r.id,
+            occupationTitle: (r.occupations as unknown as { title: string } | null)?.title ?? "Untitled match",
+            generatedAt: r.generated_at,
+          }))}
+        />
       </div>
 
       <div className="flex flex-col gap-4">
         <h2 className="font-[family-name:var(--font-brand)] text-xl font-medium tracking-tight">
           Your assessment results
         </h2>
-        {sessions && sessions.length > 0 ? (
-          <div className="flex flex-col gap-3">
-            {sessions.map((s) => (
-              <Link
-                key={s.id}
-                href={`/results/${s.id}`}
-                className="flex items-center justify-between gap-4 rounded-2xl border border-border-subtle bg-surface p-5 transition-colors hover:border-accent"
-              >
-                <div>
-                  <p className="font-medium">Assessment taken {formatDate(s.created_at)}</p>
-                  <p className="text-sm text-foreground/50 capitalize">{s.life_stage.replace(/_/g, " ")}</p>
-                </div>
-                <span className="shrink-0 text-sm font-medium text-accent">View matches &rarr;</span>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p className="rounded-2xl border border-border-subtle bg-surface p-5 text-sm text-foreground/50">
-            You haven&rsquo;t taken the assessment on this account yet.
-          </p>
-        )}
+        <SessionList
+          initial={(sessions ?? []).map((s) => ({ id: s.id, lifeStage: s.life_stage, createdAt: s.created_at }))}
+        />
       </div>
 
       <Link
