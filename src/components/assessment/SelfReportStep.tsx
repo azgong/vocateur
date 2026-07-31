@@ -6,6 +6,24 @@ import { LifeStage, ResumeStatus, SelfReport } from "@/lib/assessment/types";
 
 const VALUE_OPTIONS = ["Stability", "Impact", "Creativity", "Autonomy", "Money", "Prestige"];
 
+const HIGH_SCHOOL_GRADE_OPTIONS = [
+  { value: "6th grade or earlier", label: "6th or earlier" },
+  { value: "7th grade", label: "7th grade" },
+  { value: "8th grade", label: "8th grade" },
+  { value: "9th grade (Freshman)", label: "9th (Freshman)" },
+  { value: "10th grade (Sophomore)", label: "10th (Sophomore)" },
+  { value: "11th grade (Junior)", label: "11th (Junior)" },
+  { value: "12th grade (Senior)", label: "12th (Senior)" },
+];
+
+const UNIVERSITY_YEAR_OPTIONS = [
+  { value: "1st year (Freshman)", label: "1st year (Freshman)" },
+  { value: "2nd year (Sophomore)", label: "2nd year (Sophomore)" },
+  { value: "3rd year (Junior)", label: "3rd year (Junior)" },
+  { value: "4th year (Senior)", label: "4th year (Senior)" },
+  { value: "5th+ year / Graduate", label: "5th+ year / Graduate" },
+];
+
 function OptionRow<T extends string>({
   options,
   selected,
@@ -83,6 +101,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   const [location, setLocation] = useState("");
   const [values, setValues] = useState<string[]>([]);
   const [currentGPA, setCurrentGPA] = useState("");
+  const [currentGradeOrYear, setCurrentGradeOrYear] = useState("");
   const [currentActivities, setCurrentActivities] = useState("");
   const [resumeStatus, setResumeStatus] = useState<ResumeStatus | null>(null);
   const [additionalContext, setAdditionalContext] = useState("");
@@ -94,6 +113,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
   const isStudent = lifeStage === "high_school" || lifeStage === "university";
   const focusLabel = isStudent ? "What are you studying, or planning to study?" : "What field or role are you in right now?";
   const focusPlaceholder = isStudent ? "e.g. Mechanical Engineering, Undecided, Biology" : "e.g. Marketing coordinator, between jobs";
+  const gradeOptions = lifeStage === "high_school" ? HIGH_SCHOOL_GRADE_OPTIONS : lifeStage === "university" ? UNIVERSITY_YEAR_OPTIONS : null;
 
   const canSubmit =
     lifeStage &&
@@ -101,7 +121,8 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
     geographicFlexibility &&
     values.length > 0 &&
     currentFocus.trim().length > 0 &&
-    resumeStatus;
+    resumeStatus &&
+    (!gradeOptions || currentGradeOrYear);
 
   return (
     <motion.div
@@ -136,6 +157,15 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             onSelect={setLifeStage}
           />
         </Question>
+
+        {gradeOptions && (
+          <Question
+            prompt={lifeStage === "high_school" ? "What grade are you in?" : "What year are you in?"}
+            description="This is what makes your roadmap year-by-year instead of generic, e.g. specific things to do this year vs. next year vs. senior year."
+          >
+            <OptionRow options={gradeOptions} selected={currentGradeOrYear || null} onSelect={setCurrentGradeOrYear} />
+          </Question>
+        )}
 
         {lifeStage && (
           <Question
@@ -281,6 +311,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
             location: location.trim(),
             values,
             currentGPA: currentGPA.trim(),
+            currentGradeOrYear,
             currentActivities: currentActivities.trim(),
             resumeStatus,
             additionalContext: additionalContext.trim(),

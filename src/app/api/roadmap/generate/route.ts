@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
     location: storedReport.location ?? "",
     values: storedReport.values ?? [],
     currentGPA: storedReport.currentGPA ?? "",
+    currentGradeOrYear: storedReport.currentGradeOrYear ?? "",
     currentActivities: storedReport.currentActivities ?? "",
     resumeStatus: storedReport.resumeStatus ?? "needs_work",
     additionalContext: storedReport.additionalContext ?? "",

@@ -33,6 +33,8 @@ export type SelfReport = {
   values: string[];
   /** Current GPA, only meaningful for high_school/university, shown conditionally. */
   currentGPA: string;
+  /** Specific grade (high_school, e.g. "10th grade") or year (university, e.g. "2nd year"). Anchors the roadmap's year-by-year structure. */
+  currentGradeOrYear: string;
   /** Clubs, extracurriculars, projects, or jobs they're already doing. */
   currentActivities: string;
   resumeStatus: ResumeStatus;

@@ -42,16 +42,72 @@ export type RoadmapContent = {
   resources: RoadmapResource[];
 };
 
-const LIFE_STAGE_BRIEF: Record<LifeStage, string> = {
-  high_school:
-    "a middle/high school student. Cover: recommended extracurriculars specific to this career, target grade/GPA benchmarks, relevant university programs and example target schools, recommended entry-level internships, summer programs, or shadowing opportunities, and suggested course/subject focus.",
-  university:
-    "a university student. Cover: target GPA guidance, relevant campus activities/clubs, labs or research groups to seek out, internship targets by year, currently-relevant entry-level job types to research, and specific people/roles to network toward.",
-  early_career:
-    "early in their career. Cover: relevant certifications, lateral-move internships or bootcamps where applicable, realistic first moves toward this field, and specific people/roles to network toward.",
-  career_changer:
-    "an older career changer. Cover: relevant certifications, lateral-move internships or bootcamps where applicable, networking paths suited to their stage, and a realistic timeline for a transition into this field.",
-};
+const HIGH_SCHOOL_GRADE_ORDER = [
+  "6th grade or earlier",
+  "7th grade",
+  "8th grade",
+  "9th grade (Freshman)",
+  "10th grade (Sophomore)",
+  "11th grade (Junior)",
+  "12th grade (Senior)",
+];
+
+const UNIVERSITY_YEAR_ORDER = [
+  "1st year (Freshman)",
+  "2nd year (Sophomore)",
+  "3rd year (Junior)",
+  "4th year (Senior)",
+  "5th+ year / Graduate",
+];
+
+/**
+ * The exact ordered list of milestone labels to use, computed in code rather
+ * than left to the model to count grades correctly. Returns null when the
+ * life stage has no grade/year concept, or the stored grade is unrecognized
+ * (e.g. a pre-existing session from before this field existed), in which
+ * case the prompt falls back to non-mechanical guidance.
+ */
+function yearByYearPlan(lifeStage: LifeStage, currentGradeOrYear: string): string[] | null {
+  if (lifeStage === "high_school") {
+    const freshmanIdx = HIGH_SCHOOL_GRADE_ORDER.indexOf("9th grade (Freshman)");
+    const idx = HIGH_SCHOOL_GRADE_ORDER.indexOf(currentGradeOrYear);
+    if (idx === -1) return null;
+    if (idx < freshmanIdx) return ["Middle school (now through 8th grade)", ...HIGH_SCHOOL_GRADE_ORDER.slice(freshmanIdx)];
+    return HIGH_SCHOOL_GRADE_ORDER.slice(idx);
+  }
+  if (lifeStage === "university") {
+    const idx = UNIVERSITY_YEAR_ORDER.indexOf(currentGradeOrYear);
+    if (idx === -1) return null;
+    return [...UNIVERSITY_YEAR_ORDER.slice(idx), "After graduation: landing the role"];
+  }
+  return null;
+}
+
+function lifeStageGuidance(selfReport: SelfReport): string {
+  const plan = yearByYearPlan(selfReport.lifeStage, selfReport.currentGradeOrYear);
+
+  if (plan) {
+    const list = plan.map((label, i) => `${i + 1}. "${label}"`).join("\n");
+    return `${selfReport.lifeStage === "high_school" ? "a middle/high school student" : "a university student"}, currently in: ${selfReport.currentGradeOrYear || "an unspecified year"}.
+
+This roadmap MUST be structured year-by-year, not generic. Produce EXACTLY one milestone per entry below, in this exact order, using the entry text as that milestone's "timeframe" verbatim, one-to-one, no skipping, no combining two entries into one milestone, no adding extra milestones outside this list:
+${list}
+
+Each grade/year builds on the last: earlier entries should be foundational and exploratory (join, try, take the intro course), middle entries should escalate into real involvement and competition (compete, seek a research role, take on responsibility), and the final 1-2 entries should be about converting that foundation into the actual outcome (apply, ship a capstone, land the specific target). Don't repeat the same generic advice ("join a club", "network") at every level, each grade's actions should be a clear escalation from the one before it.`;
+  }
+
+  const STAGE_FALLBACK: Record<LifeStage, string> = {
+    high_school:
+      "a middle/high school student whose exact grade wasn't provided. Structure this by rough phase (now, next 1-2 years, before applying) but still be maximally specific within each phase: recommended extracurriculars specific to this career, target grade/GPA benchmarks, relevant university programs and example target schools, recommended entry-level internships, summer programs, or shadowing opportunities, and suggested course/subject focus.",
+    university:
+      "a university student whose exact year wasn't provided. Structure this by rough phase (this year, next year, before graduating) but still be maximally specific within each phase: target GPA guidance, relevant campus activities/clubs, labs or research groups to seek out, internship targets by year, currently-relevant entry-level job types to research, and specific people/roles to network toward.",
+    early_career:
+      "early in their career. Structure this as a granular near-term plan across the next 12-18 months (not just 3 broad chunks): relevant certifications, lateral-move internships or bootcamps where applicable, realistic first moves toward this field, and specific people/roles to network toward.",
+    career_changer:
+      "an older career changer. Structure this as a granular, realistic transition timeline across the next 12-24 months (not just 3 broad chunks): relevant certifications, lateral-move internships or bootcamps where applicable, networking paths suited to their stage, and a realistic timeline for a transition into this field.",
+  };
+  return STAGE_FALLBACK[selfReport.lifeStage];
+}
 
 function templatedRoadmap(occupation: Occupation, lifeStage: LifeStage): RoadmapContent {
   const skill1 = occupation.top_skills[0]?.toLowerCase() ?? "core skills";
@@ -291,21 +347,28 @@ async function callClaude(occupation: Occupation, selfReport: SelfReport): Promi
     .filter(Boolean)
     .join("\n");
 
+  const plan = yearByYearPlan(selfReport.lifeStage, selfReport.currentGradeOrYear);
+  const milestoneCountInstruction = plan
+    ? `Produce EXACTLY ${plan.length} milestones, one per entry in the year-by-year list above, in that exact order.`
+    : `Produce 6-8 milestones ordered chronologically.`;
+
   const prompt = `Write a highly detailed, personalized career roadmap for someone who matched to "${occupation.title}" (${occupation.description}, top skills: ${occupation.top_skills.join(", ")}, typical education: ${occupation.education_level}).
 ${advisoryContext ? `\nReal advisory context for this specific role. Ground your milestones in this rather than generic advice:\n${advisoryContext}\n` : ""}
-They are ${LIFE_STAGE_BRIEF[selfReport.lifeStage]}
+They are ${lifeStageGuidance(selfReport)}
 
 PERSONAL CONTEXT, use this to make milestones genuinely specific to this person, not generic:
 ${personalContextBlock(selfReport)}
 
 Give the single most direct, complete path into this exact field, don't hedge or soften it into a slower plan. Assume they'll make time for whatever it actually takes to get in; a simpler, dumbed-down version isn't needed here, be as clear and self-contained as possible since this is the only guidance they'll get, and it can also be exported as a PDF.
 
-BE AS SPECIFIC AND CONCRETE AS POSSIBLE. This is the whole point of the product: no generic advice.
+BE AS SPECIFIC AND CONCRETE AS POSSIBLE. This is the whole point of the product, and the main way it fails is being too generic. A bad milestone says "join a club related to your major and network with professionals." A good milestone says something like: "Join the Aerospace Club and aim for a leadership role by next year. Email one professor running a propulsion or fluid dynamics lab and ask to shadow for an afternoon, most say yes to a specific, low-commitment ask like this. Enter the school's engineering fair with a project that touches ${occupation.top_skills[0] ?? "this field's core skill"}, even a rough one, since having entered at all matters more than winning." Every milestone should read like the second example, not the first: name the actual club, competition, lab type, or program, and give a reason to do it now rather than later.
 - Use exact numbers where they'd realistically apply: specific GPA targets, specific test score ranges, specific timeframes.
 - Name real, specific courses (e.g. "AP Computer Science A", "Linear Algebra", not just "math classes").
-- Name real, specific extracurriculars, competitions, or clubs relevant to this exact field, not generic "join a club."
-- Name real internship programs, fellowships, summer programs, or bootcamps that actually exist for this field and this life stage. Only include a URL for a named program if you are confident it is a real, stable, well-known URL (like a program's own official site). If you are not confident of the exact URL, give the program name only and leave url out rather than guessing.
-- For each milestone, write a short 1-2 sentence description AND a list of specific, concrete actionItems (3-5 bullet-style items each). Mix short paragraphs with bullet points, don't make everything one style.
+- Name real, specific extracurriculars, competitions, or clubs relevant to this exact field, not generic "join a club." Where a real named national competition or club exists for this field (e.g. a specific olympiad, a specific student org), name it.
+- Name real internship programs, fellowships, summer programs, research opportunities, or bootcamps that actually exist for this field and this life stage. Only include a URL for a named program if you are confident it is a real, stable, well-known URL (like a program's own official site). If you are not confident of the exact URL, give the program name only and leave url out rather than guessing.
+- Escalate responsibility over time instead of repeating the same advice at every stage: earlier milestones are about exploring and joining, middle milestones are about competing, deepening, or seeking out a real research/work role (e.g. "by this stage, stop shadowing and try to actually join a lab's research team, even in a small capacity"), and the final milestones are about converting all of it into the actual outcome (applications, a capstone project, a portfolio, a specific target).
+- Every milestone's description must include a one-clause justification tying it to THIS person specifically: something they're measurably good at (a Skill Lab result), something they already do (their listed activities), or something they said matters to them, not a generic reason that would apply to anyone.
+- For each milestone, write a description of 2-4 sentences (short paragraph, not one line) that both explains the milestone AND its personal justification, plus a list of specific, concrete actionItems (4-6 bullet-style items each, each one a complete, named, actionable instruction, not a vague theme).
 - Include a dedicated networking section: who specifically to reach out to (roles, seniority, where to find them), how to actually reach out (which channel/platform works best for this field and life stage), and 2-3 real outreach message templates they could send with minimal editing (use [Name] as a placeholder for the recipient's name).
 - Include a resources list of 3-6 real, named programs, communities, or tools relevant to this specific field and life stage (internships, fellowships, certifications, communities, notable newsletters or publications). Only include a URL when you're confident it's correct.
 - Include a major-matching section: 4-7 real, specific college/university majors relevant to this field, each tagged "recommended" (the most direct, common path in), "alternative" (works but is a less direct path, or a hybrid/adjacent field), or "avoid" (a major people mistakenly assume helps but doesn't actually prepare someone for this role, or is a common wrong turn). Include at least one "avoid" entry if a genuine common misconception exists for this field; omit it only if none does. Each entry needs a one-sentence "note" explaining why, specific to this field, not generic.
@@ -319,13 +382,13 @@ Respond with ONLY valid JSON matching this exact shape, no markdown fences, no p
   "resources": [{"name": string, "description": string, "url": string (optional, omit if not confident)}]
 }
 
-Include 4-6 milestones ordered chronologically, 4-7 majors, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers). End every complete sentence with a period.`;
+${milestoneCountInstruction} Include 4-7 majors, 2-3 networking templates, and 3-6 resources. Never use an em dash anywhere in your response; use a period, comma, or colon instead. Plain text only in every field, no markdown (no asterisks, no bold, no headers). End every complete sentence with a period.`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const response = await client.messages.create({
         model: "claude-sonnet-4-5",
-        max_tokens: 6000,
+        max_tokens: 10000,
         messages: [{ role: "user", content: prompt }],
       });
       const text = response.content.find((b) => b.type === "text")?.text;
