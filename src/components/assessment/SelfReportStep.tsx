@@ -170,7 +170,7 @@ export function SelfReportStep({ onComplete }: { onComplete: (report: SelfReport
         {lifeStage && (
           <Question
             prompt={focusLabel}
-            description="This directly shapes your matches, e.g. if you say Engineering, we won't lead with a career in sales or law even if the simulation alone would have. Be as specific as you can."
+            description="Adds context on top of your simulation results to help fine-tune your matches, your choices in the simulation still matter most. Be as specific as you can."
           >
             <input
               type="text"

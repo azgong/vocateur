@@ -65,11 +65,20 @@ const SKILL_WEIGHT = 0.15;
 const PAY_WEIGHT_BASE = 0.08;
 
 // A stated field of study/work ("I'm studying Mechanical Engineering") is a
-// stronger, more legible signal of fit than a mini-game score, so it gets a
-// heavier weight than SKILL_WEIGHT. Only applied when the user's free-text
-// answer actually classifies into 1+ tags; "Undecided" or unclassifiable
-// text leaves matching exactly as it was, purely behavioral.
-const FIELD_FIT_WEIGHT = 0.35;
+// real signal, but it's self-reported, not measured, and the simulation is
+// the product's actual differentiator, so this must sit BELOW SKILL_WEIGHT,
+// not above it. Occupations cluster closely in trait-space, so this weight
+// is far more sensitive than it looks: testing against a occupation the
+// user's simulated behavior matched *perfectly*, even 0.18 here was enough
+// to push it from rank 1 to rank 21 of 178 on a full field mismatch, and
+// 0.35 (the original value) pushed it to rank 68, effectively overriding
+// the behavioral match rather than just nudging it. 0.08 keeps a genuinely
+// strong behavioral match inside the visible top 10 even against a full
+// mismatch, while still measurably discouraging a real opposite. Only
+// applied when the user's free-text answer actually classifies into 1+
+// tags; "Undecided" or unclassifiable text leaves matching exactly as it
+// was, purely behavioral.
+const FIELD_FIT_WEIGHT = 0.08;
 
 /**
  * Agreement between what an occupation demands and what the games measured,
