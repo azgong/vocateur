@@ -41,6 +41,12 @@ export async function SiteNav() {
 
         {user ? (
           <div className="flex items-center gap-3">
+            <Link
+              href="/my-results"
+              className="text-sm font-medium text-foreground/70 transition-colors hover:text-accent"
+            >
+              My results
+            </Link>
             <span className="hidden max-w-[14rem] truncate text-sm text-foreground/50 sm:inline">
               {user.email}
             </span>
