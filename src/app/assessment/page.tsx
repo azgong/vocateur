@@ -28,7 +28,7 @@ export default async function AssessmentPage({
       {beta === "granted" && (
         <div className="mx-auto mt-6 w-full max-w-2xl px-6">
           <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-3 text-center text-sm text-accent">
-            You&rsquo;re in the beta, full Pro access is unlocked for free. Finish the assessment below to see
+            You&rsquo;re in the beta, full Pro access is unlocked free for 7 days. Finish the assessment below to see
             everything.
           </div>
         </div>

@@ -27,7 +27,14 @@ export async function GET(req: NextRequest) {
   }
 
   const admin = createAdminClient();
-  await admin.from("profiles").update({ subscription_status: "active" }).eq("id", user.id);
+  const { data: profile } = await admin.from("profiles").select("beta_granted_at").eq("id", user.id).single();
+
+  // Only stamp the grant time once: re-clicking the same link later (or
+  // signing in again) shouldn't reset a fresh 7-day window each time.
+  await admin
+    .from("profiles")
+    .update({ subscription_status: "active", beta_granted_at: profile?.beta_granted_at ?? new Date().toISOString() })
+    .eq("id", user.id);
 
   return NextResponse.redirect(`${origin}/assessment?beta=granted`);
 }
