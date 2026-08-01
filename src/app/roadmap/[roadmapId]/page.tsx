@@ -8,6 +8,7 @@ import { MarketOutlook } from "@/components/roadmap/MarketOutlook";
 import { MilestoneChecklist } from "@/components/roadmap/MilestoneChecklist";
 import { MajorMatcher } from "@/components/roadmap/MajorMatcher";
 import { NetworkingTemplateCard } from "@/components/roadmap/NetworkingTemplateCard";
+import { LifestyleReality } from "@/components/roadmap/LifestyleReality";
 
 export const metadata: Metadata = {
   title: "Your Roadmap · Vocateur",
@@ -93,7 +94,10 @@ export default async function RoadmapPage({
           )}
         </div>
 
-        <div className="flex flex-col gap-6 lg:sticky lg:top-8">{occupation && <MarketOutlook occupation={occupation} />}</div>
+        <div className="flex flex-col gap-6 lg:sticky lg:top-8">
+          {occupation && <MarketOutlook occupation={occupation} />}
+          {occupation && <LifestyleReality occupation={occupation} />}
+        </div>
       </div>
     </main>
   );

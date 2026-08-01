@@ -7,11 +7,14 @@ import { generateRationale } from "@/lib/assessment/rationale";
 import { matchHighlights } from "@/lib/assessment/highlights";
 import { ModuleLog, TraitVector } from "@/lib/assessment/types";
 import { SkillScores } from "@/lib/assessment/games";
-import { MatchCard } from "@/components/results/MatchCard";
+import { MatchesWithComparison, ComparableMatch } from "@/components/results/MatchesWithComparison";
 import { LockedMatchCard } from "@/components/results/LockedMatchCard";
 import { SaveResultsForm } from "@/components/results/SaveResultsForm";
 import { ViewRoadmapButton } from "@/components/results/ViewRoadmapButton";
 import { ResultsUpsell } from "@/components/results/ResultsUpsell";
+import { ShareResultButton } from "@/components/results/ShareResultButton";
+import { ConsistencyBadge } from "@/components/results/ConsistencyBadge";
+import { computeConsistencySignal } from "@/lib/assessment/consistency";
 
 export const metadata: Metadata = {
   title: "Your Results · Vocateur",
@@ -72,28 +75,43 @@ export default async function ResultsPage({
     visibleMatches.map((m) => generateRationale(m.occupation, moduleLogs, skillScores)),
   );
 
+  const consistency = await computeConsistencySignal(
+    session.user_id,
+    sessionId,
+    matches[0].occupation.id,
+    occupations as Occupation[],
+  );
+
+  const comparableMatches: ComparableMatch[] = visibleMatches.map((m, i) => ({
+    id: m.occupation.id,
+    rank: i + 1,
+    title: m.occupation.title,
+    fitScore: m.fitScore,
+    rationale: rationales[i],
+    highlights: matchHighlights(traitVector, skillScores, m.occupation),
+    roadmapLink: isSubscribed ? { sessionId, occupationId: m.occupation.id } : undefined,
+    medianSalary: m.occupation.median_salary,
+    growthPct: m.occupation.bls_change_pct_2024_34,
+    educationLevel: m.occupation.education_level,
+    topSkills: m.occupation.top_skills,
+  }));
+
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-6 py-16 lg:px-0">
-      <div className="text-center">
-        <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your results</p>
-        <h1 className="font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl">
-          Here&rsquo;s what your choices point toward
-        </h1>
+      <div className="flex flex-col items-center gap-4 text-center">
+        <div>
+          <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Your results</p>
+          <h1 className="font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl">
+            Here&rsquo;s what your choices point toward
+          </h1>
+        </div>
+        {consistency && consistency.totalAttempts >= 2 && (
+          <ConsistencyBadge matchCount={consistency.matchCount} totalAttempts={consistency.totalAttempts} />
+        )}
+        <ShareResultButton sessionId={sessionId} title={matches[0].occupation.title} fitScore={matches[0].fitScore} />
       </div>
 
-      <div className="flex flex-col gap-4">
-        {visibleMatches.map((m, i) => (
-          <MatchCard
-            key={m.occupation.id}
-            rank={i + 1}
-            title={m.occupation.title}
-            fitScore={m.fitScore}
-            rationale={rationales[i]}
-            highlights={matchHighlights(traitVector, skillScores, m.occupation)}
-            roadmapLink={isSubscribed ? { sessionId, occupationId: m.occupation.id } : undefined}
-          />
-        ))}
-      </div>
+      <MatchesWithComparison matches={comparableMatches} enableComparison={isSubscribed && comparableMatches.length >= 2} />
 
       {isSubscribed ? (
         <div className="flex flex-col items-center gap-3">

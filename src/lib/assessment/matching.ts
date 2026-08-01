@@ -32,6 +32,11 @@ export type Occupation = {
   interview_focus: string | null;
   skill_demands: SkillDemands | null;
   field_tags: string[] | null;
+  // Day-in-the-life texture: what personality/IQ tests never cover.
+  typical_hours: string | null;
+  remote_friendliness: string | null;
+  lifestyle_intensity: "low" | "moderate" | "high" | "extreme" | null;
+  lifestyle_reality: string | null;
 };
 
 export type Match = {
