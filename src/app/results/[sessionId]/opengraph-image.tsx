@@ -50,6 +50,7 @@ export default async function ResultOpengraphImage({ params }: { params: Promise
       >
         <div
           style={{
+            display: "flex",
             fontSize: 20,
             fontWeight: 500,
             letterSpacing: 6,
@@ -89,10 +90,12 @@ export default async function ResultOpengraphImage({ params }: { params: Promise
               border: "2px solid rgba(139,123,255,0.5)",
             }}
           >
-            <div style={{ fontSize: 44, fontWeight: 700, color: "#b7a9ff", fontFamily: "Space Grotesk" }}>
+            <div style={{ display: "flex", fontSize: 44, fontWeight: 700, color: "#b7a9ff", fontFamily: "Space Grotesk" }}>
               {fitScore}%
             </div>
-            <div style={{ fontSize: 22, fontWeight: 500, color: "#b7a9ff", fontFamily: "Space Grotesk" }}>fit</div>
+            <div style={{ display: "flex", fontSize: 22, fontWeight: 500, color: "#b7a9ff", fontFamily: "Space Grotesk" }}>
+              fit
+            </div>
           </div>
         )}
         <div style={{ display: "flex", fontSize: 26, fontWeight: 500, color: "#7a7488", marginTop: 44, fontFamily: "Space Grotesk" }}>
