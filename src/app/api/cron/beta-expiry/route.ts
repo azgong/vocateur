@@ -9,6 +9,8 @@ const TRIAL_DAYS = 7;
  * went through checkout (stripe_customer_id null); a beta tester who
  * converts to a real purchase gets a stripe_customer_id from that checkout
  * and is never touched here, regardless of when they claimed beta access.
+ * beta_exempt is a separate, explicit permanent override (e.g. the team's
+ * own operational account) that this query skips no matter what.
  */
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
@@ -23,6 +25,7 @@ export async function GET(req: NextRequest) {
     .from("profiles")
     .update({ subscription_status: "none" })
     .eq("subscription_status", "active")
+    .eq("beta_exempt", false)
     .is("stripe_customer_id", null)
     .not("beta_granted_at", "is", null)
     .lt("beta_granted_at", cutoff)
