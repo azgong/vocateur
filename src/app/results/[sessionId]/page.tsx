@@ -71,8 +71,33 @@ export default async function ResultsPage({
   const visibleMatches = isSubscribed ? matches : matches.slice(0, 3);
   const lockedMatches = isSubscribed ? [] : matches.slice(3, 10);
 
+  const { data: cachedRationales } = await admin
+    .from("rationales")
+    .select("occupation_id, content")
+    .eq("session_id", sessionId)
+    .in(
+      "occupation_id",
+      visibleMatches.map((m) => m.occupation.id),
+    );
+  const rationaleCache = new Map(cachedRationales?.map((r) => [r.occupation_id, r.content]) ?? []);
+
   const rationales = await Promise.all(
-    visibleMatches.map((m) => generateRationale(m.occupation, moduleLogs, skillScores)),
+    visibleMatches.map(async (m) => {
+      const cached = rationaleCache.get(m.occupation.id);
+      if (cached) return cached;
+
+      const content = await generateRationale(m.occupation, moduleLogs, skillScores);
+      const { error: insertError } = await admin
+        .from("rationales")
+        .insert({ session_id: sessionId, occupation_id: m.occupation.id, content });
+      // 23505 = unique violation: a concurrent request for the same session
+      // already cached this occupation's rationale first. Harmless race,
+      // the content we just generated is still valid to render.
+      if (insertError && insertError.code !== "23505") {
+        console.error("rationale cache insert failed", insertError);
+      }
+      return content;
+    }),
   );
 
   const consistency = await computeConsistencySignal(
