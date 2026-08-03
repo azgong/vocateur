@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { AuroraBackdrop } from "@/components/AuroraBackdrop";
 import { AgeGate } from "@/components/AgeGate";
 import { Footer } from "@/components/Footer";
@@ -59,6 +60,7 @@ export default function RootLayout({
         <SiteNav />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

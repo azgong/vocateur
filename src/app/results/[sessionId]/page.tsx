@@ -10,6 +10,7 @@ import { SkillScores } from "@/lib/assessment/games";
 import { MatchesWithComparison, ComparableMatch } from "@/components/results/MatchesWithComparison";
 import { LockedMatchCard } from "@/components/results/LockedMatchCard";
 import { SaveResultsForm } from "@/components/results/SaveResultsForm";
+import { WaitlistForm } from "@/components/WaitlistForm";
 import { ViewRoadmapButton } from "@/components/results/ViewRoadmapButton";
 import { ResultsUpsell } from "@/components/results/ResultsUpsell";
 import { ShareResultButton } from "@/components/results/ShareResultButton";
@@ -154,6 +155,11 @@ export default async function ResultsPage({
 
           <div className="flex justify-center">
             <SaveResultsForm sessionId={sessionId} />
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-sm text-foreground/70">Not ready to upgrade? Get notified when we add new features.</p>
+            <WaitlistForm />
           </div>
         </>
       )}
