@@ -16,7 +16,18 @@ export function LifestyleReality({ occupation }: { occupation: Occupation }) {
   return (
     <div className="rounded-2xl border border-border-subtle bg-surface-2 p-6 print:break-inside-avoid">
       <div className="mb-4 flex items-baseline justify-between gap-2">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/50">Day in the life</h3>
+        <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-foreground/50">
+          <span
+            className="inline-flex h-6 w-6 items-center justify-center rounded-full"
+            style={{ background: "color-mix(in srgb, var(--quadrant-e) 18%, transparent)" }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="var(--quadrant-e)" strokeWidth="2" />
+              <path d="M12 7v5l3 3" stroke="var(--quadrant-e)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          Day in the life
+        </h3>
         {intensity && (
           <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${intensity.className}`}>
             {intensity.label}
