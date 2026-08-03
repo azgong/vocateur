@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Vocateur",
     short_name: "Vocateur",
-    description: "Find the career that actually fits how you think.",
+    description: "Career discovery, reimagined.",
     start_url: "/",
     display: "standalone",
     background_color: "#08070d",

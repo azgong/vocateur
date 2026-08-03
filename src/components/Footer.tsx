@@ -43,9 +43,7 @@ export function Footer() {
                 Vocateur
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-foreground/50">
-              Find the career that actually fits how you think, then get walked all the way there.
-            </p>
+            <p className="text-sm leading-relaxed text-foreground/50">Career discovery, reimagined.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-x-12 gap-y-8 sm:grid-cols-4">

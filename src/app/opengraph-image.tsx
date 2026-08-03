@@ -56,7 +56,7 @@ export default async function OpengraphImage() {
             marginTop: 26,
           }}
         >
-          Find the career that actually fits how you think
+          Career discovery, reimagined.
         </div>
       </div>
     ),

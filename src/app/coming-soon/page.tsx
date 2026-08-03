@@ -13,7 +13,7 @@ export default function ComingSoonPage() {
       <div>
         <p className="text-sm font-medium tracking-[0.2em] text-accent uppercase">Coming soon</p>
         <h1 className="font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl">
-          Find the career that actually fits how you think
+          Career discovery, reimagined.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-foreground/60">
           Vocateur is in a private beta right now. Leave your email and we&rsquo;ll let you know the moment it opens

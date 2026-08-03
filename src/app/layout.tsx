@@ -20,10 +20,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://vocateur.app"),
   title: "Vocateur",
-  description: "Find the career that actually fits how you think.",
+  description: "Career discovery, reimagined.",
   openGraph: {
     title: "Vocateur",
-    description: "Find the career that actually fits how you think.",
+    description: "Career discovery, reimagined.",
     url: "https://vocateur.app",
     siteName: "Vocateur",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Vocateur",
-    description: "Find the career that actually fits how you think.",
+    description: "Career discovery, reimagined.",
   },
   appleWebApp: {
     capable: true,

@@ -61,8 +61,8 @@ export default async function Home() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <h1 className="mt-5 max-w-3xl font-[family-name:var(--font-title)] text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl">
-            Meet the career that fits how you think.
-            <span className="text-accent-soft"> In ten minutes.</span>
+            Career discovery,
+            <span className="text-accent-soft"> reimagined.</span>
           </h1>
         </ScrollReveal>
         <ScrollReveal delay={0.2}>

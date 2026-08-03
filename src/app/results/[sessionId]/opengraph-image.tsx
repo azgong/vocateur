@@ -99,7 +99,7 @@ export default async function ResultOpengraphImage({ params }: { params: Promise
           </div>
         )}
         <div style={{ display: "flex", fontSize: 26, fontWeight: 500, color: "#7a7488", marginTop: 44, fontFamily: "Space Grotesk" }}>
-          vocateur.app &middot; find the career that actually fits how you think
+          vocateur.app &middot; career discovery, reimagined.
         </div>
       </div>
     ),
